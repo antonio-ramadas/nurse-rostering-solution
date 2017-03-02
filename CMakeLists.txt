@@ -3,5 +3,5 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp)
-add_executable(untitled ${SOURCE_FILES})
+set(SOURCE_FILES code/main.cpp)
+add_executable(nrs ${SOURCE_FILES})

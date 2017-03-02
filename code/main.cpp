@@ -6,9 +6,10 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
     //Parse
+    cout << argv[1] << endl;
 
     //Compute
 
