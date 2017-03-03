@@ -2,8 +2,63 @@
 // Created by António Ramadas on 02/03/2017.
 //
 
+#include <fstream>
 #include "Scenario.h"
 
-Scenario::Scenario(string path) {
+Scenario::Scenario(const string &path) {
+    // read a JSON file
+    ifstream i(path);
+    json j;
+    i >> j; //deserialize
+    i.close();
 
+    id = j["id"];
+    numberOfWeeks = j["numberOfWeeks"];
+    skills = j["skills"].get<vector<string> >();
+
+    parseShiftTypes(j);
+
+    parseForbiddenShiftTypeSuccessions(j);
+
+    parseContracts(j);
+
+    parseNurses(j);
+}
+
+void Scenario::parseNurses(const json &j) {
+    for (json nurse : j["nurses"])
+        nurses.push_back(Nurse(nurse["id"],
+                               nurse["contract"],
+                               nurse["skills"]));
+}
+
+void Scenario::parseContracts(const json &j) {
+    for (json contract : j["contracts"])
+        contracts.push_back(Contract(contract["id"],
+                                     contract["minimumNumberOfAssignments"],
+                                     contract["maximumNumberOfAssignments"],
+                                     contract["minimumNumberOfConsecutiveWorkingDays"],
+                                     contract["maximumNumberOfConsecutiveWorkingDays"],
+                                     contract["minimumNumberOfConsecutiveDaysOff"],
+                                     contract["maximumNumberOfConsecutiveDaysOff"],
+                                     contract["maximumNumberOfWorkingWeekends"],
+                                     contract["completeWeekends"]));
+}
+
+void Scenario::parseForbiddenShiftTypeSuccessions(const json &j) {
+    for (json forbidden : j["forbiddenShiftTypeSuccessions"]) {
+        vector<ShiftType>::iterator it = find_if(shifts.begin(), shifts.end(),
+                                                 [&forbidden](ShiftType shift) {
+                                                     return forbidden["precedingShiftType"] == shift.getId();
+                                                 });
+
+        it->setForbidden(forbidden["succeedingShiftTypes"]);
+    }
+}
+
+void Scenario::parseShiftTypes(const json &j) {
+    for (json shift : j["shiftTypes"])
+        shifts.push_back(ShiftType(shift["id"],
+                                     shift["minimumNumberOfConsecutiveAssignments"],
+                                     shift["maximumNumberOfConsecutiveAssignments"]));
 }

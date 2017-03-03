@@ -3,13 +3,14 @@
 //
 
 #include <iostream>
+#include "Scenario.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
     //Parse
-    cout << argv[1] << endl;
+    Scenario temp("./../datasets/test/n005w4/Sc-n005w4.json");
 
     //Compute
 
