@@ -9,7 +9,7 @@ Scenario::Scenario(const string &path) {
     json j;
 
     try {
-        j = Parser::ReadJSONFile(path);
+        j = Reader::ReadJSONFile(path);
     } catch (Exception exception) {
         exception.printErr();
         return;

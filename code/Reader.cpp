@@ -3,11 +3,11 @@
 //
 
 #include <fstream>
-#include "Parser.h"
+#include "Reader.h"
 #include "Exception.h"
 
 
-json Parser::ReadJSONFile(const string &path) {
+json Reader::ReadJSONFile(const string &path) {
     ifstream i(path);
 
     if (!i.good()) {

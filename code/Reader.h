@@ -10,7 +10,7 @@ using json = nlohmann::json;
 
 #include "Scenario.h"
 
-class Parser {
+class Reader {
 public:
     static json ReadJSONFile(const string &path);
 };

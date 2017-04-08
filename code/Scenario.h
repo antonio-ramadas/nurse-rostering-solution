@@ -8,7 +8,7 @@
 #include "ShiftType.h"
 #include "Contract.h"
 #include "Nurse.h"
-#include "Parser.h"
+#include "Reader.h"
 #include "Exception.h"
 #include <fstream>
 #include <vector>

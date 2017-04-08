@@ -9,5 +9,5 @@ set(SOURCE_FILES
         code/Scenario.h code/Scenario.cpp
         code/History.h code/History.cpp
         code/WeekData.h code/WeekData.cpp
-        code/ShiftType.cpp code/ShiftType.h code/Contract.cpp code/Contract.h code/Nurse.cpp code/Nurse.h code/Parser.cpp code/Parser.h code/Exception.cpp code/Exception.h)
+        code/ShiftType.cpp code/ShiftType.h code/Contract.cpp code/Contract.h code/Nurse.cpp code/Nurse.h code/Reader.cpp code/Reader.h code/Exception.cpp code/Exception.h code/Requirement.cpp code/Requirement.h code/DayRequirement.cpp code/DayRequirement.h code/ShiftOffRequest.cpp code/ShiftOffRequest.h)
 add_executable(nrs ${SOURCE_FILES})
