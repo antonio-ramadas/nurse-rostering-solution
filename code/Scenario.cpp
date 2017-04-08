@@ -2,15 +2,18 @@
 // Created by António Ramadas on 02/03/2017.
 //
 
-#include <fstream>
 #include "Scenario.h"
 
 Scenario::Scenario(const string &path) {
     // read a JSON file
-    ifstream i(path);
     json j;
-    i >> j; //deserialize
-    i.close();
+
+    try {
+        j = Parser::ReadJSONFile(path);
+    } catch (Exception exception) {
+        exception.printErr();
+        return;
+    }
 
     id = j["id"];
     numberOfWeeks = j["numberOfWeeks"];

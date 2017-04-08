@@ -5,14 +5,15 @@
 #ifndef NRS_SCENARIO_H
 #define NRS_SCENARIO_H
 
-#include "json.hpp"
 #include "ShiftType.h"
 #include "Contract.h"
 #include "Nurse.h"
+#include "Parser.h"
+#include "Exception.h"
+#include <fstream>
 #include <vector>
 
 using namespace std;
-using json = nlohmann::json;
 
 class Scenario {
 private:

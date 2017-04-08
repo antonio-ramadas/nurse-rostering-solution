@@ -5,9 +5,14 @@
 #ifndef NRS_WEEKDATA_H
 #define NRS_WEEKDATA_H
 
+#include <string>
+
+using namespace std;
 
 class WeekData {
 
+public:
+    WeekData(const string &path);
 };
 
 

@@ -3,3 +3,7 @@
 //
 
 #include "WeekData.h"
+
+WeekData::WeekData(const string &path) {
+
+}
