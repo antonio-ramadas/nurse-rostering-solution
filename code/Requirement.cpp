@@ -4,7 +4,7 @@
 
 #include "Requirement.h"
 
-Requirement::Requirement(string shiftType, string skill, json daysRequirements) {
+Requirement::Requirement(string shiftType, string skill, const json &daysRequirements) {
     this->shiftType = shiftType;
     this->skill = skill;
 

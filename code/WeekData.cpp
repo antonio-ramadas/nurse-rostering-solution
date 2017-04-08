@@ -21,7 +21,7 @@ WeekData::WeekData(const string &path) {
     parseShiftOffRequests(j);
 }
 
-void WeekData::parseRequirements(json j_arg) {
+void WeekData::parseRequirements(const json &j_arg) {
     json requirements_json = j_arg["requirements"];
 
     for (json j : requirements_json) {
@@ -29,7 +29,7 @@ void WeekData::parseRequirements(json j_arg) {
     }
 }
 
-void WeekData::parseShiftOffRequests(json j_arg) {
+void WeekData::parseShiftOffRequests(const json &j_arg) {
     json shiftOffRequests_json = j_arg["shiftOffRequests"];
 
     for (json j : shiftOffRequests_json) {

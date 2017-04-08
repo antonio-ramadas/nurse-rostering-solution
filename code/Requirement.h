@@ -34,7 +34,7 @@ public:
     void setDays(const vector<DayRequirement, allocator<DayRequirement>> &days);
 
 public:
-    Requirement(string shiftType, string skill, json daysRequirements);
+    Requirement(string shiftType, string skill, const json &daysRequirements);
 };
 
 

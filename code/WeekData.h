@@ -24,9 +24,9 @@ private:
 public:
     WeekData(const string &path);
 
-    void parseRequirements(json requirements);
+    void parseRequirements(const json &requirements);
 
-    void parseShiftOffRequests(json j_arg);
+    void parseShiftOffRequests(const json &j_arg);
 };
 
 
