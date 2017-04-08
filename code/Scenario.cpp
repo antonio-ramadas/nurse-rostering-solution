@@ -51,7 +51,7 @@ void Scenario::parseContracts(const json &j) {
 void Scenario::parseForbiddenShiftTypeSuccessions(const json &j) {
     for (json forbidden : j["forbiddenShiftTypeSuccessions"]) {
         vector<ShiftType>::iterator it = find_if(shifts.begin(), shifts.end(),
-                                                 [&forbidden](ShiftType shift) {
+                                                 [&forbidden](ShiftType shift) -> bool {
                                                      return forbidden["precedingShiftType"] == shift.getId();
                                                  });
 
