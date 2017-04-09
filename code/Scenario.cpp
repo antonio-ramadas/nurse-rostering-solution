@@ -65,3 +65,46 @@ void Scenario::parseShiftTypes(const json &j) {
                                      shift["minimumNumberOfConsecutiveAssignments"],
                                      shift["maximumNumberOfConsecutiveAssignments"]));
 }
+
+void Scenario::parseHistory(const string &path) {
+     // read a JSON file
+    json j;
+
+    try {
+        j = Reader::ReadJSONFile(path);
+    } catch (Exception exception) {
+        exception.printErr();
+        return;
+    }
+
+    //Useless information, I think...
+    //int week = j["week"];
+    //int scenario = j["scenario"];
+
+    json history = j["nurseHistory"];
+
+    for (json nHistory : history) {
+        try {
+            History hist(nHistory["numberOfAssignments"],
+                         nHistory["numberOfWorkingWeekends"],
+                         nHistory["numberOfConsecutiveAssignments"],
+                         nHistory["numberOfConsecutiveWorkingDays"],
+                         nHistory["numberOfConsecutiveDaysOff"],
+                         nHistory["lastAssignedShiftType"]
+            );
+
+            findNurse(nHistory["nurse"]).setHistory(hist);
+        } catch (Exception e) {
+            e.printErr();
+            return;
+        }
+    }
+}
+
+Nurse & Scenario::findNurse(const string &name) {
+    for (int i = 0; i < nurses.size(); i++)
+        if (nurses.at(i).getId() == name)
+            return nurses.at(i);
+
+    throw Exception(ExceptionsEnum::NurseNotFound, "Nurse " + name + " not found");
+}

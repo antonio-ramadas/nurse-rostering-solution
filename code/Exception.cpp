@@ -24,11 +24,12 @@ void Exception::printErr() {
 string Exception::getEnumValue(const ExceptionsEnum &exception)
 {
     string match = "";
-   switch(exception)
-   {
-      case ExceptionsEnum::FileNotFound: match = "File Not Found"; break;
-       default: match = "Missing Exception Name Assignment"; break;
-   }
+    switch(exception)
+    {
+        case ExceptionsEnum::FileNotFound: match = "File Not Found"; break;
+        case ExceptionsEnum ::NurseNotFound: match = "Nurse Not Found"; break;
+        default: match = "Missing Exception Name Assignment"; break;
+    }
 
-   return match;
+    return match;
 }

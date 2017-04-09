@@ -10,7 +10,10 @@
 
 using namespace std;
 
-enum ExceptionsEnum {FileNotFound};
+//TODO improve this situation
+// Every time a new exception is added, a case clause needs to be
+// added to the switch case inside getEnumValue function
+enum ExceptionsEnum {FileNotFound, NurseNotFound};
 
 class Exception : private std::exception {
 private:

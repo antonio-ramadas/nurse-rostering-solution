@@ -28,8 +28,11 @@ private:
     void parseForbiddenShiftTypeSuccessions(const json &j);
     void parseContracts(const json &j);
     void parseNurses(const json &j);
+
+    Nurse & findNurse(const string &name);
 public:
     Scenario(const string &path);
+    void parseHistory(const string &path);
 };
 
 
