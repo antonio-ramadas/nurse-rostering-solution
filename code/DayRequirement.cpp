@@ -7,6 +7,8 @@
 DayRequirement::DayRequirement(int minimumCoverage, int optimalCoverage) : minimumCoverage(minimumCoverage),
                                                                            optimalCoverage(optimalCoverage) {}
 
+DayRequirement::DayRequirement() : minimumCoverage(0), optimalCoverage(0){};
+
 int DayRequirement::getMinimumCoverage() const {
     return minimumCoverage;
 }

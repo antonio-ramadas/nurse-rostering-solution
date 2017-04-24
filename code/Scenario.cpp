@@ -108,3 +108,11 @@ Nurse & Scenario::findNurse(const string &name) {
 
     throw Exception(ExceptionsEnum::NurseNotFound, "Nurse " + name + " not found");
 }
+
+const vector<ShiftType> &Scenario::getShifts() const {
+    return shifts;
+}
+
+const vector<string> &Scenario::getSkills() const {
+    return skills;
+}

@@ -33,6 +33,10 @@ private:
 public:
     Scenario(const string &path);
     void parseHistory(const string &path);
+
+    const vector<ShiftType> &getShifts() const;
+
+    const vector<string> &getSkills() const;
 };
 
 

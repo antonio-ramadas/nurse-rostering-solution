@@ -15,14 +15,19 @@
 
 using namespace std;
 
+#define NUMBER_DAYS_OF_THE_WEEK 7
+
 class WeekData {
 private:
     string scenario;
-    vector<Requirement> requirements;
     vector<ShiftOffRequest> shiftOffRequests;
+    int numberOfShifts, numberOfSkills;
+    vector<vector<vector<DayRequirement *> > > requirements;
+
+
 
 public:
-    WeekData(const string &path);
+    WeekData(const string &path, int numberOfShifts, int numberOfSkills);
 
     void parseRequirements(const json &requirements);
 

@@ -23,6 +23,7 @@ public:
 
 public:
     DayRequirement(int minimumCoverage, int optimalCoverage);
+    DayRequirement();
 };
 
 
