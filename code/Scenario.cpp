@@ -37,7 +37,7 @@ void Scenario::parseNurses(const json &j) {
 
 void Scenario::parseContracts(const json &j) {
     for (json contract : j["contracts"])
-        contracts.push_back(Contract(contract["id"],
+        contracts.insert(pair<string,Contract> ((contract["id"]),Contract(contract["id"],
                                      contract["minimumNumberOfAssignments"],
                                      contract["maximumNumberOfAssignments"],
                                      contract["minimumNumberOfConsecutiveWorkingDays"],
@@ -45,7 +45,7 @@ void Scenario::parseContracts(const json &j) {
                                      contract["minimumNumberOfConsecutiveDaysOff"],
                                      contract["maximumNumberOfConsecutiveDaysOff"],
                                      contract["maximumNumberOfWorkingWeekends"],
-                                     contract["completeWeekends"]));
+                                     contract["completeWeekends"])));
 }
 
 void Scenario::parseForbiddenShiftTypeSuccessions(const json &j) {

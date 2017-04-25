@@ -4,7 +4,7 @@
 
 #include "DayRequirement.h"
 
-DayRequirement::DayRequirement(int minimumCoverage, int optimalCoverage) : minimumCoverage(minimumCoverage),
+DayRequirement::DayRequirement(const int &minimumCoverage, const int &optimalCoverage) : minimumCoverage(minimumCoverage),
                                                                            optimalCoverage(optimalCoverage) {}
 
 DayRequirement::DayRequirement() : minimumCoverage(0), optimalCoverage(0){};

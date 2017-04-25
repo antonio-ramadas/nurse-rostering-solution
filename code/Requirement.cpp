@@ -12,7 +12,7 @@ Requirement::Requirement(string shiftType, string skill, const json &daysRequire
 
     string requirementTxt = "requirementOn";
 
-    for (int i = 0; i < NUMBER_DAYS_OF_THE_WEEK; i++) {
+    for (int i = 0; i < DaysOfTheWeekVector.size(); i++) {
         json j = daysRequirements[requirementTxt + DaysOfTheWeekVector.at(i)];
         days.push_back(DayRequirement(
                 j["minimum"].get<int>(),

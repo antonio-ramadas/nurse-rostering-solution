@@ -21,7 +21,7 @@ private:
     int numberOfWeeks;
     vector<ShiftType> shifts;
     vector<string> skills;
-    vector<Contract> contracts;
+    map<string,Contract> contracts;
     vector<Nurse> nurses;
 
     void parseShiftTypes(const json &j);

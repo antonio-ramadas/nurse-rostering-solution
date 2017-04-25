@@ -22,7 +22,7 @@ public:
     void setOptimalCoverage(int optimalCoverage);
 
 public:
-    DayRequirement(int minimumCoverage, int optimalCoverage);
+    DayRequirement(const int &minimumCoverage, const int &optimalCoverage);
     DayRequirement();
 };
 

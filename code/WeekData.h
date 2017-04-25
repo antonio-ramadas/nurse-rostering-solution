@@ -22,7 +22,7 @@ private:
     string scenario;
     vector<ShiftOffRequest> shiftOffRequests;
     int numberOfShifts, numberOfSkills;
-    vector<vector<vector<DayRequirement *> > > requirements;
+    vector<vector<vector<DayRequirement *> > > requirements = {{{nullptr}}};
 
 
 

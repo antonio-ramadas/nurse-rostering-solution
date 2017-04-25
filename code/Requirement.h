@@ -10,8 +10,6 @@
 
 #include <string>
 
-#define NUMBER_DAYS_OF_THE_WEEK 7
-
 using json = nlohmann::json;
 
 using namespace std;
