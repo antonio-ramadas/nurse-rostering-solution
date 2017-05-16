@@ -18,8 +18,6 @@ class Solution {
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
-    Scenario * scenario;
-    vector<WeekData>* weekData;
 public:
     Solution(Scenario &scenario, WeekData &weekData);
 
@@ -27,7 +25,7 @@ public:
 
     const vector< vector< Turn *>> &getTurns() const;
 
-     void randomizeSolution();
+    void randomizeSolution();
 };
 
 

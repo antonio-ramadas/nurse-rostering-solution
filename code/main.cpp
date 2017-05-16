@@ -13,7 +13,9 @@ int main(int argc, char *argv[])
     //Parse
     Scenario scenario("./../datasets/test/n005w4/Sc-n005w4.json");
 
-    WeekData weekData = {WeekData("./../datasets/test/n005w4/WD-n005w4-0.json", scenario.getShifts().size(), scenario.getSkills().size())};
+    WeekData weekData("./../datasets/test/n005w4/WD-n005w4-0.json",
+                     (int) scenario.getShifts().size(),
+                     (int) scenario.getSkills().size());
 
     scenario.parseHistory("./../datasets/test/n005w4/H0-n005w4-0.json");
 
