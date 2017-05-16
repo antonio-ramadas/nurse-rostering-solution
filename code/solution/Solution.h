@@ -16,7 +16,7 @@ using namespace std;
 class Solution {
     vector<NurseSolution *> nurses;
     //matrix Weeks/Days/Types
-    vector<vector< vector< Turn *>>> turns;
+    vector< vector< Turn *>> turns;
 
     Scenario * scenario;
     vector<WeekData>* weekData;
@@ -25,7 +25,7 @@ public:
 
     const vector<NurseSolution *> &getNurses() const;
 
-    const vector<vector< vector< Turn *>>> &getTurns() const;
+    const vector< vector< Turn *>> &getTurns() const;
 
      void randomizeSolution();
 };

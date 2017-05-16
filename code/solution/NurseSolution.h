@@ -19,6 +19,10 @@ class NurseSolution {
 
 public:
     NurseSolution(const Nurse* nurse);
+
+    bool addTurn(Turn* turn);
+
+    bool turnExists(Turn * turn);
 };
 
 

@@ -18,9 +18,13 @@ class Turn {
 
     vector<NurseSolution *> nurses;
     const ShiftType* shiftType;
-    int week, day;
+    int day;
 public:
-    Turn(int week, int day, const ShiftType *shiftType);
+    Turn(int day, const ShiftType *shiftType);
+
+    bool addNurse(NurseSolution * nurse);
+
+    bool exitsNurse(NurseSolution * nurse);
 };
 
 

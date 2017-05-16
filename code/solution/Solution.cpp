@@ -11,20 +11,15 @@ Solution::Solution(Scenario * scenario, vector<WeekData> * weekData) {
         nurses.push_back(new NurseSolution(& scenario->getNurses()[i]));
     }
 
-    for(int i = 0; i < scenario->getNumberOfWeeks(); i++)
+    //hardcoded size of week
+    for(int j = 0; j < 7; j++)
     {
-        vector<vector<Turn *>> day;
-        //hardcoded size of week
-        for(int j = 0; j < 7; j++)
+        vector<Turn *> shifts;
+        for(int k = 0; k < scenario->getShifts().size(); k++)
         {
-            vector<Turn *> shifts;
-            for(int k = 0; k < scenario->getShifts().size(); k++)
-            {
-                shifts.push_back(new Turn(i,j,& scenario->getShifts()[k]));
-            }
-            day.push_back(shifts);
+            shifts.push_back(new Turn(j,& scenario->getShifts()[k]));
         }
-        turns.push_back(day);
+        turns.push_back(shifts);
     }
 }
 
@@ -32,6 +27,19 @@ const vector<NurseSolution *> &Solution::getNurses() const {
     return nurses;
 }
 
-const vector<vector<vector<Turn *>>> &Solution::getTurns() const {
+const vector<vector<Turn *>> &Solution::getTurns() const {
     return turns;
+}
+
+void Solution::randomizeSolution(){
+    //day
+    for(int j = 0; j < turns.size();j++)
+    {
+        //type
+        for(int k = 0; turns[j].size(); k++)
+        {
+            int nurse = rand() % nurses.size();
+            turns[j][k]->addNurse(nurses[nurse]);
+        }
+    }
 }
