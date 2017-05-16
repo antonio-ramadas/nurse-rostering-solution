@@ -15,13 +15,19 @@ using namespace std;
 
 class Solution {
     vector<NurseSolution *> nurses;
-    vector<Turn *> turns;
+    //matrix Weeks/Days/Types
+    vector<vector< vector< Turn *>>> turns;
+
+    Scenario * scenario;
+    vector<WeekData>* weekData;
 public:
-    Solution(Scenario scenario, WeekData weekData);
+    Solution(Scenario * scenario, vector<WeekData> * weekData);
 
     const vector<NurseSolution *> &getNurses() const;
 
-    const vector<Turn *> &getTurns() const;
+    const vector<vector< vector< Turn *>>> &getTurns() const;
+
+     void randomizeSolution();
 };
 
 
