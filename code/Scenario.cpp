@@ -37,7 +37,7 @@ void Scenario::parseNurses(const json &j) {
 
 void Scenario::parseContracts(const json &j) {
     for (json contract : j["contracts"])
-        contracts.insert(pair<string,Contract> ((contract["id"]),Contract(contract["id"],
+        contracts.insert(pair<string,Contract> (contract["id"].get<string>(), Contract(contract["id"],
                                      contract["minimumNumberOfAssignments"],
                                      contract["maximumNumberOfAssignments"],
                                      contract["minimumNumberOfConsecutiveWorkingDays"],
