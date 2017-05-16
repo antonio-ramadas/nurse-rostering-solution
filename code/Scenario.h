@@ -37,6 +37,10 @@ public:
     const vector<ShiftType> &getShifts() const;
 
     const vector<string> &getSkills() const;
+
+    const vector<Nurse> &getNurses() const;
+
+    int getNumberOfWeeks() const;
 };
 
 

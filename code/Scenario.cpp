@@ -116,3 +116,11 @@ const vector<ShiftType> &Scenario::getShifts() const {
 const vector<string> &Scenario::getSkills() const {
     return skills;
 }
+
+const vector<Nurse> &Scenario::getNurses() const {
+    return nurses;
+}
+
+int Scenario::getNumberOfWeeks() const {
+    return numberOfWeeks;
+}

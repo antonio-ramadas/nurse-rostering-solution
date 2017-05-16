@@ -17,7 +17,7 @@ WeekData::WeekData(const string &path, int numberOfShifts, int numberOfSkills) {
         return;
     }
 
-    vector<vector<vector<DayRequirement *>>> f(this->numberOfSkills, std::vector < vector <DayRequirement *>>(this->numberOfShifts, vector<DayRequirement *>(7)));
+    vector<vector<vector<DayRequirement *>>> f(this->numberOfSkills, std::vector < vector <DayRequirement *>>(this->numberOfShifts, vector<DayRequirement *>(NUMBER_DAYS_OF_THE_WEEK)));
 
     this->requirements = f;
 

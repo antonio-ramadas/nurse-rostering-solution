@@ -22,6 +22,8 @@ private:
     string scenario;
     vector<ShiftOffRequest> shiftOffRequests;
     int numberOfShifts, numberOfSkills;
+
+    //matrix[NSkills][NShifts][NDays]
     vector<vector<vector<DayRequirement *> > > requirements = {{{nullptr}}};
 
 
