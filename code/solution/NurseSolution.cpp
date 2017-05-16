@@ -17,5 +17,5 @@ bool NurseSolution::addTurn(Turn* turn){
 }
 
 bool NurseSolution::turnExists(Turn * turn) {
-    std::find(turns.begin(), turns.end(),turn)!=turns.end();
+    return find(turns.begin(), turns.end(),turn)!=turns.end();
 }

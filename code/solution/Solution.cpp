@@ -7,18 +7,16 @@
 Solution::Solution(Scenario &scenario, WeekData &weekData) {
 
     //create list of nurses with solution
-    for(int i = 0; i < scenario.getNurses().size(); i++){
-        nurses.push_back(new NurseSolution(& scenario.getNurses()[i]));
-    }
+    for (const Nurse &sce_nurses : scenario.getNurses())
+        nurses.push_back(new NurseSolution(&sce_nurses));
 
     //hardcoded size of week
-    for(int j = 0; j < 7; j++)
-    {
+    for(int j = 0; j < 7; j++) {
         vector<Turn *> shifts;
-        for(int k = 0; k < scenario.getShifts().size(); k++)
-        {
-            shifts.push_back(new Turn(j,& scenario.getShifts()[k]));
-        }
+
+        for (const ShiftType &st : scenario.getShifts())
+            shifts.push_back(new Turn(j, &st));
+
         turns.push_back(shifts);
     }
 }

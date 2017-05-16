@@ -17,5 +17,5 @@ bool Turn::addNurse(NurseSolution * nurse){
 }
 
 bool Turn::exitsNurse(NurseSolution * nurse) {
-    std::find(nurses.begin(), nurses.end(),nurse)!=nurses.end();
+    return find(nurses.begin(), nurses.end(),nurse)!=nurses.end();
 }
