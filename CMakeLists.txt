@@ -20,5 +20,5 @@ set(SOURCE_FILES
         code/Shift.cpp code/Shift.h
         code/solution/Solution.cpp code/solution/Solution.h
         code/solution/NurseSolution.cpp code/solution/NurseSolution.h
-        code/solution/Turn.cpp code/solution/Turn.h)
+        code/solution/Turn.cpp code/solution/Turn.h code/Validator.cpp code/Validator.h)
 add_executable(nrs ${SOURCE_FILES})
