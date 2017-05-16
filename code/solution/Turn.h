@@ -25,6 +25,8 @@ public:
     bool addNurse(NurseSolution * nurse);
 
     bool exitsNurse(NurseSolution * nurse);
+
+    int getDay() const;
 };
 
 

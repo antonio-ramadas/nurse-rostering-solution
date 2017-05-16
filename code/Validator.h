@@ -10,12 +10,12 @@
 
 using namespace std;
 
-static class Validator {
+class Validator {
 
 public:
 
 public:
-    bool contraintH1(Solution solution);
+    static bool contraintH1(Solution solution);
     bool contraintH1(NurseSolution nurse);
     bool contraintH2(Solution solution);
 };
