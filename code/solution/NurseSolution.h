@@ -23,6 +23,8 @@ public:
     bool addTurn(Turn* turn);
 
     bool turnExists(Turn * turn);
+
+    const vector<Turn *> &getTurns() const;
 };
 
 

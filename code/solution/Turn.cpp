@@ -19,3 +19,7 @@ bool Turn::addNurse(NurseSolution * nurse){
 bool Turn::exitsNurse(NurseSolution * nurse) {
     return find(nurses.begin(), nurses.end(),nurse)!=nurses.end();
 }
+
+int Turn::getDay() const {
+    return day;
+}

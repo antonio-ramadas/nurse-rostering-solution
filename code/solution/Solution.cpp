@@ -2,6 +2,7 @@
 // Created by F0lha on 16/05/2017.
 //
 
+#include <chrono>
 #include "Solution.h"
 
 Solution::Solution(Scenario &scenario, WeekData &weekData) {
@@ -30,7 +31,7 @@ const vector<vector<Turn *>> &Solution::getTurns() const {
 }
 
 void Solution::randomizeSolution(){
-    default_random_engine generator;
+    default_random_engine generator(chrono::system_clock::now().time_since_epoch().count());
     uniform_int_distribution<int> distribution(0, (int) nurses.size()-1);
 
     auto random = bind(distribution, generator);

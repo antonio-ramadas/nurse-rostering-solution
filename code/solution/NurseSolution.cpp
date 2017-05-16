@@ -19,3 +19,7 @@ bool NurseSolution::addTurn(Turn* turn){
 bool NurseSolution::turnExists(Turn * turn) {
     return find(turns.begin(), turns.end(),turn)!=turns.end();
 }
+
+const vector<Turn *> &NurseSolution::getTurns() const {
+    return turns;
+}
