@@ -12,12 +12,18 @@ int main(int argc, char *argv[])
 {
     //Parse
     Scenario scenario("./../datasets/test/n005w4/Sc-n005w4.json");
-    WeekData weekData("./../datasets/test/n005w4/WD-n005w4-0.json", scenario.getShifts().size(), scenario.getSkills().size() );
+
+    vector<WeekData> weekData;
+
+    weekData.push_back(WeekData("./../datasets/test/n005w4/WD-n005w4-0.json", scenario.getShifts().size(), scenario.getSkills().size()));
+    weekData.push_back(WeekData("./../datasets/test/n005w4/WD-n005w4-1.json", scenario.getShifts().size(), scenario.getSkills().size()));
+    weekData.push_back(WeekData("./../datasets/test/n005w4/WD-n005w4-2.json", scenario.getShifts().size(), scenario.getSkills().size()));
+    weekData.push_back(WeekData("./../datasets/test/n005w4/WD-n005w4-3.json", scenario.getShifts().size(), scenario.getSkills().size()));
     scenario.parseHistory("./../datasets/test/n005w4/H0-n005w4-0.json");
 
     //Compute
 
-    Solution sol(scenario,weekData);
+    Solution sol(&scenario, &weekData);
 
     cout << "Number of Nurses : " + to_string(sol.getNurses().size());
 
