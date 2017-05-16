@@ -5,7 +5,7 @@
 #ifndef NRS_SOLUTION_H
 #define NRS_SOLUTION_H
 
-
+#include <random>
 #include "../Scenario.h"
 #include "../WeekData.h"
 #include "NurseSolution.h"
@@ -21,7 +21,7 @@ class Solution {
     Scenario * scenario;
     vector<WeekData>* weekData;
 public:
-    Solution(Scenario * scenario, vector<WeekData> * weekData);
+    Solution(Scenario &scenario, WeekData &weekData);
 
     const vector<NurseSolution *> &getNurses() const;
 
