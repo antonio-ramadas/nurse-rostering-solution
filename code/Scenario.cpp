@@ -4,7 +4,9 @@
 
 #include "Scenario.h"
 
-Scenario::Scenario(const string &path) {
+Scenario* Scenario::scenario = nullptr;
+
+void Scenario::parseScenario(const string &path) {
     // read a JSON file
     json j;
 
@@ -123,4 +125,15 @@ const vector<Nurse> &Scenario::getNurses() const {
 
 int Scenario::getNumberOfWeeks() const {
     return numberOfWeeks;
+}
+
+Scenario::Scenario() {
+
+}
+
+Scenario* Scenario::getInstance() {
+    if (scenario == nullptr)
+        scenario = new Scenario();
+
+    return scenario;
 }
