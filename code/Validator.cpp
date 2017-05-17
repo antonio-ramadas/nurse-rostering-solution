@@ -24,7 +24,20 @@ bool Validator::constraintH1(const Solution &solution) {
 
 bool Validator::constraintH2(const Solution &solution) {
 
-    /*for (const vector<vector<DayRequirement*>> &skills : Scenario::getInstance()->getWeekData().getRequirements())
+    /*using req_map = unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>>;
+
+    const req_map &requirements = Scenario::getInstance()->getWeekData().getRequirements();
+
+    for (vector<Turn*> turns : solution.getTurns())
+        for (Turn* turn : turns) {
+
+        }
+    //for each skill
+    for (req_map::const_iterator iter = begin(requirements); iter != end(requirements); advance(iter, 1)) {
+
+    }
+
+    for (const vector<vector<DayRequirement*>> &skills : Scenario::getInstance()->getWeekData().getRequirements())
         for (const vector<DayRequirement*> &shifts : skills)
             for (unsigned int day = 0; day < shifts.size(); day++) {
 

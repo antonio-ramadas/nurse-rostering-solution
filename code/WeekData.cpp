@@ -71,3 +71,7 @@ void WeekData::parseShiftOffRequests(const json &j_arg) {
         shiftOffRequests.push_back(ShiftOffRequest(j["nurse"], j["shiftType"], j["day"]));
     }
 }
+
+const unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>> &WeekData::getRequirements() const {
+    return requirements;
+}
