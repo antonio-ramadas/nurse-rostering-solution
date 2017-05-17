@@ -23,3 +23,9 @@ bool NurseSolution::turnExists(Turn * turn) {
 const vector<Turn *> &NurseSolution::getTurns() const {
     return turns;
 }
+
+const Nurse *NurseSolution::getNurse() const {
+    return nurse;
+}
+
+
