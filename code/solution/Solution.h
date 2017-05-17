@@ -28,12 +28,12 @@ public:
     friend ostream& operator<< (ostream& stream, const Solution& solution){
         for(NurseSolution* nurse : solution.getNurses())
         {
-            cout << nurse->getNurse()->getId() << " has: ";
+            cerr << nurse->getNurse()->getId() << " has: ";
             for(Turn* turn : nurse->getTurns())
             {
-                cout << turn->getDay() << ",";
+                cerr <<  turn->getDay() << ",";
             }
-            cout << endl;
+            cerr << endl;
         }
     };
 

@@ -4,6 +4,7 @@
 
 #include "Scenario.h"
 #include "WeekData.h"
+#include "Validator.h"
 #include "solution/Solution.h"
 
 using namespace std;
@@ -21,11 +22,34 @@ int main(int argc, char *argv[])
 
     //Compute
 
-    Solution sol(weekData);
+    Solution* sol = new Solution(weekData);
 
-    cout << "Number of Nurses : " << sol.getNurses().size() << endl;
+    cerr << "Number of Nurses : " << sol->getNurses().size() << endl;
 
-    cout << "Number of Turns : " << sol.getTurns().size() << endl;
+    cerr << "Number of Turns : " << sol->getTurns().size() << endl;
+
+
+    sol->randomizeSolution();
+
+    while(Validator::constraintH1(*sol) == 0) {
+        delete sol;
+        sol = new Solution(weekData);
+        sol->randomizeSolution();
+    }
+
+    cerr << *sol;
+
+    if(Validator::constraintH3(*sol) )
+        cerr << "H3 constraint : " << "true";
+    else
+        cerr << "H3 constraint : " << "false";
+    cerr << endl;
+
+    if(Validator::constraintH1(*sol) )
+        cerr << "H1 constraint : " << "true";
+    else
+        cerr << "H1 constraint : " << "false";
+    cerr << endl;
 
     //Dump result
 

@@ -15,8 +15,10 @@ Solution::Solution(WeekData &weekData) {
     for(int j = 0; j < 7; j++) {
         vector<Turn *> shifts;
 
-        for (const pair<string,ShiftType> &st :  Scenario::getInstance()->getShifts())
-            shifts.push_back(new Turn(j, &st.second));
+        for (pair<string,ShiftType> const &shift :  Scenario::getInstance()->getShifts()) {
+            Turn *turn = new Turn(j, &shift.second);
+            shifts.push_back(turn);
+        }
       
         turns.push_back(shifts);
     }
@@ -38,5 +40,6 @@ void Solution::randomizeSolution(){
 
     for (vector<Turn *> day : turns)
         for (Turn *type : day)
+            if(random() < 3)
             type->addNurse(nurses[random()]);
 }
