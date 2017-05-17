@@ -63,12 +63,11 @@ bool Validator::constraintH3(const Solution &solution) {
 
         string lastShiftString = nurse->getNurse()->getHistory().getLastAssignedShiftType();
 
-        int lastDay = -1;
+        ShiftType lastShift = Scenario::getInstance()->getShifts().at(lastShiftString);
 
         for(Turn * turn : turns){
-            int current = turn->getDay();
-            if(lastDay != current)
-                lastDay = current;
+            if(find(lastShift.getForbiddenSucceedingShiftTypes().begin(), lastShift.getForbiddenSucceedingShiftTypes().end(), turn->getShiftType()->getId()) != lastShift.getForbiddenSucceedingShiftTypes().end())
+                lastShift = Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId());
             else return false;
         }
     }
