@@ -23,3 +23,11 @@ bool Turn::exitsNurse(NurseSolution * nurse) {
 int Turn::getDay() const {
     return day;
 }
+
+const vector<NurseSolution *, allocator<NurseSolution *>> &Turn::getNurses() const {
+    return nurses;
+}
+
+const ShiftType *Turn::getShiftType() const {
+    return shiftType;
+}

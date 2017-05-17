@@ -27,6 +27,10 @@ public:
     bool exitsNurse(NurseSolution * nurse);
 
     int getDay() const;
+
+    const vector<NurseSolution *, allocator<NurseSolution *>> &getNurses() const;
+
+    const ShiftType *getShiftType() const;
 };
 
 
