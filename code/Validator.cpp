@@ -22,23 +22,25 @@ bool Validator::constraintH1(const Solution &solution) {
     return true;
 }
 
-/*bool Validator::constraintH2(const Solution &solution) {
+bool Validator::constraintH2(const Solution &solution) {
 
-    unordered_map<string, int> assignments;
+    for (const vector<vector<DayRequirement*>> &skills : Scenario::getInstance()->getWeekData().getRequirements())
+        for (const vector<DayRequirement*> &shifts : skills)
+            for (unsigned int day = 0; day < shifts.size(); day++) {
 
-    for (ShiftType shiftType : Scenario::getInstance()->getShifts())
-        assignments.insert(make_pair(shiftType.getId(), 0));
+                vector<Turn*> turns = solution.getTurns().at(day);
+                int sum = 0;
 
-    for (const vector<Turn*> &days: solution.getTurns())
-        for (const Turn *turn : days) {
+                //BUG I can't get the requirement of a specific skill and shift type in week data
+                /*for (Turn* turn : turns) {
+                    if (turn->getShiftType()->getId() == shifts.at(day)) {
 
-            string shiftId = turn->getShiftType()->getId();
-
-
-        }
+                    }
+                }*/
+            }
 
     return true;
-}*/
+}
 
 bool Validator::constraintH3(const Solution &solution) {
     vector<NurseSolution *> nurses = solution.getNurses();

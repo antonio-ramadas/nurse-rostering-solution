@@ -58,3 +58,6 @@ void WeekData::parseShiftOffRequests(const json &j_arg) {
         shiftOffRequests.push_back(ShiftOffRequest(j["nurse"], j["shiftType"], j["day"]));
     }
 }
+const vector<vector<vector<DayRequirement *> > >&WeekData::getRequirements() const {
+    return requirements;
+}

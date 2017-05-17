@@ -34,6 +34,8 @@ public:
     void parseRequirements(const json &requirements);
 
     void parseShiftOffRequests(const json &j_arg);
+
+    const vector<vector<vector<DayRequirement *> > >& getRequirements() const;
 };
 
 
