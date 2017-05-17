@@ -18,8 +18,9 @@ class Turn {
 
     vector<NurseSolution *> nurses;
     const ShiftType* shiftType;
+    const string skill;
 public:
-    Turn(const ShiftType *shiftType);
+    Turn(const string &skill, const ShiftType *shiftType);
 
     bool addNurse(NurseSolution * nurse);
 

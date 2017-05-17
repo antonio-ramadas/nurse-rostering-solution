@@ -5,7 +5,7 @@
 #include <algorithm>
 #include "Turn.h"
 
-Turn::Turn(const ShiftType *shiftType) : shiftType(shiftType) {}
+Turn::Turn(const string &skill, const ShiftType *shiftType) : shiftType(shiftType), skill(skill) {}
 
 bool Turn::addNurse(NurseSolution * nurse){
     if(!exitsNurse(nurse)) {
