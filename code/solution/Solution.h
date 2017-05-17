@@ -19,7 +19,7 @@ class Solution {
     vector< vector< Turn *>> turns;
 
 public:
-    Solution(Scenario &scenario, WeekData &weekData);
+    Solution(WeekData &weekData);
 
     const vector<NurseSolution *> &getNurses() const;
 

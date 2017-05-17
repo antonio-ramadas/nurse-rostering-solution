@@ -11,17 +11,17 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     //Parse
-    Scenario scenario("./../datasets/test/n005w4/Sc-n005w4.json");
+    Scenario::getInstance()->parseScenario("./../datasets/test/n005w4/Sc-n005w4.json");
 
     WeekData weekData("./../datasets/test/n005w4/WD-n005w4-0.json",
-                     (int) scenario.getShifts().size(),
-                     (int) scenario.getSkills().size());
+                     (int) Scenario::getInstance()->getShifts().size(),
+                     (int) Scenario::getInstance()->getSkills().size());
 
-    scenario.parseHistory("./../datasets/test/n005w4/H0-n005w4-0.json");
+    Scenario::getInstance()->parseHistory("./../datasets/test/n005w4/H0-n005w4-0.json");
 
     //Compute
 
-    Solution sol(scenario, weekData);
+    Solution sol(weekData);
 
     cout << "Number of Nurses : " << sol.getNurses().size() << endl;
 
