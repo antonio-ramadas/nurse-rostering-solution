@@ -28,6 +28,8 @@ public:
 
     int getDay() const;
 
+    const vector<NurseSolution *, allocator<NurseSolution *>> &getNurses() const;
+
     const ShiftType *getShiftType() const;
 };
 

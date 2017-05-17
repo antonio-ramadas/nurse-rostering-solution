@@ -63,7 +63,7 @@ void Scenario::parseForbiddenShiftTypeSuccessions(const json &j) {
 
 void Scenario::parseShiftTypes(const json &j) {
     for (json shift : j["shiftTypes"])
-        shifts.insert(pair<string,ShiftType>(shift["id"],ShiftType(shift["id"],
+        shifts.insert(pair<string,ShiftType>(shift["id"].get<string>(),ShiftType(shift["id"],
                                      shift["minimumNumberOfConsecutiveAssignments"],
                                      shift["maximumNumberOfConsecutiveAssignments"])));
 }
@@ -111,7 +111,7 @@ Nurse & Scenario::findNurse(const string &name) {
     throw Exception(ExceptionsEnum::NurseNotFound, "Nurse " + name + " not found");
 }
 
-const map<string,ShiftType> &Scenario::getShifts() const {
+map<string,ShiftType> &Scenario::getShifts() {
     return shifts;
 }
 
@@ -136,4 +136,12 @@ Scenario* Scenario::getInstance() {
         scenario = new Scenario();
 
     return scenario;
+}
+
+const WeekData &Scenario::getWeekData() const {
+    return weekData;
+}
+
+void Scenario::setWeekData(const WeekData &weekData) {
+    Scenario::weekData = weekData;
 }
