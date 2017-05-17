@@ -25,7 +25,7 @@ WeekData::WeekData(const string &path, int numberOfShifts, int numberOfSkills) {
 
     parseRequirements(j);
 
-    //parseShiftOffRequests(j);
+    parseShiftOffRequests(j);
 }
 
 void WeekData::parseRequirements(const json &j_arg) {
