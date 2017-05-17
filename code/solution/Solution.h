@@ -29,9 +29,8 @@ public:
         for(NurseSolution* nurse : solution.getNurses())
         {
             cout << nurse->getNurse()->getId() << " has: ";
-            for(Turn* turn : nurse->getTurns())
-            {
-                cout << turn->getDay() << ",";
+            for(int day = 0; day < nurse->getTurns().size(); day++) {
+                cout << day << ",";
             }
             cout << endl;
         }

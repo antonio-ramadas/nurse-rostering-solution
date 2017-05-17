@@ -16,7 +16,7 @@ Solution::Solution(WeekData &weekData) {
         vector<Turn *> shifts;
 
         for (const pair<string,ShiftType> &st : Scenario::getInstance()->getShifts())
-            shifts.push_back(new Turn(j, &st.second));
+            shifts.push_back(new Turn(&st.second));
       
         turns.push_back(shifts);
     }
