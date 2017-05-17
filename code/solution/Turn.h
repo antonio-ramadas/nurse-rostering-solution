@@ -27,6 +27,8 @@ public:
     bool exitsNurse(NurseSolution * nurse);
 
     int getDay() const;
+
+    const ShiftType *getShiftType() const;
 };
 
 

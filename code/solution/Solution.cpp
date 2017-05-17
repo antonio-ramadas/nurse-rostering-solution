@@ -15,8 +15,8 @@ Solution::Solution(Scenario &scenario, WeekData &weekData) {
     for(int j = 0; j < 7; j++) {
         vector<Turn *> shifts;
 
-        for (const ShiftType &st : scenario.getShifts())
-            shifts.push_back(new Turn(j, &st));
+        for (const pair<string,ShiftType> &st : scenario.getShifts())
+            shifts.push_back(new Turn(j, &st.second));
 
         turns.push_back(shifts);
     }

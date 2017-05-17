@@ -19,7 +19,7 @@ class Scenario {
 private:
     string id;
     int numberOfWeeks;
-    vector<ShiftType> shifts;
+    map<string,ShiftType> shifts;
     vector<string> skills;
     map<string,Contract> contracts;
     vector<Nurse> nurses;
@@ -34,7 +34,7 @@ public:
     Scenario(const string &path);
     void parseHistory(const string &path);
 
-    const vector<ShiftType> &getShifts() const;
+    const map<string,ShiftType> &getShifts() const;
 
     const vector<string> &getSkills() const;
 

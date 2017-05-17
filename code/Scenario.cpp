@@ -50,20 +50,20 @@ void Scenario::parseContracts(const json &j) {
 
 void Scenario::parseForbiddenShiftTypeSuccessions(const json &j) {
     for (json forbidden : j["forbiddenShiftTypeSuccessions"]) {
-        vector<ShiftType>::iterator it = find_if(shifts.begin(), shifts.end(),
-                                                 [&forbidden](ShiftType shift) -> bool {
-                                                     return forbidden["precedingShiftType"] == shift.getId();
+        map<string,ShiftType>::iterator it = find_if(shifts.begin(), shifts.end(),
+                                                 [&forbidden](const std::pair<string, ShiftType> & shift) -> bool {
+                                                     return forbidden["precedingShiftType"] == shift.second.getId();
                                                  });
 
-        it->setForbidden(forbidden["succeedingShiftTypes"]);
+        it->second.setForbidden(forbidden["succeedingShiftTypes"]);
     }
 }
 
 void Scenario::parseShiftTypes(const json &j) {
     for (json shift : j["shiftTypes"])
-        shifts.push_back(ShiftType(shift["id"],
+        shifts.insert(pair<string,ShiftType>(shift["id"],ShiftType(shift["id"],
                                      shift["minimumNumberOfConsecutiveAssignments"],
-                                     shift["maximumNumberOfConsecutiveAssignments"]));
+                                     shift["maximumNumberOfConsecutiveAssignments"])));
 }
 
 void Scenario::parseHistory(const string &path) {
@@ -109,7 +109,7 @@ Nurse & Scenario::findNurse(const string &name) {
     throw Exception(ExceptionsEnum::NurseNotFound, "Nurse " + name + " not found");
 }
 
-const vector<ShiftType> &Scenario::getShifts() const {
+const map<string,ShiftType> &Scenario::getShifts() const {
     return shifts;
 }
 
