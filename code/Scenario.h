@@ -43,7 +43,7 @@ public:
 
     void parseHistory(const string &path);
 
-    const map<string,ShiftType> &getShifts() const;
+    map<string,ShiftType> &getShifts();
 
     const vector<string> &getSkills() const;
 

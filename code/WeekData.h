@@ -9,9 +9,11 @@
 #include "Exception.h"
 #include "Reader.h"
 #include "ShiftOffRequest.h"
+#include "ShiftType.h"
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -24,8 +26,7 @@ private:
     int numberOfShifts, numberOfSkills;
 
     //matrix[NSkills][NShifts][NDays]
-    vector<vector<vector<DayRequirement *> > > requirements = {{{nullptr}}};
-
+    unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>> requirements;
 public:
     WeekData(){};
 
