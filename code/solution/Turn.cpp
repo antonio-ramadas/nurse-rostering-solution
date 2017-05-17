@@ -23,3 +23,7 @@ bool Turn::exitsNurse(NurseSolution * nurse) {
 int Turn::getDay() const {
     return day;
 }
+
+const ShiftType *Turn::getShiftType() const {
+    return shiftType;
+}

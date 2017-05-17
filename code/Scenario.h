@@ -22,7 +22,7 @@ private:
 
     string id;
     int numberOfWeeks;
-    vector<ShiftType> shifts;
+    map<string,ShiftType> shifts;
     vector<string> skills;
     map<string,Contract> contracts;
     vector<Nurse> nurses;
@@ -40,7 +40,7 @@ public:
 
     void parseHistory(const string &path);
 
-    const vector<ShiftType> &getShifts() const;
+    const map<string,ShiftType> &getShifts() const;
 
     const vector<string> &getSkills() const;
 

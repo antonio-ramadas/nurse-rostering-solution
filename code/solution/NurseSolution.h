@@ -25,6 +25,8 @@ public:
     bool turnExists(Turn * turn);
 
     const vector<Turn *> &getTurns() const;
+
+    const Nurse *getNurse() const;
 };
 
 
