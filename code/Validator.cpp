@@ -39,6 +39,7 @@ bool Validator::constraintH1(const Solution &solution) {
 
     return true;
 }*/
+
 bool Validator::constraintH3(const Solution &solution) {
     vector<NurseSolution *> nurses = solution.getNurses();
     for(NurseSolution * nurse : nurses)
@@ -47,7 +48,7 @@ bool Validator::constraintH3(const Solution &solution) {
 
         string lastShiftString = nurse->getNurse()->getHistory().getLastAssignedShiftType();
 
-
+        int lastDay = -1;
 
         for(Turn * turn : turns){
             int current = turn->getDay();

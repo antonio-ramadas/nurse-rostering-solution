@@ -35,6 +35,8 @@ public:
             }
             cout << endl;
         }
+
+        return stream;
     };
 
     void randomizeSolution();
