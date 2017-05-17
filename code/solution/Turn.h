@@ -20,6 +20,9 @@ class Turn {
     const ShiftType* shiftType;
     const string skill;
 public:
+    const string &getSkill() const;
+
+public:
     Turn(const string &skill, const ShiftType *shiftType);
 
     bool addNurse(NurseSolution * nurse);
