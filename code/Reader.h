@@ -8,7 +8,8 @@
 #include "json.hpp"
 using json = nlohmann::json;
 
-#include "Scenario.h"
+#include <string>
+using namespace std;
 
 class Reader {
 public:

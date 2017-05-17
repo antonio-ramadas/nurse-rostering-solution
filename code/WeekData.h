@@ -26,9 +26,9 @@ private:
     //matrix[NSkills][NShifts][NDays]
     vector<vector<vector<DayRequirement *> > > requirements = {{{nullptr}}};
 
-
-
 public:
+    WeekData(){};
+
     WeekData(const string &path, int numberOfShifts, int numberOfSkills);
 
     void parseRequirements(const json &requirements);

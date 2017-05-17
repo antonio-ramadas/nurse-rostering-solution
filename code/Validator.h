@@ -5,7 +5,7 @@
 #ifndef NRS_VALIDATOR_H
 #define NRS_VALIDATOR_H
 
-
+#include <unordered_map>
 #include "solution/Solution.h"
 
 using namespace std;

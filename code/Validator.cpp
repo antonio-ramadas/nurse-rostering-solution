@@ -22,20 +22,20 @@ bool Validator::constraintH1(const Solution &solution) {
     return true;
 }
 
-bool Validator::constraintH2(const Solution &solution) {
+/*bool Validator::constraintH2(const Solution &solution) {
+
+    unordered_map<string, int> assignments;
+
+    for (ShiftType shiftType : Scenario::getInstance()->getShifts())
+        assignments.insert(make_pair(shiftType.getId(), 0));
 
     for (const vector<Turn*> &days: solution.getTurns())
         for (const Turn *turn : days) {
 
             string shiftId = turn->getShiftType()->getId();
 
-            /*int numberAllocatedNurses = count_if(begin(turn->getNurses()),
-                     end(turn->getNurses()),
-                     [] (NurseSolution *nurseSolution) -> bool {
-                         return nurseSolution->
-                     });
-*/
+
         }
 
     return true;
-}
+}*/

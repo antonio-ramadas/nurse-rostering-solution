@@ -137,3 +137,11 @@ Scenario* Scenario::getInstance() {
 
     return scenario;
 }
+
+const WeekData &Scenario::getWeekData() const {
+    return weekData;
+}
+
+void Scenario::setWeekData(const WeekData &weekData) {
+    Scenario::weekData = weekData;
+}

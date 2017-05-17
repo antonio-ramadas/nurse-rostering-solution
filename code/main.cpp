@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
                      (int) Scenario::getInstance()->getSkills().size());
 
     Scenario::getInstance()->parseHistory("./../datasets/test/n005w4/H0-n005w4-0.json");
+    Scenario::getInstance()->setWeekData(weekData);
 
     //Compute
 
