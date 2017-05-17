@@ -25,6 +25,18 @@ public:
 
     const vector< vector< Turn *>> &getTurns() const;
 
+    friend ostream& operator<< (ostream& stream, const Solution& solution){
+        for(NurseSolution* nurse : solution.getNurses())
+        {
+            cout << nurse->getNurse()->getId() << " has: ";
+            for(Turn* turn : nurse->getTurns())
+            {
+                cout << turn->getDay() << ",";
+            }
+            cout << endl;
+        }
+    };
+
     void randomizeSolution();
 };
 
