@@ -4,7 +4,7 @@
 
 #include "Validator.h"
 
-bool Validator::constraintH1(const Solution &solution) const {
+bool Validator::constraintH1(const Solution &solution) {
     vector<NurseSolution *> nurses = solution.getNurses();
     for(NurseSolution * nurse : nurses)
     {
