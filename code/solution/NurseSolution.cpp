@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iostream>
 #include "NurseSolution.h"
+#include "../Scenario.h"
 
 NurseSolution::NurseSolution(const Nurse* nurse): nurse(nurse){}
 
@@ -40,6 +41,9 @@ const bool NurseSolution::isSingleAssignment(const Turn *turn) const {
 }
 
 const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
+    if (turn->getDay() == 0)
+        return !hasHistoryConflict(turn);
+
     return all_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
 
         if (turnElem->getDay() - 1 == turn->getDay()) {
@@ -54,6 +58,12 @@ const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
 
 const bool NurseSolution::hasSkillToWork(const Turn *turn) const {
     return nurse->hasSkill(turn->getSkill());
+}
+
+const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
+    return Scenario::getInstance()->getShifts()
+            .at(nurse->getHistory().getLastAssignedShiftType())
+            .isForbidden(pTurn->getShiftType()->getId());
 }
 
 
