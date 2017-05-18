@@ -46,9 +46,9 @@ const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
 
     return all_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
 
-        if (turnElem->getDay() - 1 == turn->getDay()) {
+        if (turnElem->getDay() == turn->getDay() - 1) {
             return !turnElem->getShiftType()->isForbidden(turn->getShiftType()->getId());
-        } else if (turnElem->getDay() + 1 == turn->getDay()) {
+        } else if (turnElem->getDay() == turn->getDay() + 1) {
             return !turn->getShiftType()->isForbidden(turnElem->getShiftType()->getId());
         }
 
