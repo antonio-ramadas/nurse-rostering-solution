@@ -61,35 +61,16 @@ const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
 }
 
 bool NurseSolution::hasTurnConflict(const Turn *turn) const {
-    bool ret = any_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
-
-        cout << turn->getDay() << "|" << turn->getShiftType()->getId() << " - ";
-        cout << turnElem->getDay() << "|" << turnElem->getShiftType()->getId() << " -> ";
-
-        bool result = false;
-        bool enter = false;
+    return any_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
 
         if (turnElem->getDay() == turn->getDay() - 1) {
-            enter = true;
-            result = turnElem->getShiftType()->isForbiddenShift(turn->getShiftType()->getId());
+            return turnElem->getShiftType()->isForbiddenShift(turn->getShiftType()->getId());
         } else if (turnElem->getDay() == turn->getDay() + 1) {
-            enter = true;
-            result = turn->getShiftType()->isForbiddenShift(turnElem->getShiftType()->getId());
+            return turn->getShiftType()->isForbiddenShift(turnElem->getShiftType()->getId());
         }
-
-        if (enter) {
-            cout << result << endl;
-            return result;
-        }
-
-        cout << endl;
 
         return false;
     });
-
-    cout << "result: " << ret << endl;
-
-    return ret;
 }
 
 

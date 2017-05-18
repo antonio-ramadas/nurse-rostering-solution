@@ -32,16 +32,7 @@ int ShiftType::getMaximumNumberOfConsecutiveAssignments() const {
 }
 
 const bool ShiftType::isForbiddenShift(const string &shiftId) const {
-    bool ret = any_of(begin(forbiddenSucceedingShiftTypes), end(forbiddenSucceedingShiftTypes), [&](string shift) {
+    return any_of(begin(forbiddenSucceedingShiftTypes), end(forbiddenSucceedingShiftTypes), [&](string shift) {
         return shift == shiftId;
     });
-
-    cout << " (" << ret << " = ";
-
-    for (string forbid : forbiddenSucceedingShiftTypes)
-        cout << forbid << ",";
-
-    cout << ") ";
-
-    return ret;
 }
