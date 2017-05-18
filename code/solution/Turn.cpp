@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <iostream>
 #include "Turn.h"
 
 Turn::Turn(const string &skill, const ShiftType *shiftType) : shiftType(shiftType), skill(skill) {}

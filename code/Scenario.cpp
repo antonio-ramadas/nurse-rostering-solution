@@ -62,10 +62,11 @@ void Scenario::parseForbiddenShiftTypeSuccessions(const json &j) {
 }
 
 void Scenario::parseShiftTypes(const json &j) {
-    for (json shift : j["shiftTypes"])
-        shifts.insert(pair<string,ShiftType>(shift["id"].get<string>(),ShiftType(shift["id"],
-                                     shift["minimumNumberOfConsecutiveAssignments"],
-                                     shift["maximumNumberOfConsecutiveAssignments"])));
+    for (json shift : j["shiftTypes"]) {
+        shifts.insert(pair<string, ShiftType>(shift["id"].get<string>(), ShiftType(shift["id"].get<string>(),
+                                                                     shift["minimumNumberOfConsecutiveAssignments"],
+                                                                     shift["maximumNumberOfConsecutiveAssignments"])));
+    }
 }
 
 void Scenario::parseHistory(const string &path) {

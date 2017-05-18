@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <iostream>
 #include "NurseSolution.h"
 
 NurseSolution::NurseSolution(const Nurse* nurse): nurse(nurse){}
