@@ -25,33 +25,44 @@ int main(int argc, char *argv[])
 
     Solution* sol = new Solution(weekData);
 
-    cerr << "Number of Nurses : " << sol->getNurses().size() << endl;
+    cout << "Number of Nurses : " << sol->getNurses().size() << endl;
 
-    cerr << "Number of Turns : " << sol->getTurns().size() << endl;
+    cout << "Number of Turns : " << sol->getTurns().size() << endl;
 
-
+    cout << endl;
 
     sol->randomizeSolution();
 
-    while(Validator::constraintH1(*sol) == 0) {
+    while(Validator::constraintH1(*sol) == false || /*Validator::constraintH2(*sol) == false || */ Validator::constraintH3(*sol) == false) {
         delete sol;
         sol = new Solution(weekData);
         sol->randomizeSolution();
+        cout << *sol << endl;
     }
 
-    cerr << *sol;
+    cout << *sol << endl;
 
-    if(Validator::constraintH3(*sol) )
-        cerr << "H3 constraint : " << "true";
-    else
-        cerr << "H3 constraint : " << "false";
-    cerr << endl;
+
 
     if(Validator::constraintH1(*sol) )
-        cerr << "H1 constraint : " << "true";
+        cout << "H1 constraint : " << "true";
     else
-        cerr << "H1 constraint : " << "false";
-    cerr << endl;
+        cout << "H1 constraint : " << "false";
+    cout << endl;
+
+    if(Validator::constraintH2(*sol) )
+        cout << "H2 constraint : " << "true";
+    else
+        cout << "H2 constraint : " << "false";
+    cout << endl;
+
+    if(Validator::constraintH3(*sol) )
+        cout << "H3 constraint : " << "true";
+    else
+        cout << "H3 constraint : " << "false";
+    cout << endl;
+
+    cout << "S4 constraint : " << Validator::constraintS4(*sol);
 
     //Dump result
 

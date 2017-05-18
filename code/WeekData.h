@@ -26,9 +26,9 @@ private:
     int numberOfShifts, numberOfSkills;
 
     //matrix[NSkills][NShifts][NDays]
-    unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>> requirements;
+    unordered_map<string, unordered_map<string, vector<DayRequirement*>>> requirements;
 public:
-    const unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>> &getRequirements() const;
+    const unordered_map<string, unordered_map<string, vector<DayRequirement*>>> &getRequirements() const;
 
     WeekData(){};
 
@@ -37,6 +37,8 @@ public:
     void parseRequirements(const json &requirements);
 
     void parseShiftOffRequests(const json &j_arg);
+
+    const vector<ShiftOffRequest> &getShiftOffRequests() const;
 };
 
 

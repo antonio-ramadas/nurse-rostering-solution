@@ -41,20 +41,20 @@ void WeekData::parseRequirements(const json &j_arg) {
             requirements.insert(
                 make_pair(
                         skill,
-                        unordered_map<ShiftType*, vector<DayRequirement*>>()
+                        unordered_map<string, vector<DayRequirement*>>()
                 ));
 
-        unordered_map<ShiftType*, vector<DayRequirement*>> &shifts = requirements.find(skill)->second;
+        unordered_map<string, vector<DayRequirement*>> &shifts = requirements.find(skill)->second;
         ShiftType &currentShiftType = Scenario::getInstance()->getShifts().find(shiftType_str)->second;
 
-        if (shifts.find(&currentShiftType) == end(shifts))
+        if (shifts.find(currentShiftType.getId()) == end(shifts))
             shifts.insert(
                     make_pair(
-                            &currentShiftType,
+                            currentShiftType.getId(),
                             vector<DayRequirement*>()
                     ));
 
-        vector<DayRequirement*> &days = shifts.find(&currentShiftType)->second;
+        vector<DayRequirement*> &days = shifts.find(currentShiftType.getId())->second;
 
         for (int i = 0; i < NUMBER_DAYS_OF_THE_WEEK; i++) {
             json js = requirement_json[requirementTxt + DaysOfTheWeekVector.at(i)];
@@ -72,6 +72,10 @@ void WeekData::parseShiftOffRequests(const json &j_arg) {
     }
 }
 
-const unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>> &WeekData::getRequirements() const {
+const unordered_map<string, unordered_map<string, vector<DayRequirement*>>> &WeekData::getRequirements() const {
     return requirements;
+}
+
+const vector<ShiftOffRequest> &WeekData::getShiftOffRequests() const {
+    return shiftOffRequests;
 }

@@ -32,7 +32,7 @@ public:
 
     const vector<NurseSolution *, allocator<NurseSolution *>> &getNurses() const;
 
-    const ShiftType *getShiftType() const;
+    const ShiftType* getShiftType() const;
 
     const int getDay() const;
 };

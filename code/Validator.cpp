@@ -5,10 +5,10 @@
 #include "Validator.h"
 
 bool Validator::constraintH1(const Solution &solution) {
-    vector<NurseSolution *> nurses = solution.getNurses();
-    for(NurseSolution * nurse : nurses)
+    map<string, NurseSolution *> nurses = solution.getNurses();
+    for(auto const &nurse : nurses)
     {
-        vector<Turn *> turns = nurse->getTurns();
+        vector<Turn *> turns = nurse.second->getTurns();
 
         int lastDay = -1;
 
@@ -23,25 +23,25 @@ bool Validator::constraintH1(const Solution &solution) {
 
 bool Validator::constraintH2(const Solution &solution) {
 
-    using req_map = unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>>;
+    using req_map = unordered_map<string, unordered_map<string, vector<DayRequirement*>>>;
 
     const req_map &requirements = Scenario::getInstance()->getWeekData().getRequirements();
 
     for (unsigned int day = 0; day < solution.getTurns().size(); day++)
         for (Turn *turn : solution.getTurns().at(day))
-            if (requirements.at(turn->getSkill()).at(const_cast<ShiftType*>(turn->getShiftType())).at(day)->getMinimumCoverage() < turn->getNurses().size())
+            if (requirements.at(turn->getSkill()).at(turn->getShiftType()->getId()).at(day)->getMinimumCoverage() < turn->getNurses().size())
                 return false;
 
     return true;
 }
 
 bool Validator::constraintH3(const Solution &solution) {
-    vector<NurseSolution *> nurses = solution.getNurses();
-    for(NurseSolution * nurse : nurses)
+    map<string, NurseSolution *> nurses = solution.getNurses();
+    for(auto const &nurse : nurses)
     {
-        vector<Turn *> turns = nurse->getTurns();
+        vector<Turn *> turns = nurse.second->getTurns();
 
-        string lastShiftString = nurse->getNurse()->getHistory().getLastAssignedShiftType();
+        string lastShiftString = nurse.second->getNurse()->getHistory().getLastAssignedShiftType();
 
         int lastDay;
         ShiftType lastShift;
@@ -73,4 +73,26 @@ bool Validator::constraintH3(const Solution &solution) {
         }
     }
     return true;
+}
+
+unsigned int Validator::constraintS4(const Solution &solution) {
+
+    unsigned int sum = 0;
+
+    for(ShiftOffRequest shiftOffRequest : Scenario::getInstance()->getWeekData().getShiftOffRequests()) {
+
+        NurseSolution *nurseSolution = solution.getNurses().at(shiftOffRequest.getNurse());
+        string shiftType = shiftOffRequest.getShiftType();
+
+        int day = Scenario::getInstance()->getDayOfWeek(shiftOffRequest.getDay());
+
+        vector<Turn*> nurseTurns = nurseSolution->getTurns();
+
+        for_each(begin(nurseTurns), end(nurseTurns), [&](Turn *turn) {
+            if(turn->getDay() == day && (shiftType == "Any" || shiftType == turn->getShiftType()->getId()))
+                sum += 10;
+        });
+    }
+
+    return sum;
 }

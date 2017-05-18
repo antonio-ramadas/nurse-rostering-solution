@@ -146,3 +146,14 @@ const WeekData &Scenario::getWeekData() const {
 void Scenario::setWeekData(const WeekData &weekData) {
     Scenario::weekData = weekData;
 }
+
+const vector<string> &Scenario::getDaysOfTheWeekVector() {
+    return DaysOfTheWeekVector;
+}
+
+const int Scenario::getDayOfWeek(string dayWeek) {
+    for(int i = 0; i < DaysOfTheWeekVector.size(); i++)
+        if(DaysOfTheWeekVector[i] == dayWeek)
+            return i;
+    return -1;
+}

@@ -25,7 +25,7 @@ const vector<NurseSolution *, allocator<NurseSolution *>> &Turn::getNurses() con
     return nurses;
 }
 
-const ShiftType *Turn::getShiftType() const {
+const ShiftType* Turn::getShiftType() const {
     return shiftType;
 }
 
