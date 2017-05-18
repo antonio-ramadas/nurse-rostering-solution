@@ -18,7 +18,6 @@ class Solution {
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
-    bool isNurseWorkingOnSameDay(const Turn *turn, const NurseSolution *nurseSolution) const;
 public:
     Solution(WeekData &weekData);
 

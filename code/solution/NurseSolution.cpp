@@ -29,4 +29,10 @@ const Nurse *NurseSolution::getNurse() const {
     return nurse;
 }
 
+const bool NurseSolution::canWork(const Turn *turn) {
+    return any_of(begin(turns), end(turns), [](Turn* turnElem) -> {
+         return turnElem->getDay() == turn->getDay();
+    });
+}
+
 

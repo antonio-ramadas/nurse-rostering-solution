@@ -27,6 +27,8 @@ public:
     const vector<Turn *> &getTurns() const;
 
     const Nurse *getNurse() const;
+
+    const bool canWork(const Turn* turn);
 };
 
 
