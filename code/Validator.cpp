@@ -78,6 +78,22 @@ bool Validator::constraintH3(const Solution &solution) {
     return true;
 }
 
+
+unsigned int Validator::constraintS1(const Solution &solution) {
+
+    unsigned int sum = 0;
+
+    for(vector<Turn *> day : solution.getTurns())
+        for(Turn * turn : day){
+            int nNurses = turn->getNurses().size();
+            int optimal = Scenario::getInstance()->getWeekData().getRequirements().at(turn->getSkill()).at(turn->getShiftType()->getId()).at(turn->getDay())->getOptimalCoverage();
+            if(nNurses < optimal)
+                sum += 30 * (optimal - nNurses);
+        }
+
+    return sum;
+}
+
 unsigned int Validator::constraintS4(const Solution &solution) {
 
     unsigned int sum = 0;
