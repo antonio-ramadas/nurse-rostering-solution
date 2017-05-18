@@ -19,10 +19,11 @@ Solution::Solution(WeekData &weekData) {
 
         for (pair<string,ShiftType> const &shift :  Scenario::getInstance()->getShifts()) {
             ShiftType* shiftType = new ShiftType(shift.second.getId(),shift.second.getMinimumNumberOfConsecutiveAssignments(),shift.second.getMaximumNumberOfConsecutiveAssignments());
-            Turn *turn = new Turn(j, shiftType);
-            shifts.push_back(turn);
+            for(string skill : Scenario::getInstance()->getSkills()) {
+                Turn *turn = new Turn(j, skill, shiftType);
+                shifts.push_back(turn);
+            }
         }
-      
         turns.push_back(shifts);
     }
 }

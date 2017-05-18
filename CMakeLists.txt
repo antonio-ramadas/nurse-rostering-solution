@@ -17,7 +17,6 @@ set(SOURCE_FILES
         code/Requirement.cpp code/Requirement.h
         code/DayRequirement.cpp code/DayRequirement.h
         code/ShiftOffRequest.cpp code/ShiftOffRequest.h
-        code/Shift.cpp code/Shift.h
         code/solution/Solution.cpp code/solution/Solution.h
         code/solution/NurseSolution.cpp code/solution/NurseSolution.h
         code/solution/Turn.cpp code/solution/Turn.h code/Validator.cpp code/Validator.h)

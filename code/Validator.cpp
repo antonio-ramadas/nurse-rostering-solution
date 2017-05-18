@@ -12,9 +12,9 @@ bool Validator::constraintH1(const Solution &solution) {
 
         int lastDay = -1;
 
-        for(int current = 0; current < turns.size(); current++) {
-            if(lastDay != current)
-                lastDay = current;
+        for(Turn * turn : turns) {
+            if(lastDay != turn->getDay())
+                lastDay = turn->getDay();
             else return false;
         }
     }

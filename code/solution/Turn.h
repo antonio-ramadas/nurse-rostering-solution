@@ -19,11 +19,12 @@ class Turn {
     vector<NurseSolution *> nurses;
     const ShiftType* shiftType;
     const string skill;
+    const int day;
 public:
     const string &getSkill() const;
 
 public:
-    Turn(const string &skill, const ShiftType *shiftType);
+    Turn(const int day, const string &skill, const ShiftType *shiftType);
 
     bool addNurse(NurseSolution * nurse);
 
@@ -32,6 +33,8 @@ public:
     const vector<NurseSolution *, allocator<NurseSolution *>> &getNurses() const;
 
     const ShiftType *getShiftType() const;
+
+    const int getDay() const;
 };
 
 
