@@ -11,9 +11,7 @@
 
 using namespace std;
 
-class Validator {
-
-public:
+namespace Validator {
     //////////
     // Hard //
     //////////
