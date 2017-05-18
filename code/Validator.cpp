@@ -78,6 +78,33 @@ bool Validator::constraintH3(const Solution &solution) {
     return true;
 }
 
+unsigned int Validator::constraintS3(const Solution &solution) {
+
+    unsigned int sum = 0;
+
+    for(auto const &nurse : solution.getNurses())
+    {
+        int numberOfConsecutiveDaysOff = nurse.second->getNurse()->getHistory().getNumberOfConsecutiveDaysOff();
+
+        int lastDay = - (numberOfConsecutiveDaysOff + 1);
+
+        for(Turn * turn : nurse.second->getTurns())
+        {
+            int currentDay = turn->getDay();
+
+            int CDays = currentDay - (lastDay + 1);
+
+            if(CDays < Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff())
+                sum += 30 * (Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff() - CDays);
+            else if (CDays > Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff())
+                sum += 30 * (CDays - Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff());
+
+            lastDay = turn->getDay();
+        }
+    }
+    return sum;
+}
+
 unsigned int Validator::constraintS4(const Solution &solution) {
 
     unsigned int sum = 0;
