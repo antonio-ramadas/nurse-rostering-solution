@@ -41,10 +41,7 @@ const bool NurseSolution::isSingleAssignment(const Turn *turn) const {
 }
 
 const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
-    if (turn->getDay() == 0)
-        return !hasHistoryConflict(turn);
-
-    return all_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
+    return !hasHistoryConflict(turn) && all_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
 
         if (turnElem->getDay() == turn->getDay() - 1) {
             return !turnElem->getShiftType()->isForbidden(turn->getShiftType()->getId());
@@ -61,6 +58,8 @@ const bool NurseSolution::hasSkillToWork(const Turn *turn) const {
 }
 
 const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
+    if (pTurn->getDay() != 0)
+        return false;
 
     if (nurse->getHistory().getLastAssignedShiftType() == "None")
         return false;
