@@ -44,9 +44,15 @@ void Solution::randomizeSolution(){
 
     for (vector<Turn *> day : turns)
         for (Turn *type : day)
-            if(random() < 2) {
+            if(random() < 3) {
                 auto iter = nurses.begin();
                 std::advance( iter, random() );
                 type->addNurse(iter->second);
             }
+}
+
+Solution::~Solution() {
+    for(vector<Turn*> day : turns)
+        for(Turn* turn : day)
+            delete turn;
 }

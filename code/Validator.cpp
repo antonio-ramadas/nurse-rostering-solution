@@ -29,8 +29,11 @@ bool Validator::constraintH2(const Solution &solution) {
 
     for (unsigned int day = 0; day < solution.getTurns().size(); day++)
         for (Turn *turn : solution.getTurns().at(day))
-            if (requirements.at(turn->getSkill()).at(turn->getShiftType()->getId()).at(day)->getMinimumCoverage() < turn->getNurses().size())
+            if (requirements.at(turn->getSkill()).at(turn->getShiftType()->getId()).at(day)->getMinimumCoverage() > turn->getNurses().size()) {
+                //cerr << "Not enough at " << turn->getShiftType()->getId() << "/" <<  day << " needed : " << requirements.at(turn->getSkill()).at(turn->getShiftType()->getId()).at(day)->getMinimumCoverage()
+                  //   << " and has : " << turn->getNurses().size() << endl;
                 return false;
+            }
 
     return true;
 }
