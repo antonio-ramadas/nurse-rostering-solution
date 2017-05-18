@@ -179,6 +179,29 @@ unsigned int Validator::constraintS4(const Solution &solution) {
     return sum;
 }
 
+unsigned int Validator::constraintS5(const Solution &solution) {
+
+    unsigned int sum = 0;
+
+    for(auto const &nurse : solution.getNurses())
+        if(Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getCompleteWeekends())
+            {
+                vector<Turn *> turns = nurse.second->getTurns();
+                if(turns.size() > 1)
+                {
+                    if(turns[turns.size() - 1]->getDay() == 6)
+                        if(turns[turns.size() - 2]->getDay() != 5)
+                            sum += 30;
+                    if(turns[turns.size() - 1]->getDay() == 5)
+                        sum += 30;
+                }
+                else if(turns.size() == 1)
+                    if(turns[0]->getDay() == 6 || turns[0]->getDay() == 5)
+                        sum += 30;
+            }
+    return sum;
+}
+
 unsigned int Validator::constraintS6(const Solution &solution){
 
     unsigned int sum = 0;
