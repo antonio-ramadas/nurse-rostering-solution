@@ -29,3 +29,9 @@ int ShiftType::getMinimumNumberOfConsecutiveAssignments() const {
 int ShiftType::getMaximumNumberOfConsecutiveAssignments() const {
     return maximumNumberOfConsecutiveAssignments;
 }
+
+const bool ShiftType::isForbidden(const string &shiftId) const {
+    return none_of(begin(forbiddenSucceedingShiftTypes), end(forbiddenSucceedingShiftTypes), [&](string shift) {
+        return shift == shiftId;
+    });
+}

@@ -17,6 +17,12 @@ class NurseSolution {
     const Nurse* nurse;
     vector<Turn *> turns;
 
+    const bool isSingleAssignment(const Turn* turn) const;
+
+    const bool isLegalSuccession(const Turn* turn) const;
+
+    const bool hasSkillToWork(const Turn* turn) const;
+
 public:
     NurseSolution(const Nurse* nurse);
 

@@ -18,6 +18,7 @@ class Solution {
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
+
 public:
     Solution(WeekData &weekData);
 

@@ -28,6 +28,7 @@ public:
 
     int getMaximumNumberOfConsecutiveAssignments() const;
 
+    const bool isForbidden(const string& shiftId) const;
 };
 
 

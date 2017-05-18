@@ -66,6 +66,7 @@ bool Solution::assignNurse(Nurse *nurse, Turn *turn) {
 
     //Shift type successions: The shift type assignments of one nurse in two consecutive days must belong to
     // the legal successions provided in the scenario.
+    
 
 
     //Missing required skill: A shift of a given skill must necessarily be fulfilled by a nurse having that skill.

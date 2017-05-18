@@ -30,9 +30,30 @@ const Nurse *NurseSolution::getNurse() const {
 }
 
 const bool NurseSolution::canWork(const Turn *turn) {
-    return any_of(begin(turns), end(turns), [=](Turn* turnElem) {
-         return turnElem->getDay() == turn->getDay();
+    return isSingleAssignment(turn) && isLegalSuccession(turn) && hasSkillToWork(turn);
+}
+
+const bool NurseSolution::isSingleAssignment(const Turn *turn) const {
+    return none_of(begin(turns), end(turns), [=](Turn* turnElem) {
+        return turnElem->getDay() == turn->getDay();
     });
+}
+
+const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
+    return all_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
+
+        if (turnElem->getDay() - 1 == turn->getDay()) {
+            return turnElem->getShiftType()->isForbidden(turn->getShiftType()->getId());
+        } else if (turnElem->getDay() + 1 == turn->getDay()) {
+            return turn->getShiftType()->isForbidden(turnElem->getShiftType()->getId());
+        }
+
+        return true;
+    });
+}
+
+const bool NurseSolution::hasSkillToWork(const Turn *turn) const {
+    return 0;
 }
 
 
