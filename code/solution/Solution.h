@@ -14,22 +14,22 @@
 using namespace std;
 
 class Solution {
-    vector<NurseSolution *> nurses;
+    map<string, NurseSolution *> nurses;
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
 public:
     Solution(WeekData &weekData);
 
-    const vector<NurseSolution *> &getNurses() const;
+    const map<string, NurseSolution *> &getNurses() const;
 
     const vector< vector< Turn *>> &getTurns() const;
 
     friend ostream& operator<< (ostream& stream, const Solution& solution){
-        for(NurseSolution* nurse : solution.getNurses())
+        for(auto const &nurse : solution.getNurses())
         {
-            cerr << nurse->getNurse()->getId() << " has: ";
-            for(Turn* turn : nurse->getTurns())
+            cerr << nurse.second->getNurse()->getId() << " has: ";
+            for(Turn* turn : nurse.second->getTurns())
             {
                 cerr << turn->getShiftType()->getId() << "/" << turn->getSkill() << "/" << turn->getDay() << ",";
             }

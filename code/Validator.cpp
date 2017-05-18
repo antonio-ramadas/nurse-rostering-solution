@@ -5,10 +5,10 @@
 #include "Validator.h"
 
 bool Validator::constraintH1(const Solution &solution) {
-    vector<NurseSolution *> nurses = solution.getNurses();
-    for(NurseSolution * nurse : nurses)
+    map<string, NurseSolution *> nurses = solution.getNurses();
+    for(auto const &nurse : nurses)
     {
-        vector<Turn *> turns = nurse->getTurns();
+        vector<Turn *> turns = nurse.second->getTurns();
 
         int lastDay = -1;
 
@@ -36,12 +36,12 @@ bool Validator::constraintH2(const Solution &solution) {
 }
 
 bool Validator::constraintH3(const Solution &solution) {
-    vector<NurseSolution *> nurses = solution.getNurses();
-    for(NurseSolution * nurse : nurses)
+    map<string, NurseSolution *> nurses = solution.getNurses();
+    for(auto const &nurse : nurses)
     {
-        vector<Turn *> turns = nurse->getTurns();
+        vector<Turn *> turns = nurse.second->getTurns();
 
-        string lastShiftString = nurse->getNurse()->getHistory().getLastAssignedShiftType();
+        string lastShiftString = nurse.second->getNurse()->getHistory().getLastAssignedShiftType();
 
         int lastDay;
         ShiftType lastShift;
@@ -73,4 +73,15 @@ bool Validator::constraintH3(const Solution &solution) {
         }
     }
     return true;
+}
+
+unsigned int Validator::constraintS4(const Solution &solution){
+
+    unsigned int sum = 0;
+
+    for(ShiftOffRequest shiftOffRequest : Scenario::getInstance()->getWeekData().getShiftOffRequests())
+    {
+
+    }
+    return sum;
 }

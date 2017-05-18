@@ -75,3 +75,7 @@ void WeekData::parseShiftOffRequests(const json &j_arg) {
 const unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>> &WeekData::getRequirements() const {
     return requirements;
 }
+
+const vector<ShiftOffRequest> &WeekData::getShiftOffRequests() const {
+    return shiftOffRequests;
+}

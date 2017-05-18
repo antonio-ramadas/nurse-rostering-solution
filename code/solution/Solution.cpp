@@ -9,7 +9,7 @@ Solution::Solution(WeekData &weekData) {
 
     //create list of nurses with solution
     for (const Nurse &sce_nurses : Scenario::getInstance()->getNurses())
-        nurses.push_back(new NurseSolution(&sce_nurses));
+        nurses.insert(make_pair(sce_nurses.getId(),new NurseSolution(&sce_nurses)));
 
     using req_map = unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>>;
 
@@ -28,7 +28,7 @@ Solution::Solution(WeekData &weekData) {
     }
 }
 
-const vector<NurseSolution *> &Solution::getNurses() const {
+const map<string, NurseSolution *> &Solution::getNurses() const {
     return nurses;
 }
 
@@ -45,6 +45,8 @@ void Solution::randomizeSolution(){
     for (vector<Turn *> day : turns)
         for (Turn *type : day)
             if(random() < 2) {
-                type->addNurse(nurses[random()]);
+                auto iter = nurses.begin();
+                std::advance( iter, random() );
+                type->addNurse(iter->second);
             }
 }
