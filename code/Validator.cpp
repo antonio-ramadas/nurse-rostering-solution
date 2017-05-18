@@ -84,8 +84,9 @@ unsigned int Validator::constraintS1(const Solution &solution) {
 
     for(vector<Turn *> day : solution.getTurns())
         for(Turn * turn : day){
-            int nNurses = turn->getNurses().size();
-            int optimal = Scenario::getInstance()->getWeekData().getRequirements().at(turn->getSkill()).at(turn->getShiftType()->getId()).at(turn->getDay())->getOptimalCoverage();
+            unsigned long nNurses = turn->getNurses().size();
+            int optimal = Scenario::getInstance()->getWeekData().getRequirements().at(turn->getSkill()).at(turn->getShiftType()->getId()).at(
+                    (unsigned long) turn->getDay())->getOptimalCoverage();
             if(nNurses < optimal)
                 sum += 30 * (optimal - nNurses);
         }
@@ -94,7 +95,7 @@ unsigned int Validator::constraintS1(const Solution &solution) {
 
 unsigned int Validator::constraintS2(const Solution &solution){
 
-    int sum = 0;
+    unsigned int sum = 0;
 
     for(auto const &nurse : solution.getNurses())
         {
@@ -269,7 +270,7 @@ unsigned int Validator::evaluateSolution(const Solution &solution){
 
     unsigned int sum = 0;
 
-    //sum += constraintS1(solution);
+    sum += constraintS1(solution);
     sum += constraintS2(solution);
     sum += constraintS3(solution);
     sum += constraintS4(solution);
