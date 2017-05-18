@@ -101,12 +101,18 @@ unsigned int Validator::constraintS4(const Solution &solution) {
 }
 
 unsigned int Validator::constraintS6(const Solution &solution){
-    for(NurseSolution *nurse : solution.getNurses())
+
+    unsigned int sum = 0;
+
+    for(auto const &nurse : solution.getNurses())
     {
-        int totalAssignments = nurse->getNurse()->getHistory().getNumberOfAssignments();
-        totalAssignments += nurse->getTurns().size();
-        Contract contract = Scenario::getInstance()->getContract(nurse->getNurse()->getContract());
-        contract
+        int totalAssignments = nurse.second->getNurse()->getHistory().getNumberOfAssignments();
+        totalAssignments += nurse.second->getTurns().size();
+        Contract contract = Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract());
+        if(totalAssignments > contract.getMaximumNumberOfAssignments())
+            sum += 20 * totalAssignments-contract.getMaximumNumberOfAssignments();
+        else if (totalAssignments < contract.getMinimumNumberOfAssignments())
+            sum += 20 * contract.getMinimumNumberOfAssignments() - totalAssignments;
     }
-    return  1;
+    return  sum;
 }
