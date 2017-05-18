@@ -18,8 +18,11 @@ class Solution {
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
+    bool isNurseWorkingOnSameDay(const Turn *turn, const NurseSolution *nurseSolution) const;
 public:
     Solution(WeekData &weekData);
+
+    virtual ~Solution();
 
     const map<string, NurseSolution *> &getNurses() const;
 
@@ -41,7 +44,7 @@ public:
 
     void randomizeSolution();
 
-    virtual ~Solution();
+    bool assignNurse(Nurse *nurse, Turn *turn);
 };
 
 

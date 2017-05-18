@@ -63,7 +63,6 @@ public:
     //TODO Total working weekends
     // Cost: 30
     static unsigned int constraintS7(const Solution &solution);
-
 };
 
 

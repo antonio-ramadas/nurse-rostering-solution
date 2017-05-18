@@ -3,7 +3,9 @@
 //
 
 #include <chrono>
+#include <opencl-c.h>
 #include "Solution.h"
+#include "../Validator.h"
 
 Solution::Solution(WeekData &weekData) {
 
@@ -55,4 +57,26 @@ Solution::~Solution() {
     for(vector<Turn*> day : turns)
         for(Turn* turn : day)
             delete turn;
+}
+
+bool Solution::assignNurse(Nurse *nurse, Turn *turn) {
+    NurseSolution *nurseSolution = nurses.at(nurse->getId());
+
+    //Single assignment per day: A nurse can be assigned to at most one shift per day.
+    if (isNurseWorkingOnSameDay(turn, nurseSolution))
+        return false;
+
+    //Shift type successions: The shift type assignments of one nurse in two consecutive days must belong to
+    // the legal successions provided in the scenario.
+
+
+    //Missing required skill: A shift of a given skill must necessarily be fulfilled by a nurse having that skill.
+
+    return true;
+}
+
+bool Solution::isNurseWorkingOnSameDay(const Turn *turn, const NurseSolution *nurseSolution) const {
+    return any_of(begin(nurseSolution->getTurns()), end(nurseSolution->getTurns()), [](Turn* turnElem) -> {
+         return turnElem->getDay() == turn->getDay();
+    });
 }
