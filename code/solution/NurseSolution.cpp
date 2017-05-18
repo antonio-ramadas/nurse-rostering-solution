@@ -61,6 +61,10 @@ const bool NurseSolution::hasSkillToWork(const Turn *turn) const {
 }
 
 const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
+
+    if (nurse->getHistory().getLastAssignedShiftType() == "None")
+        return false;
+
     return Scenario::getInstance()->getShifts()
             .at(nurse->getHistory().getLastAssignedShiftType())
             .isForbidden(pTurn->getShiftType()->getId());
