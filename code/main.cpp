@@ -33,9 +33,7 @@ int main(int argc, char *argv[])
 
     sol->randomizeSolution();
 
-    while(Validator::constraintH1(*sol) == false ||  Validator::constraintH3(*sol) == false) {
-        cerr << "Error - Hard Constraints violation" << endl;
-        return -1;
+    while(Validator::constraintH1(*sol) == false /*|| Validator::constraintH2(*sol) == false */||  Validator::constraintH3(*sol) == false) {
         delete sol;
         sol = new Solution(weekData);
         sol->randomizeSolution();
@@ -64,7 +62,9 @@ int main(int argc, char *argv[])
         cout << "H3 constraint : " << "false";
     cout << endl;
 
-    cout << "S4 constraint : " << Validator::constraintS4(*sol);
+    cout << "S2 constraint : " << Validator::constraintS2(*sol) << endl;
+    cout << "S4 constraint : " << Validator::constraintS4(*sol) << endl;
+    cout << "S7 constraint : " << Validator::constraintS7(*sol) << endl;
 
     //Dump result
 
