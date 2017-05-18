@@ -3,12 +3,13 @@
 //
 
 #include "Requirement.h"
+#include "Scenario.h"
 
 Requirement::Requirement(string shiftType, string skill, const json &daysRequirements) {
     this->shiftType = shiftType;
     this->skill = skill;
 
-    const vector<string> DaysOfTheWeekVector {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    const vector<string> DaysOfTheWeekVector = Scenario::getInstance()->getDaysOfTheWeekVector();
 
     string requirementTxt = "requirementOn";
 

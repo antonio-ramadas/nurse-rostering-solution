@@ -30,6 +30,8 @@ private:
 
     WeekData weekData;
 
+    const vector<string> DaysOfTheWeekVector {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
     void parseShiftTypes(const json &j);
     void parseForbiddenShiftTypeSuccessions(const json &j);
     void parseContracts(const json &j);
@@ -54,6 +56,10 @@ public:
     const WeekData &getWeekData() const;
 
     void setWeekData(const WeekData &weekData);
+
+    const vector<string> &getDaysOfTheWeekVector();
+
+    const int getDayOfWeek(const string);
 };
 
 

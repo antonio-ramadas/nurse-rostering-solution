@@ -81,7 +81,19 @@ unsigned int Validator::constraintS4(const Solution &solution){
 
     for(ShiftOffRequest shiftOffRequest : Scenario::getInstance()->getWeekData().getShiftOffRequests())
     {
+        NurseSolution *nurseSolution = solution.getNurses().at(shiftOffRequest.getNurse());
+        string shiftType = shiftOffRequest.getShiftType();
 
+        int day = Scenario::getInstance()->getDayOfWeek(shiftOffRequest.getDay());
+
+        vector<Turn*> nurseTurns = nurseSolution->getTurns();
+        for(Turn* turn : nurseTurns){
+            if(turn->getDay() == day)
+            {
+                if(shiftType == "Any" || shiftType == turn->getShiftType()->getId())
+                    sum += 10;
+            }
+        }
     }
     return sum;
 }

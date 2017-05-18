@@ -41,17 +41,27 @@ int main(int argc, char *argv[])
 
     cerr << *sol;
 
-    if(Validator::constraintH3(*sol) )
-        cerr << "H3 constraint : " << "true";
-    else
-        cerr << "H3 constraint : " << "false";
-    cerr << endl;
+
 
     if(Validator::constraintH1(*sol) )
         cerr << "H1 constraint : " << "true";
     else
         cerr << "H1 constraint : " << "false";
     cerr << endl;
+
+    /*if(Validator::constraintH2(*sol) )
+        cerr << "H2 constraint : " << "true";
+    else
+        cerr << "H2 constraint : " << "false";
+    cerr << endl;*/
+
+    if(Validator::constraintH3(*sol) )
+        cerr << "H3 constraint : " << "true";
+    else
+        cerr << "H3 constraint : " << "false";
+    cerr << endl;
+
+    cerr << "S4 constraint : " << Validator::constraintS4(*sol);
 
     //Dump result
 
