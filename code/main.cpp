@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
     cout << "S2 constraint : " << Validator::constraintS2(*sol) << endl;
     cout << "S4 constraint : " << Validator::constraintS4(*sol) << endl;
-    cout << "S6 constraint : " << Validator::constraintS6(*sol) << endl;
+    cout << "S7 constraint : " << Validator::constraintS7(*sol) << endl;
 
     //Dump result
 

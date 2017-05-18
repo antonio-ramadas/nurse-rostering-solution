@@ -235,8 +235,10 @@ unsigned int Validator::constraintS7(const Solution &solution){
     {
         int numberOfWorkingWeekends = nurse.second->getNurse()->getHistory().getNumberOfWorkingWeekends();
 
-        if(nurse.second->getTurns()[nurse.second->getTurns().size() - 1]->getDay() == 6 || nurse.second->getTurns()[nurse.second->getTurns().size() - 1]->getDay() == 5)
-            numberOfWorkingWeekends++;
+
+        if(nurse.second->getTurns().size() > 0)
+            if(nurse.second->getTurns()[nurse.second->getTurns().size() - 1]->getDay() == 6 || nurse.second->getTurns()[nurse.second->getTurns().size() - 1]->getDay() == 5)
+                numberOfWorkingWeekends++;
 
         if(numberOfWorkingWeekends > Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfWorkingWeekends())
             sum += 30 * (numberOfWorkingWeekends - Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfWorkingWeekends());
