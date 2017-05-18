@@ -47,7 +47,8 @@ void Solution::randomizeSolution(){
             if(random() < 3) {
                 auto iter = nurses.begin();
                 std::advance( iter, random() );
-                type->addNurse(iter->second);
+                assignNurse(iter->second, type);
+                //type->addNurse(iter->second);
             }
 }
 
@@ -57,8 +58,7 @@ Solution::~Solution() {
             delete turn;
 }
 
-bool Solution::assignNurse(Nurse *nurse, Turn *turn) {
-    NurseSolution *nurseSolution = nurses.at(nurse->getId());
+bool Solution::assignNurse(NurseSolution *nurseSolution, Turn *turn) {
 
     if (!nurseSolution->canWork(turn))
         return false;

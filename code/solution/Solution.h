@@ -44,7 +44,7 @@ public:
 
     void randomizeSolution();
 
-    bool assignNurse(Nurse *nurse, Turn *turn);
+    bool assignNurse(NurseSolution *nurseSolution, Turn *turn);
 };
 
 

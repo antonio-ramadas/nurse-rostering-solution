@@ -33,11 +33,11 @@ int main(int argc, char *argv[])
 
     sol->randomizeSolution();
 
-    while(Validator::constraintH1(*sol) == false || Validator::constraintH2(*sol) == false ||  Validator::constraintH3(*sol) == false) {
+    while(Validator::constraintH1(*sol) == false ||  Validator::constraintH3(*sol) == false) {
         delete sol;
         sol = new Solution(weekData);
         sol->randomizeSolution();
-        //cout << *sol << endl;
+        cout << *sol << endl;
     }
 
     cout << *sol << endl;
