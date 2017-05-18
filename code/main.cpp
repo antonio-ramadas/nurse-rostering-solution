@@ -34,6 +34,8 @@ int main(int argc, char *argv[])
     sol->randomizeSolution();
 
     while(Validator::constraintH1(*sol) == false ||  Validator::constraintH3(*sol) == false) {
+        cerr << "Error - Hard Constraints violation" << endl;
+        return -1;
         delete sol;
         sol = new Solution(weekData);
         sol->randomizeSolution();

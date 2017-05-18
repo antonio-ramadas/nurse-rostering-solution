@@ -2,6 +2,7 @@
 // Created by António Ramadas on 02/03/2017.
 //
 
+#include <iostream>
 #include "ShiftType.h"
 
 ShiftType::ShiftType(const string &id, const int &min, const int &max) {
@@ -30,8 +31,17 @@ int ShiftType::getMaximumNumberOfConsecutiveAssignments() const {
     return maximumNumberOfConsecutiveAssignments;
 }
 
-const bool ShiftType::isForbidden(const string &shiftId) const {
-    return any_of(begin(forbiddenSucceedingShiftTypes), end(forbiddenSucceedingShiftTypes), [&](string shift) {
+const bool ShiftType::isForbiddenShift(const string &shiftId) const {
+    bool ret = any_of(begin(forbiddenSucceedingShiftTypes), end(forbiddenSucceedingShiftTypes), [&](string shift) {
         return shift == shiftId;
     });
+
+    cout << " (" << ret << " = ";
+
+    for (string forbid : forbiddenSucceedingShiftTypes)
+        cout << forbid << ",";
+
+    cout << ") ";
+
+    return ret;
 }

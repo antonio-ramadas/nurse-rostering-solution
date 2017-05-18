@@ -37,6 +37,8 @@ public:
     const Nurse *getNurse() const;
 
     const bool canWork(const Turn* turn);
+
+    bool hasTurnConflict(const Turn *turn) const;
 };
 
 

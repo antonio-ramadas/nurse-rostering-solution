@@ -28,7 +28,7 @@ public:
 
     int getMaximumNumberOfConsecutiveAssignments() const;
 
-    const bool isForbidden(const string& shiftId) const;
+    const bool isForbiddenShift(const string &shiftId) const;
 };
 
 

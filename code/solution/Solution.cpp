@@ -19,6 +19,7 @@ Solution::Solution(WeekData &weekData) {
 
         for (pair<string,ShiftType> const &shift :  Scenario::getInstance()->getShifts()) {
             ShiftType* shiftType = new ShiftType(shift.second.getId(),shift.second.getMinimumNumberOfConsecutiveAssignments(),shift.second.getMaximumNumberOfConsecutiveAssignments());
+            shiftType->setForbidden(shift.second.getForbiddenSucceedingShiftTypes());
             for(string skill : Scenario::getInstance()->getSkills()) {
                 Turn *turn = new Turn(j, skill, shiftType);
                 shifts.push_back(turn);
@@ -64,7 +65,6 @@ bool Solution::assignNurse(NurseSolution *nurseSolution, Turn *turn) {
         return false;
 
     turn->addNurse(nurseSolution);
-    nurseSolution->addTurn(turn);
 
     return true;
 }
