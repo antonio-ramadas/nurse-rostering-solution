@@ -44,7 +44,7 @@ void Solution::randomizeSolution(){
 
     for (vector<Turn *> day : turns)
         for (Turn *type : day)
-            if(random() < 3) {
+            if(random() < 2) {
                 auto iter = nurses.begin();
                 std::advance( iter, random() );
                 type->addNurse(iter->second);
