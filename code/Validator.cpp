@@ -99,3 +99,14 @@ unsigned int Validator::constraintS4(const Solution &solution) {
 
     return sum;
 }
+
+unsigned int Validator::constraintS6(const Solution &solution){
+    for(NurseSolution *nurse : solution.getNurses())
+    {
+        int totalAssignments = nurse->getNurse()->getHistory().getNumberOfAssignments();
+        totalAssignments += nurse->getTurns().size();
+        Contract contract = Scenario::getInstance()->getContract(nurse->getNurse()->getContract());
+        contract
+    }
+    return  1;
+}
