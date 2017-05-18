@@ -75,25 +75,24 @@ bool Validator::constraintH3(const Solution &solution) {
     return true;
 }
 
-unsigned int Validator::constraintS4(const Solution &solution){
+unsigned int Validator::constraintS4(const Solution &solution) {
 
     unsigned int sum = 0;
 
-    for(ShiftOffRequest shiftOffRequest : Scenario::getInstance()->getWeekData().getShiftOffRequests())
-    {
+    for(ShiftOffRequest shiftOffRequest : Scenario::getInstance()->getWeekData().getShiftOffRequests()) {
+
         NurseSolution *nurseSolution = solution.getNurses().at(shiftOffRequest.getNurse());
         string shiftType = shiftOffRequest.getShiftType();
 
         int day = Scenario::getInstance()->getDayOfWeek(shiftOffRequest.getDay());
 
         vector<Turn*> nurseTurns = nurseSolution->getTurns();
-        for(Turn* turn : nurseTurns){
-            if(turn->getDay() == day)
-            {
-                if(shiftType == "Any" || shiftType == turn->getShiftType()->getId())
-                    sum += 10;
-            }
-        }
+
+        for_each(begin(nurseTurns), end(nurseTurns), [&](Turn *turn) {
+            if(turn->getDay() == day && (shiftType == "Any" || shiftType == turn->getShiftType()->getId()))
+                sum += 10;
+        });
     }
+
     return sum;
 }
