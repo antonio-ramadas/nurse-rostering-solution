@@ -23,13 +23,13 @@ bool Validator::constraintH1(const Solution &solution) {
 
 bool Validator::constraintH2(const Solution &solution) {
 
-    using req_map = unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>>;
+    using req_map = unordered_map<string, unordered_map<string, vector<DayRequirement*>>>;
 
     const req_map &requirements = Scenario::getInstance()->getWeekData().getRequirements();
 
     for (unsigned int day = 0; day < solution.getTurns().size(); day++)
         for (Turn *turn : solution.getTurns().at(day))
-            if (requirements.at(turn->getSkill()).at(const_cast<ShiftType*>(turn->getShiftType())).at(day)->getMinimumCoverage() < turn->getNurses().size())
+            if (requirements.at(turn->getSkill()).at(turn->getShiftType()->getId()).at(day)->getMinimumCoverage() < turn->getNurses().size())
                 return false;
 
     return true;

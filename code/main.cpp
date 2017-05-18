@@ -33,10 +33,12 @@ int main(int argc, char *argv[])
 
     sol->randomizeSolution();
 
-    while(Validator::constraintH1(*sol) == 0) {
+    while(Validator::constraintH1(*sol) == false || /*Validator::constraintH2(*sol) == false || */ Validator::constraintH3(*sol) == false) {
         delete sol;
         sol = new Solution(weekData);
         sol->randomizeSolution();
+        cerr << endl;
+        cerr << *sol;
     }
 
     cerr << *sol;
@@ -49,11 +51,11 @@ int main(int argc, char *argv[])
         cerr << "H1 constraint : " << "false";
     cerr << endl;
 
-    /*if(Validator::constraintH2(*sol) )
+    if(Validator::constraintH2(*sol) )
         cerr << "H2 constraint : " << "true";
     else
         cerr << "H2 constraint : " << "false";
-    cerr << endl;*/
+    cerr << endl;
 
     if(Validator::constraintH3(*sol) )
         cerr << "H3 constraint : " << "true";
