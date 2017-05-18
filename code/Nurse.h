@@ -19,6 +19,8 @@ private:
 public:
     Nurse(const string &id, const string &contract, const vector<string> &skills);
 
+    const bool hasSkill(const string &skill) const;
+
     const string &getId() const;
 
     void setId(const string &id);

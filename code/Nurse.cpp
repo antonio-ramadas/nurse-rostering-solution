@@ -41,3 +41,9 @@ const History &Nurse::getHistory() const {
 void Nurse::setHistory(const History &history) {
     Nurse::history = history;
 }
+
+const bool Nurse::hasSkill(const string &skill) const {
+    return any_of(begin(skills), end(skills), [&](string skillElem) {
+        return skill == skillElem;
+    });
+}

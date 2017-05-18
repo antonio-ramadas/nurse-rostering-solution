@@ -53,7 +53,9 @@ const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
 }
 
 const bool NurseSolution::hasSkillToWork(const Turn *turn) const {
-    return 0;
+    return any_of(begin(nurse->getSkills()), end(nurse->getSkills()), [&](string skill) {
+        return nurse->hasSkill(skill);
+    });
 }
 
 
