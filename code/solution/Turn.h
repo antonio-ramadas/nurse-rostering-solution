@@ -20,8 +20,6 @@ class Turn {
     const ShiftType* shiftType;
     const string skill;
     const int day;
-public:
-    const string &getSkill() const;
 
 public:
     Turn(const int day, const string &skill, const ShiftType *shiftType);
@@ -35,6 +33,9 @@ public:
     const ShiftType* getShiftType() const;
 
     const int getDay() const;
+
+    const string &getSkill() const;
+
 };
 
 

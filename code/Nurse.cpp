@@ -2,6 +2,7 @@
 // Created by António Ramadas on 02/03/2017.
 //
 
+#include <iostream>
 #include "Nurse.h"
 
 Nurse::Nurse(const string &id, const string &contract, const vector<string> &skills) {
