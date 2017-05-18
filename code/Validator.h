@@ -44,7 +44,7 @@ public:
     // Cost: 30
     static unsigned int constraintS3(const Solution &solution);
 
-    //TODO Preferences
+    //Preferences
     // Cost: 10
     static unsigned int constraintS4(const Solution &solution);
 
