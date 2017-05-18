@@ -154,6 +154,8 @@ unsigned int Validator::constraintS3(const Solution &solution) {
             lastDay = turn->getDay();
         }
     }
+
+    return sum;
 }
 
 
@@ -220,10 +222,12 @@ bool Validator::nurseWorkingWeekEnd(NurseSolution *nurse){
         if(turns[turns.size() - 1]->getDay() == 5)
             return false;
     }
-    else if(turns.size() == 1)
-        if(turns[0]->getDay() == 6 || turns[0]->getDay() == 5)
+    else if(turns.size() == 1) {
+        if (turns[0]->getDay() == 6 || turns[0]->getDay() == 5)
             return false;
-    else return true;
+    }
+
+    return true;
 }
 
 
@@ -251,7 +255,7 @@ unsigned int Validator::evaluateSolution(const Solution &solution){
 
     unsigned int sum = 0;
 
-    sum += constraintS1(solution);
+    //sum += constraintS1(solution);
     sum += constraintS2(solution);
     sum += constraintS3(solution);
     sum += constraintS4(solution);
