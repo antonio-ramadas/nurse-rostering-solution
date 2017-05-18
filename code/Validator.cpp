@@ -246,3 +246,19 @@ unsigned int Validator::constraintS7(const Solution &solution){
     }
     return sum;
 }
+
+unsigned int Validator::evaluateSolution(const Solution &solution){
+
+    unsigned int sum = 0;
+
+    sum += constraintS1(solution);
+    sum += constraintS2(solution);
+    sum += constraintS3(solution);
+    sum += constraintS4(solution);
+    sum += constraintS5(solution);
+    sum += constraintS6(solution);
+    sum += constraintS7(solution);
+
+    return sum;
+
+}

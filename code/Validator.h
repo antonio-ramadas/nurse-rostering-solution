@@ -66,6 +66,8 @@ public:
     // Cost: 30
     static unsigned int constraintS7(const Solution &solution);
 
+    static unsigned int evaluateSolution(const Solution &solution);
+
 };
 
 
