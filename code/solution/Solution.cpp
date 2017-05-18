@@ -60,16 +60,11 @@ Solution::~Solution() {
 bool Solution::assignNurse(Nurse *nurse, Turn *turn) {
     NurseSolution *nurseSolution = nurses.at(nurse->getId());
 
-    //Single assignment per day: A nurse can be assigned to at most one shift per day.
-    if (nurseSolution->canWork(turn))
+    if (!nurseSolution->canWork(turn))
         return false;
 
-    //Shift type successions: The shift type assignments of one nurse in two consecutive days must belong to
-    // the legal successions provided in the scenario.
-    
-
-
-    //Missing required skill: A shift of a given skill must necessarily be fulfilled by a nurse having that skill.
+    turn->addNurse(nurseSolution);
+    nurseSolution->addTurn(turn);
 
     return true;
 }
