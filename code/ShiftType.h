@@ -24,6 +24,10 @@ public:
     const string &getId() const;
     const vector<string> &getForbiddenSucceedingShiftTypes() const;
 
+    int getMinimumNumberOfConsecutiveAssignments() const;
+
+    int getMaximumNumberOfConsecutiveAssignments() const;
+
 };
 
 

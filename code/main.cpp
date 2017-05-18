@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
     cerr << "Number of Turns : " << sol->getTurns().size() << endl;
 
 
+
     sol->randomizeSolution();
 
     while(Validator::constraintH1(*sol) == 0) {

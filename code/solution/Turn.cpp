@@ -3,6 +3,7 @@
 //
 
 #include <algorithm>
+#include <iostream>
 #include "Turn.h"
 
 Turn::Turn(int day, const ShiftType *shiftType) : shiftType(shiftType), day(day) {}

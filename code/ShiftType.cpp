@@ -21,3 +21,11 @@ const string &ShiftType::getId() const {
 const vector<string> &ShiftType::getForbiddenSucceedingShiftTypes() const {
     return forbiddenSucceedingShiftTypes;
 }
+
+int ShiftType::getMinimumNumberOfConsecutiveAssignments() const {
+    return minimumNumberOfConsecutiveAssignments;
+}
+
+int ShiftType::getMaximumNumberOfConsecutiveAssignments() const {
+    return maximumNumberOfConsecutiveAssignments;
+}

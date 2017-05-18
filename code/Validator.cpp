@@ -48,13 +48,23 @@ bool Validator::constraintH3(const Solution &solution) {
                 lastShift = Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId());
                 lastDay = turn->getDay();
             }
-            else if(find(lastShift.getForbiddenSucceedingShiftTypes().begin(), lastShift.getForbiddenSucceedingShiftTypes().end(), turn->getShiftType()->getId()) != lastShift.getForbiddenSucceedingShiftTypes().end()
-               || lastDay != turn->getDay() - 1){
-                cerr << "test:" << turn->getShiftType()->getId();
+            else if(find(lastShift.getForbiddenSucceedingShiftTypes().begin(), lastShift.getForbiddenSucceedingShiftTypes().end(), turn->getShiftType()->getId()) == lastShift.getForbiddenSucceedingShiftTypes().end()
+               || lastDay != (turn->getDay() - 1)){
                 lastShift = Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId());
                 lastDay = turn->getDay();
             }
-            else return false;
+            else
+            {
+                cerr << "Nurse error - " << nurse->getNurse()->getId() << " on day " << turn->getDay() << " on turn " << turn->getShiftType()->getId() << endl;
+
+                cerr << "Encontrou shift ( " << turn->getShiftType()->getId() << ") em " << (find(lastShift.getForbiddenSucceedingShiftTypes().begin(), lastShift.getForbiddenSucceedingShiftTypes().end(), turn->getShiftType()->getId()) != lastShift.getForbiddenSucceedingShiftTypes().end() ? "yes" : "no") << endl;
+
+                for(string s : lastShift.getForbiddenSucceedingShiftTypes())
+                    cerr << s << endl;
+
+                cerr << "Dia mal - " << (lastDay != (turn->getDay() - 1) ? "yes" : "no") << endl;
+                return false;
+            }
         }
     }
     return true;

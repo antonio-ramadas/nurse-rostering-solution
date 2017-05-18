@@ -31,7 +31,7 @@ public:
             cerr << nurse->getNurse()->getId() << " has: ";
             for(Turn* turn : nurse->getTurns())
             {
-                cerr <<  turn->getDay() << ",";
+                cerr << turn->getShiftType()->getId() << "/" << turn->getDay() << ",";
             }
             cerr << endl;
         }
