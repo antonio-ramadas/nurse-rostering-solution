@@ -17,3 +17,35 @@ Contract::Contract(const string &id, const int &minAssignments, const int &maxAs
     maximumNumberOfWorkingWeekends = WorkingWeekends;
     this->completeWeekends = completeWeekends;
 }
+
+int Contract::getMinimumNumberOfAssignments() const {
+    return minimumNumberOfAssignments;
+}
+
+int Contract::getMaximumNumberOfAssignments() const {
+    return maximumNumberOfAssignments;
+}
+
+int Contract::getMinimumNumberOfConsecutiveWorkingDays() const {
+    return minimumNumberOfConsecutiveWorkingDays;
+}
+
+int Contract::getMaximumNumberOfConsecutiveWorkingDays() const {
+    return maximumNumberOfConsecutiveWorkingDays;
+}
+
+int Contract::getMinimumNumberOfConsecutiveDaysOff() const {
+    return minimumNumberOfConsecutiveDaysOff;
+}
+
+int Contract::getMaximumNumberOfConsecutiveDaysOff() const {
+    return maximumNumberOfConsecutiveDaysOff;
+}
+
+int Contract::getMaximumNumberOfWorkingWeekends() const {
+    return maximumNumberOfWorkingWeekends;
+}
+
+int Contract::getCompleteWeekends() const {
+    return completeWeekends;
+}

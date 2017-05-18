@@ -60,6 +60,8 @@ public:
     const vector<string> &getDaysOfTheWeekVector();
 
     const int getDayOfWeek(const string);
+
+    const Contract getContract(const string contract);
 };
 
 

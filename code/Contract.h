@@ -22,6 +22,22 @@ private:
             completeWeekends;
 public:
     Contract (const string &id, const int &minAssignments, const int &maxAssignments, const int &minWorkingDays, const int &maxWorkingDays, const int &minDaysOff, const int &maxDaysOff, const int &WorkingWeekends, const int &completeWeekends);
+
+    int getMinimumNumberOfAssignments() const;
+
+    int getMaximumNumberOfAssignments() const;
+
+    int getMinimumNumberOfConsecutiveWorkingDays() const;
+
+    int getMaximumNumberOfConsecutiveWorkingDays() const;
+
+    int getMinimumNumberOfConsecutiveDaysOff() const;
+
+    int getMaximumNumberOfConsecutiveDaysOff() const;
+
+    int getMaximumNumberOfWorkingWeekends() const;
+
+    int getCompleteWeekends() const;
 };
 
 

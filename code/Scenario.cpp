@@ -157,3 +157,7 @@ const int Scenario::getDayOfWeek(string dayWeek) {
             return i;
     return -1;
 }
+
+const Contract Scenario::getContract(const string contract){
+    return contracts.at(contract);
+}
