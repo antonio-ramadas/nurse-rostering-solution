@@ -112,7 +112,7 @@ Nurse & Scenario::findNurse(const string &name) {
     throw Exception(ExceptionsEnum::NurseNotFound, "Nurse " + name + " not found");
 }
 
-const map<string,ShiftType> &Scenario::getShifts() const {
+map<string,ShiftType> &Scenario::getShifts() {
     return shifts;
 }
 
@@ -137,4 +137,12 @@ Scenario* Scenario::getInstance() {
         scenario = new Scenario();
 
     return scenario;
+}
+
+const WeekData &Scenario::getWeekData() const {
+    return weekData;
+}
+
+void Scenario::setWeekData(const WeekData &weekData) {
+    Scenario::weekData = weekData;
 }

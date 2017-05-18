@@ -10,6 +10,7 @@
 #include "Nurse.h"
 #include "Reader.h"
 #include "Exception.h"
+#include "WeekData.h"
 #include <fstream>
 #include <vector>
 
@@ -27,6 +28,8 @@ private:
     map<string,Contract> contracts;
     vector<Nurse> nurses;
 
+    WeekData weekData;
+
     void parseShiftTypes(const json &j);
     void parseForbiddenShiftTypeSuccessions(const json &j);
     void parseContracts(const json &j);
@@ -40,13 +43,17 @@ public:
 
     void parseHistory(const string &path);
 
-    const map<string,ShiftType> &getShifts() const;
+    map<string,ShiftType> &getShifts();
 
     const vector<string> &getSkills() const;
 
     const vector<Nurse> &getNurses() const;
 
     int getNumberOfWeeks() const;
+
+    const WeekData &getWeekData() const;
+
+    void setWeekData(const WeekData &weekData);
 };
 
 

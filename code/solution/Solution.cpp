@@ -11,6 +11,8 @@ Solution::Solution(WeekData &weekData) {
     for (const Nurse &sce_nurses : Scenario::getInstance()->getNurses())
         nurses.push_back(new NurseSolution(&sce_nurses));
 
+    using req_map = unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>>;
+
     //hardcoded size of week
     for(int j = 0; j < 7; j++) {
         vector<Turn *> shifts;

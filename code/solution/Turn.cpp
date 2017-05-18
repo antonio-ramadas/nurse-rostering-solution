@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Turn.h"
 
-Turn::Turn(int day, const ShiftType *shiftType) : shiftType(shiftType), day(day) {}
+Turn::Turn(const string &skill, const ShiftType *shiftType) : shiftType(shiftType), skill(skill) {}
 
 bool Turn::addNurse(NurseSolution * nurse){
     if(!exitsNurse(nurse)) {
@@ -21,10 +21,14 @@ bool Turn::exitsNurse(NurseSolution * nurse) {
     return find(nurses.begin(), nurses.end(),nurse)!=nurses.end();
 }
 
-int Turn::getDay() const {
-    return day;
+const vector<NurseSolution *, allocator<NurseSolution *>> &Turn::getNurses() const {
+    return nurses;
 }
 
 const ShiftType *Turn::getShiftType() const {
     return shiftType;
+}
+
+const string &Turn::getSkill() const {
+    return skill;
 }

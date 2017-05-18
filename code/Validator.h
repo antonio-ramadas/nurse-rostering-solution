@@ -5,7 +5,7 @@
 #ifndef NRS_VALIDATOR_H
 #define NRS_VALIDATOR_H
 
-
+#include <unordered_map>
 #include "solution/Solution.h"
 #include <cstddef>
 
@@ -23,7 +23,7 @@ public:
     //TODO Under-staffing
     static bool constraintH2(const Solution &solution);
 
-    //TODO Shift type successions
+    //Shift type successions
     static bool constraintH3(const Solution &solution);
 
     //TODO Missing required skill

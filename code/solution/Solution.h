@@ -35,6 +35,8 @@ public:
             }
             cerr << endl;
         }
+
+        return stream;
     };
 
     void randomizeSolution();

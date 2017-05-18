@@ -12,13 +12,26 @@ bool Validator::constraintH1(const Solution &solution) {
 
         int lastDay = -1;
 
-        for(Turn * turn : turns){
-            int current = turn->getDay();
+        for(int current = 0; current < turns.size(); current++) {
             if(lastDay != current)
                 lastDay = current;
             else return false;
         }
     }
+    return true;
+}
+
+bool Validator::constraintH2(const Solution &solution) {
+
+    using req_map = unordered_map<string, unordered_map<ShiftType*, vector<DayRequirement*>>>;
+
+    const req_map &requirements = Scenario::getInstance()->getWeekData().getRequirements();
+
+    for (unsigned int day = 0; day < solution.getTurns().size(); day++)
+        for (Turn *turn : solution.getTurns().at(day))
+            if (requirements.at(turn->getSkill()).at(const_cast<ShiftType*>(turn->getShiftType())).at(day)->getMinimumCoverage() < turn->getNurses().size())
+                return false;
+
     return true;
 }
 
