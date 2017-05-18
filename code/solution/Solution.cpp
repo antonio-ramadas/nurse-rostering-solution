@@ -3,9 +3,7 @@
 //
 
 #include <chrono>
-#include <opencl-c.h>
 #include "Solution.h"
-#include "../Validator.h"
 
 Solution::Solution(WeekData &weekData) {
 
