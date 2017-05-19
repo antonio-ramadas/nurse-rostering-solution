@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     //Compute
 
-    Solution* sol = new Solution(weekData);
+    Solution* sol = new Solution();
 
     cout << "Number of Nurses : " << sol->getNurses().size() << endl;
 
@@ -32,13 +32,6 @@ int main(int argc, char *argv[])
     cout << endl;
 
     sol->randomizeSolution();
-
-    while(Validator::constraintH1(*sol) == false /*|| Validator::constraintH2(*sol) == false */||  Validator::constraintH3(*sol) == false) {
-        delete sol;
-        sol = new Solution(weekData);
-        sol->randomizeSolution();
-        cout << *sol << endl;
-    }
 
     cout << *sol << endl;
 
@@ -62,9 +55,6 @@ int main(int argc, char *argv[])
         cout << "H3 constraint : " << "false";
     cout << endl;
 
-    cout << "S1 constraint : " << Validator::constraintS1(*sol) << endl;
-    cout << "S4 constraint : " << Validator::constraintS4(*sol) << endl;
-    cout << "S7 constraint : " << Validator::constraintS7(*sol) << endl;
     cout << "Solution evaluated : " << Validator::evaluateSolution(*sol) << endl;
 
     //Dump result

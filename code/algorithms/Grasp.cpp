@@ -19,7 +19,7 @@ Solution* Grasp::run(bool random){
     {
         for(int i = 0; i < initialSolutions; i++)
         {
-            Solution* newSol = new Solution(*weekData);
+            Solution* newSol = new Solution();
 
             newSol->randomizeSolution();
 

@@ -18,9 +18,14 @@ class Solution {
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
+    bool randomIteration();
+
+    void createNursesAndTurns();
+
+    void deleteNursesAndTurns();
 
 public:
-    Solution(WeekData &weekData);
+    Solution();
 
     virtual ~Solution();
 
@@ -45,6 +50,8 @@ public:
     void randomizeSolution();
 
     bool assignNurse(NurseSolution *nurseSolution, Turn *turn);
+
+    void resetSolution();
 };
 
 
