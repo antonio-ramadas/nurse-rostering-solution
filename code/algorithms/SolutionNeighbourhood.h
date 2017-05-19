@@ -12,6 +12,7 @@ class SolutionNeighbourhood {
 
     Solution* solution;
 
+
 public:
     SolutionNeighbourhood(Solution* solution);
 

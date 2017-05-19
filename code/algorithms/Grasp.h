@@ -11,14 +11,12 @@
 
 class Grasp {
 
-    WeekData* weekData;
-
     int initialSolutions = 10;
 
 public:
-    Grasp(WeekData* weekData);
+    Grasp();
 
-    Grasp(WeekData* weekData, int initialSolutions);
+    Grasp( int initialSolutions);
 
     Solution* run(bool random);
 

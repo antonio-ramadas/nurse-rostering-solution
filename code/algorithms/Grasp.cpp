@@ -6,9 +6,9 @@
 #include "../Validator.h"
 #include "HillClimbing.h"
 
-Grasp::Grasp(WeekData* weekData) : weekData(weekData){}
+Grasp::Grasp() {}
 
-Grasp::Grasp(WeekData* weekData, int initialSolutions) : weekData(weekData), initialSolutions(initialSolutions){}
+Grasp::Grasp(int initialSolutions) : initialSolutions(initialSolutions){}
 
 Solution* Grasp::run(bool random){
 
