@@ -47,6 +47,8 @@ public:
     const bool assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn);
 
     const bool removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn);
+
+    const bool removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
 };
 
 

@@ -30,8 +30,8 @@ const Nurse *NurseSolution::getNurse() const {
     return nurse;
 }
 
-const bool NurseSolution::canWork(const Turn *turn) {
-    return isSingleAssignment(turn) && isLegalSuccession(turn) && hasSkillToWork(turn);
+const bool NurseSolution::canWork(const Turn *turnToAssign, const Turn *turnToIgnore) {
+    return isSingleAssignment(turnToAssign) && isLegalSuccession(turnToAssign) && hasSkillToWork(turnToAssign);
 }
 
 const bool NurseSolution::isSingleAssignment(const Turn *turn) const {
@@ -81,5 +81,3 @@ const bool NurseSolution::removeTurn(const Turn *turn) {
 
     return true;
 }
-
-

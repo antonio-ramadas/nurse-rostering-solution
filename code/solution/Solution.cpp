@@ -61,7 +61,7 @@ Solution::~Solution() {
 
 const bool Solution::assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn) {
 
-    if (!nurseSolution->canWork(turn))
+    if (!nurseSolution->canWork(turn, nullptr))
         return false;
 
     turn->addNurse(nurseSolution);
@@ -71,4 +71,15 @@ const bool Solution::assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn)
 
 const bool Solution::removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn) {
     return turn->removeTurn(nurseSolution);
+}
+
+const bool Solution::removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign) {
+
+    if (!nurseSolution->turnExists(turnToRemove))
+        return false;
+
+    removeNurseFromTurn(nurseSolution, turnToRemove);
+    assignNurseToTurn(nurseSolution, turnToAssign);
+
+    return true;
 }
