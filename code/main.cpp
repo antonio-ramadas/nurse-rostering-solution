@@ -3,9 +3,7 @@
 //
 
 #include "Scenario.h"
-#include "WeekData.h"
 #include "Validator.h"
-#include "solution/Solution.h"
 #include "Writter.h"
 #include "algorithms/Grasp.h"
 

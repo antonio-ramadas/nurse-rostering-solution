@@ -23,7 +23,6 @@ void Writter::WriteSolutionToJSONFile(const Solution *solution) {
                         {"skill", turn->getSkill()}
                 });
 
-    cout << j.dump(4) << endl;
     ofstream fout("./../output/" + Scenario::getInstance()->getId() + ".json");
     fout << setw(4) << j;
     fout.close();
