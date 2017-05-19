@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "Nurse.h"
 
 Nurse::Nurse(const string &id, const string &contract, const vector<string> &skills) {
