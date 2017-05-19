@@ -6,6 +6,7 @@
 #include "WeekData.h"
 #include "Validator.h"
 #include "solution/Solution.h"
+#include "Writter.h"
 
 using namespace std;
 
@@ -58,6 +59,7 @@ int main(int argc, char *argv[])
     cout << "Solution evaluated : " << Validator::evaluateSolution(*sol) << endl;
 
     //Dump result
+    Writter::WriteSolutionToJSONFile(nullptr);
 
     return EXIT_SUCCESS;
 }
