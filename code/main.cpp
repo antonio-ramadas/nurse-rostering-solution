@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     cout << "Solution evaluated : " << Validator::evaluateSolution(*sol) << endl;
 
     //Dump result
-    Writter::WriteSolutionToJSONFile(nullptr);
+    Writter::WriteSolutionToJSONFile(sol);
 
     return EXIT_SUCCESS;
 }

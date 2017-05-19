@@ -166,3 +166,7 @@ const Contract Scenario::getContract(const string contract){
 int Scenario::getCurrentWeek() const {
     return currentWeek;
 }
+
+const string &Scenario::getId() const {
+    return id;
+}

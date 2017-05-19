@@ -22,6 +22,10 @@ private:
     Scenario();
 
     string id;
+public:
+    const string &getId() const;
+
+private:
     int currentWeek;
 public:
     int getCurrentWeek() const;
