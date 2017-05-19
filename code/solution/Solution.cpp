@@ -5,8 +5,12 @@
 #include <chrono>
 #include "Solution.h"
 
-Solution::Solution(WeekData &weekData) {
+Solution::Solution() {
 
+    this->createNursesAndTurns();
+}
+
+void Solution::createNursesAndTurns() {
     //create list of nurses with solution
     for (const Nurse &sce_nurses : Scenario::getInstance()->getNurses())
         nurses.insert(make_pair(sce_nurses.getId(),new NurseSolution(&sce_nurses)));
@@ -29,6 +33,8 @@ Solution::Solution(WeekData &weekData) {
     }
 }
 
+
+
 const map<string, NurseSolution *> &Solution::getNurses() const {
     return nurses;
 }
@@ -38,25 +44,49 @@ const vector<vector<Turn *>> &Solution::getTurns() const {
 }
 
 void Solution::randomizeSolution(){
+    while(!this->randomIteration())
+    {
+        this->resetSolution();
+    }
+}
+
+bool Solution::randomIteration() {
     default_random_engine generator((unsigned int) chrono::system_clock::now().time_since_epoch().count());
     uniform_int_distribution<int> distribution(0, (int) nurses.size()-1);
 
     auto random = bind(distribution, generator);
 
     for (vector<Turn *> day : turns)
-        for (Turn *type : day)
-            if(random() < 2) {
+        for (Turn *turn : day) {
+            int requiredNurses = Scenario::getInstance()->getWeekData().getRequirements().at(turn->getSkill()).at(turn->getShiftType()->getId()).at(turn->getDay())->getMinimumCoverage();
+            int loop = 0;
+            for(int i = 0; i < requiredNurses;i++)
+            {
+                loop++;
                 auto iter = nurses.begin();
                 std::advance( iter, random() );
-                assignNurseToTurn(iter->second, type);
-                //type->addNurse(iter->second);
+                if(!assignNurse(iter->second, turn))
+                    i--;
+                if(loop > nurses.size()*2)
+                    return false;
             }
+        }
+    return true;
 }
 
 Solution::~Solution() {
+    this->deleteNursesAndTurns();
+}
+
+void Solution::deleteNursesAndTurns() {
     for(vector<Turn*> day : turns)
         for(Turn* turn : day)
             delete turn;
+    for(auto const &nurse: nurses)
+        delete nurse.second;
+
+    nurses.clear();
+    turns.clear();
 }
 
 const bool Solution::assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn) {
@@ -69,6 +99,9 @@ const bool Solution::assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn)
     return true;
 }
 
+void Solution::resetSolution(){
+    this->deleteNursesAndTurns();
+    this->createNursesAndTurns();
 const bool Solution::removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn) {
     return turn->removeTurn(nurseSolution);
 }

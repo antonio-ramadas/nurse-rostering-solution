@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "ShiftType.h"
 
 ShiftType::ShiftType(const string &id, const int &min, const int &max) {
