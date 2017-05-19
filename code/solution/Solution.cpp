@@ -65,7 +65,7 @@ bool Solution::randomIteration() {
                 loop++;
                 auto iter = nurses.begin();
                 std::advance( iter, random() );
-                if(!assignNurse(iter->second, turn))
+                if(!assignNurseToTurn(iter->second, turn))
                     i--;
                 if(loop > nurses.size()*2)
                     return false;
@@ -99,9 +99,11 @@ const bool Solution::assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn)
     return true;
 }
 
-void Solution::resetSolution(){
+void Solution::resetSolution() {
     this->deleteNursesAndTurns();
     this->createNursesAndTurns();
+}
+
 const bool Solution::removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn) {
     return turn->removeTurn(nurseSolution);
 }
