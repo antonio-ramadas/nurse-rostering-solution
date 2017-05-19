@@ -44,9 +44,9 @@ public:
 
     void randomizeSolution();
 
-    const bool assignNurse(NurseSolution *nurseSolution, Turn *turn);
+    const bool assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn);
 
-    const bool removeNurse(NurseSolution *nurseSolution, Turn *turn);
+    const bool removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn);
 };
 
 

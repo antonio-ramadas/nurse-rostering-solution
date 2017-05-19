@@ -48,7 +48,7 @@ void Solution::randomizeSolution(){
             if(random() < 2) {
                 auto iter = nurses.begin();
                 std::advance( iter, random() );
-                assignNurse(iter->second, type);
+                assignNurseToTurn(iter->second, type);
                 //type->addNurse(iter->second);
             }
 }
@@ -59,7 +59,7 @@ Solution::~Solution() {
             delete turn;
 }
 
-const bool Solution::assignNurse(NurseSolution *nurseSolution, Turn *turn) {
+const bool Solution::assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn) {
 
     if (!nurseSolution->canWork(turn))
         return false;
@@ -69,6 +69,6 @@ const bool Solution::assignNurse(NurseSolution *nurseSolution, Turn *turn) {
     return true;
 }
 
-const bool Solution::removeNurse(NurseSolution *nurseSolution, Turn *turn) {
+const bool Solution::removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn) {
     return turn->removeTurn(nurseSolution);
 }
