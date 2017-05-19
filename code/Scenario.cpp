@@ -81,8 +81,9 @@ void Scenario::parseHistory(const string &path) {
     }
 
     //Useless information, I think...
-    //int week = j["week"];
     //int scenario = j["scenario"];
+
+    currentWeek = j["week"];
 
     json history = j["nurseHistory"];
 
@@ -160,4 +161,8 @@ const int Scenario::getDayOfWeek(string dayWeek) {
 
 const Contract Scenario::getContract(const string contract){
     return contracts.at(contract);
+}
+
+int Scenario::getCurrentWeek() const {
+    return currentWeek;
 }

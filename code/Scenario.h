@@ -22,6 +22,11 @@ private:
     Scenario();
 
     string id;
+    int currentWeek;
+public:
+    int getCurrentWeek() const;
+
+private:
     int numberOfWeeks;
     map<string,ShiftType> shifts;
     vector<string> skills;
