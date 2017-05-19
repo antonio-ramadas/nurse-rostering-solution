@@ -15,6 +15,8 @@ using namespace std;
 class NurseSolution;
 
 class Turn {
+    static unsigned int CURRENT_ID;
+    unsigned int id;
 
     vector<NurseSolution *> nurses;
     const ShiftType* shiftType;
@@ -26,7 +28,7 @@ public:
 
     bool addNurse(NurseSolution * nurse);
 
-    bool exitsNurse(NurseSolution * nurse);
+    bool hasNurse(const NurseSolution *nurse);
 
     const vector<NurseSolution *, allocator<NurseSolution *>> &getNurses() const;
 
@@ -34,8 +36,11 @@ public:
 
     const int getDay() const;
 
+    unsigned int getId() const;
+
     const string &getSkill() const;
 
+    const bool removeTurn(NurseSolution *nurseSolution);
 };
 
 

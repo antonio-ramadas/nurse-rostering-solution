@@ -10,7 +10,7 @@
 NurseSolution::NurseSolution(const Nurse* nurse): nurse(nurse){}
 
 bool NurseSolution::addTurn(Turn* turn){
-    if(!turnExists(turn))
+    if(!hasTurn(turn))
     {
         turns.push_back(turn);
         return true;
@@ -18,7 +18,7 @@ bool NurseSolution::addTurn(Turn* turn){
     return false;
 }
 
-bool NurseSolution::turnExists(Turn * turn) {
+bool NurseSolution::hasTurn(const Turn *turn) {
     return find(turns.begin(), turns.end(),turn)!=turns.end();
 }
 
@@ -30,26 +30,28 @@ const Nurse *NurseSolution::getNurse() const {
     return nurse;
 }
 
-const bool NurseSolution::canWork(const Turn *turn) {
-    return isSingleAssignment(turn) && isLegalSuccession(turn) && hasSkillToWork(turn);
+const bool NurseSolution::canWork(const Turn *turnToAssign, const Turn *turnToIgnore) {
+    return isSingleAssignment(turnToAssign, turnToIgnore) && isLegalSuccession(turnToAssign, turnToIgnore) && hasSkillToWork(turnToAssign);
 }
 
-const bool NurseSolution::isSingleAssignment(const Turn *turn) const {
-    return none_of(begin(turns), end(turns), [=](Turn* turnElem) {
-        return turnElem->getDay() == turn->getDay();
+const bool NurseSolution::isSingleAssignment(const Turn *turnToCheck, const Turn *turnToIgnore) const {
+    return none_of(begin(turns), end(turns), [&](Turn* turnElem) {
+        if (turnToIgnore != nullptr && turnElem->getId() == turnToIgnore->getId())
+            return false;
+        return turnElem->getDay() == turnToCheck->getDay();
     });
 }
 
-const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
-    return !hasHistoryConflict(turn) && !hasTurnConflict(turn);
+const bool NurseSolution::isLegalSuccession(const Turn *turnToCheck, const Turn *turnToIgnore) const {
+    return !hasHistoryConflict(turnToCheck) && !hasTurnConflict(turnToCheck, turnToIgnore);
 }
 
 const bool NurseSolution::hasSkillToWork(const Turn *turn) const {
     return nurse->hasSkill(turn->getSkill());
 }
 
-const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
-    if (pTurn->getDay() != 0)
+const bool NurseSolution::hasHistoryConflict(const Turn *turnToCheck) const {
+    if (turnToCheck->getDay() != 0)
         return false;
 
     if (nurse->getHistory().getLastAssignedShiftType() == "None")
@@ -57,20 +59,30 @@ const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
 
     return Scenario::getInstance()->getShifts()
             .at(nurse->getHistory().getLastAssignedShiftType())
-            .isForbiddenShift(pTurn->getShiftType()->getId());
+            .isForbiddenShift(turnToCheck->getShiftType()->getId());
 }
 
-bool NurseSolution::hasTurnConflict(const Turn *turn) const {
+bool NurseSolution::hasTurnConflict(const Turn *turnToCheck, const Turn *turnToIgnore) const {
     return any_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
 
-        if (turnElem->getDay() == turn->getDay() - 1) {
-            return turnElem->getShiftType()->isForbiddenShift(turn->getShiftType()->getId());
-        } else if (turnElem->getDay() == turn->getDay() + 1) {
-            return turn->getShiftType()->isForbiddenShift(turnElem->getShiftType()->getId());
+        if (turnToIgnore != nullptr && turnElem->getId() == turnToIgnore->getId())
+            return false;
+
+        if (turnElem->getDay() == turnToCheck->getDay() - 1) {
+            return turnElem->getShiftType()->isForbiddenShift(turnToCheck->getShiftType()->getId());
+        } else if (turnElem->getDay() == turnToCheck->getDay() + 1) {
+            return turnToCheck->getShiftType()->isForbiddenShift(turnElem->getShiftType()->getId());
         }
 
         return false;
     });
 }
 
+const bool NurseSolution::removeTurn(const Turn *turn) {
+    if (!hasTurn(turn))
+        return false;
 
+    turns.erase(find(begin(turns), end(turns), turn));
+
+    return true;
+}

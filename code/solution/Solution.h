@@ -23,6 +23,11 @@ class Solution {
     void createNursesAndTurns();
 
     void deleteNursesAndTurns();
+  
+    const void removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
+
+    const bool canSwitch(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
+  
 
 public:
     Solution();
@@ -48,10 +53,17 @@ public:
     };
 
     void randomizeSolution();
-
+  
     bool assignNurse(NurseSolution *nurseSolution, Turn *turn);
 
     void resetSolution();
+  
+    const bool assignNurseToTurn(NurseSolution *nurseSolution, Turn *turn);
+
+    const bool removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn);
+
+    const bool atomicSwitchNurseTurns(NurseSolution *ns1, Turn *t1, NurseSolution *ns2, Turn *t2);
+  
 };
 
 

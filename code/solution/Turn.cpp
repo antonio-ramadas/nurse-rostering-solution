@@ -6,10 +6,14 @@
 #include <iostream>
 #include "Turn.h"
 
-Turn::Turn(const int day, const string &skill, const ShiftType *shiftType) : day(day), shiftType(shiftType), skill(skill) {}
+unsigned int Turn::CURRENT_ID = 0;
+
+Turn::Turn(const int day, const string &skill, const ShiftType *shiftType) : day(day), shiftType(shiftType), skill(skill) {
+    id = CURRENT_ID++;
+}
 
 bool Turn::addNurse(NurseSolution * nurse){
-    if(!exitsNurse(nurse)) {
+    if(!hasNurse(nurse)) {
         nurses.push_back(nurse);
         nurse->addTurn(this);
         return true;
@@ -17,7 +21,7 @@ bool Turn::addNurse(NurseSolution * nurse){
     return false;
 }
 
-bool Turn::exitsNurse(NurseSolution * nurse) {
+bool Turn::hasNurse(const NurseSolution *nurse) {
     return find(nurses.begin(), nurses.end(),nurse)!=nurses.end();
 }
 
@@ -35,4 +39,18 @@ const string &Turn::getSkill() const {
 
 const int Turn::getDay() const {
     return day;
+}
+
+const bool Turn::removeTurn(NurseSolution *nurseSolution) {
+    if (!hasNurse(nurseSolution) || !nurseSolution->hasTurn(this))
+        return false;
+
+    nurses.erase(find(begin(nurses), end(nurses), nurseSolution));
+    nurseSolution->removeTurn(this);
+
+    return true;
+}
+
+unsigned int Turn::getId() const {
+    return id;
 }
