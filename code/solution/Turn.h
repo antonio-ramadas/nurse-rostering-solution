@@ -28,7 +28,7 @@ public:
 
     bool addNurse(NurseSolution * nurse);
 
-    bool exitsNurse(const NurseSolution *nurse);
+    bool hasNurse(const NurseSolution *nurse);
 
     const vector<NurseSolution *, allocator<NurseSolution *>> &getNurses() const;
 

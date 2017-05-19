@@ -75,7 +75,7 @@ const bool Solution::removeNurseFromTurn(NurseSolution *nurseSolution, Turn *tur
 
 const bool Solution::removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign) {
 
-    if (nurseSolution->turnExists(turnToRemove) && nurseSolution->canWork(turnToAssign, turnToRemove)) {
+    if (nurseSolution->hasTurn(turnToRemove) && nurseSolution->canWork(turnToAssign, turnToRemove)) {
         removeNurseFromTurn(nurseSolution, turnToRemove);
         assignNurseToTurn(nurseSolution, turnToAssign);
 

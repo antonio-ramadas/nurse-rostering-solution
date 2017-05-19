@@ -13,7 +13,7 @@ Turn::Turn(const int day, const string &skill, const ShiftType *shiftType) : day
 }
 
 bool Turn::addNurse(NurseSolution * nurse){
-    if(!exitsNurse(nurse)) {
+    if(!hasNurse(nurse)) {
         nurses.push_back(nurse);
         nurse->addTurn(this);
         return true;
@@ -21,7 +21,7 @@ bool Turn::addNurse(NurseSolution * nurse){
     return false;
 }
 
-bool Turn::exitsNurse(const NurseSolution *nurse) {
+bool Turn::hasNurse(const NurseSolution *nurse) {
     return find(nurses.begin(), nurses.end(),nurse)!=nurses.end();
 }
 
@@ -42,7 +42,7 @@ const int Turn::getDay() const {
 }
 
 const bool Turn::removeTurn(NurseSolution *nurseSolution) {
-    if (!exitsNurse(nurseSolution) || !nurseSolution->turnExists(this))
+    if (!hasNurse(nurseSolution) || !nurseSolution->hasTurn(this))
         return false;
 
     nurses.erase(find(begin(nurses), end(nurses), nurseSolution));

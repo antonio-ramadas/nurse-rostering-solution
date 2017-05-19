@@ -32,7 +32,7 @@ public:
 
     bool addTurn(Turn* turn);
 
-    bool turnExists(const Turn *turn);
+    bool hasTurn(const Turn *turn);
 
     const vector<Turn *> &getTurns() const;
 
