@@ -31,17 +31,19 @@ const Nurse *NurseSolution::getNurse() const {
 }
 
 const bool NurseSolution::canWork(const Turn *turnToAssign, const Turn *turnToIgnore) {
-    return isSingleAssignment(turnToAssign) && isLegalSuccession(turnToAssign) && hasSkillToWork(turnToAssign);
+    return isSingleAssignment(turnToAssign, turnToIgnore) && isLegalSuccession(turnToAssign, turnToIgnore) && hasSkillToWork(turnToAssign);
 }
 
-const bool NurseSolution::isSingleAssignment(const Turn *turn) const {
-    return none_of(begin(turns), end(turns), [=](Turn* turnElem) {
-        return turnElem->getDay() == turn->getDay();
+const bool NurseSolution::isSingleAssignment(const Turn *turnToCheck, const Turn *turnToIgnore) const {
+    return none_of(begin(turns), end(turns), [&](Turn* turnElem) {
+        if (turnToIgnore != nullptr && turnElem->getId() == turnToIgnore->getId())
+            return false;
+        return turnElem->getDay() == turnToCheck->getDay();
     });
 }
 
-const bool NurseSolution::isLegalSuccession(const Turn *turn) const {
-    return !hasHistoryConflict(turn) && !hasTurnConflict(turn);
+const bool NurseSolution::isLegalSuccession(const Turn *turnToCheck, const Turn *turnToIgnore) const {
+    return !hasHistoryConflict(turnToCheck) && !hasTurnConflict(turnToCheck);
 }
 
 const bool NurseSolution::hasSkillToWork(const Turn *turn) const {

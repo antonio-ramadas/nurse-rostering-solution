@@ -17,13 +17,15 @@ class NurseSolution {
     const Nurse* nurse;
     vector<Turn *> turns;
 
-    const bool isSingleAssignment(const Turn* turn) const;
+    const bool isSingleAssignment(const Turn* turnToCheck, const Turn *turnToIgnore = nullptr) const;
 
-    const bool isLegalSuccession(const Turn* turn) const;
+    const bool isLegalSuccession(const Turn *turnToCheck, const Turn *turnToIgnore = nullptr) const;
 
     const bool hasSkillToWork(const Turn* turn) const;
 
     const bool hasHistoryConflict(const Turn *pTurn) const;
+
+    bool hasTurnConflict(const Turn *turn) const;
 
 public:
     NurseSolution(const Nurse* nurse);
@@ -37,8 +39,6 @@ public:
     const Nurse *getNurse() const;
 
     const bool canWork(const Turn *turnToAssign, const Turn *turnToIgnore = nullptr);
-
-    bool hasTurnConflict(const Turn *turn) const;
 
     const bool removeTurn(const Turn *turn);
 };

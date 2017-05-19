@@ -15,6 +15,8 @@ using namespace std;
 class NurseSolution;
 
 class Turn {
+    static unsigned int CURRENT_ID;
+    unsigned int id;
 
     vector<NurseSolution *> nurses;
     const ShiftType* shiftType;
@@ -33,6 +35,8 @@ public:
     const ShiftType* getShiftType() const;
 
     const int getDay() const;
+
+    unsigned int getId() const;
 
     const string &getSkill() const;
 
