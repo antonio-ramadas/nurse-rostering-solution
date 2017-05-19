@@ -7,6 +7,7 @@
 #include "Validator.h"
 #include "solution/Solution.h"
 #include "Writter.h"
+#include "algorithms/Grasp.h"
 
 using namespace std;
 
@@ -24,15 +25,9 @@ int main(int argc, char *argv[])
 
     //Compute
 
-    Solution* sol = new Solution();
+    Grasp* grasp = new Grasp(10);
 
-    cout << "Number of Nurses : " << sol->getNurses().size() << endl;
-
-    cout << "Number of Turns : " << sol->getTurns().size() << endl;
-
-    cout << endl;
-
-    sol->randomizeSolution();
+    Solution* sol = grasp->run(true);
 
     cout << *sol << endl;
 

@@ -53,8 +53,6 @@ public:
     };
 
     void randomizeSolution();
-  
-    bool assignNurse(NurseSolution *nurseSolution, Turn *turn);
 
     void resetSolution();
   
