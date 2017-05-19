@@ -30,7 +30,7 @@ public:
 
     bool addTurn(Turn* turn);
 
-    bool turnExists(Turn * turn);
+    bool turnExists(const Turn *turn);
 
     const vector<Turn *> &getTurns() const;
 
@@ -39,6 +39,8 @@ public:
     const bool canWork(const Turn* turn);
 
     bool hasTurnConflict(const Turn *turn) const;
+
+    const bool removeTurn(const Turn *turn);
 };
 
 

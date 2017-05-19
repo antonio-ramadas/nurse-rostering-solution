@@ -26,7 +26,7 @@ public:
 
     bool addNurse(NurseSolution * nurse);
 
-    bool exitsNurse(NurseSolution * nurse);
+    bool exitsNurse(const NurseSolution *nurse);
 
     const vector<NurseSolution *, allocator<NurseSolution *>> &getNurses() const;
 
@@ -36,6 +36,7 @@ public:
 
     const string &getSkill() const;
 
+    const bool removeTurn(NurseSolution *nurseSolution);
 };
 
 

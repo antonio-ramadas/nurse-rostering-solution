@@ -17,7 +17,7 @@ bool Turn::addNurse(NurseSolution * nurse){
     return false;
 }
 
-bool Turn::exitsNurse(NurseSolution * nurse) {
+bool Turn::exitsNurse(const NurseSolution *nurse) {
     return find(nurses.begin(), nurses.end(),nurse)!=nurses.end();
 }
 
@@ -35,4 +35,14 @@ const string &Turn::getSkill() const {
 
 const int Turn::getDay() const {
     return day;
+}
+
+const bool Turn::removeTurn(NurseSolution *nurseSolution) {
+    if (!exitsNurse(nurseSolution) || !nurseSolution->turnExists(this))
+        return false;
+
+    nurses.erase(find(begin(nurses), end(nurses), nurseSolution));
+    nurseSolution->removeTurn(this);
+
+    return true;
 }

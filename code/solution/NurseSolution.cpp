@@ -18,7 +18,7 @@ bool NurseSolution::addTurn(Turn* turn){
     return false;
 }
 
-bool NurseSolution::turnExists(Turn * turn) {
+bool NurseSolution::turnExists(const Turn *turn) {
     return find(turns.begin(), turns.end(),turn)!=turns.end();
 }
 
@@ -71,6 +71,15 @@ bool NurseSolution::hasTurnConflict(const Turn *turn) const {
 
         return false;
     });
+}
+
+const bool NurseSolution::removeTurn(const Turn *turn) {
+    if (!turnExists(turn))
+        return false;
+
+    turns.erase(find(begin(turns), end(turns), turn));
+
+    return true;
 }
 
 
