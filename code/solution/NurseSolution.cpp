@@ -43,15 +43,15 @@ const bool NurseSolution::isSingleAssignment(const Turn *turnToCheck, const Turn
 }
 
 const bool NurseSolution::isLegalSuccession(const Turn *turnToCheck, const Turn *turnToIgnore) const {
-    return !hasHistoryConflict(turnToCheck) && !hasTurnConflict(turnToCheck);
+    return !hasHistoryConflict(turnToCheck) && !hasTurnConflict(turnToCheck, turnToIgnore);
 }
 
 const bool NurseSolution::hasSkillToWork(const Turn *turn) const {
     return nurse->hasSkill(turn->getSkill());
 }
 
-const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
-    if (pTurn->getDay() != 0)
+const bool NurseSolution::hasHistoryConflict(const Turn *turnToCheck) const {
+    if (turnToCheck->getDay() != 0)
         return false;
 
     if (nurse->getHistory().getLastAssignedShiftType() == "None")
@@ -59,16 +59,19 @@ const bool NurseSolution::hasHistoryConflict(const Turn *pTurn) const {
 
     return Scenario::getInstance()->getShifts()
             .at(nurse->getHistory().getLastAssignedShiftType())
-            .isForbiddenShift(pTurn->getShiftType()->getId());
+            .isForbiddenShift(turnToCheck->getShiftType()->getId());
 }
 
-bool NurseSolution::hasTurnConflict(const Turn *turn) const {
+bool NurseSolution::hasTurnConflict(const Turn *turnToCheck, const Turn *turnToIgnore) const {
     return any_of(begin(turns), end(turns), [&](Turn* turnElem) -> bool {
 
-        if (turnElem->getDay() == turn->getDay() - 1) {
-            return turnElem->getShiftType()->isForbiddenShift(turn->getShiftType()->getId());
-        } else if (turnElem->getDay() == turn->getDay() + 1) {
-            return turn->getShiftType()->isForbiddenShift(turnElem->getShiftType()->getId());
+        if (turnToIgnore != nullptr && turnElem->getId() == turnToIgnore->getId())
+            return false;
+
+        if (turnElem->getDay() == turnToCheck->getDay() - 1) {
+            return turnElem->getShiftType()->isForbiddenShift(turnToCheck->getShiftType()->getId());
+        } else if (turnElem->getDay() == turnToCheck->getDay() + 1) {
+            return turnToCheck->getShiftType()->isForbiddenShift(turnElem->getShiftType()->getId());
         }
 
         return false;

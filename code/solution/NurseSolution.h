@@ -23,9 +23,9 @@ class NurseSolution {
 
     const bool hasSkillToWork(const Turn* turn) const;
 
-    const bool hasHistoryConflict(const Turn *pTurn) const;
+    const bool hasHistoryConflict(const Turn *turnToCheck) const;
 
-    bool hasTurnConflict(const Turn *turn) const;
+    bool hasTurnConflict(const Turn *turnToCheck, const Turn *turnToIgnore = nullptr) const;
 
 public:
     NurseSolution(const Nurse* nurse);
