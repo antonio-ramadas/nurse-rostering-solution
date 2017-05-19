@@ -6,7 +6,7 @@
 #define NRS_SOLUTIONNEIGHBOURHOOD_H
 
 
-#include "solution/Solution.h"
+#include "../solution/Solution.h"
 
 class SolutionNeighbourhood {
 
@@ -15,7 +15,6 @@ class SolutionNeighbourhood {
 public:
     SolutionNeighbourhood(Solution* solution);
 
-public:
     Solution *getNext();
 };
 

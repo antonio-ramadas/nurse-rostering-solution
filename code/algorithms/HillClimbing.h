@@ -6,9 +6,11 @@
 #define NRS_HILLCLIMBING_H
 
 
-#include "solution/Solution.h"
+#include "../solution/Solution.h"
 
-namespace HillClimbing {
+class HillClimbing {
+
+public:
 
     static Solution* runHillClimbing(Solution* solution);
 

@@ -3,7 +3,7 @@
 //
 
 #include "Grasp.h"
-#include "Validator.h"
+#include "../Validator.h"
 #include "HillClimbing.h"
 
 Grasp::Grasp(WeekData* weekData) : weekData(weekData){}

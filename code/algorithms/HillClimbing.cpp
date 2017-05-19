@@ -3,7 +3,7 @@
 //
 
 #include "HillClimbing.h"
-#include "Validator.h"
+#include "../Validator.h"
 #include "SolutionNeighbourhood.h"
 
 Solution* HillClimbing::runHillClimbing(Solution* solution){

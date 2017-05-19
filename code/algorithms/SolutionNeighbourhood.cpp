@@ -5,3 +5,7 @@
 #include "SolutionNeighbourhood.h"
 
 SolutionNeighbourhood::SolutionNeighbourhood(Solution* solution) : solution(solution){}
+
+Solution *SolutionNeighbourhood::getNext(){
+    return nullptr;
+}

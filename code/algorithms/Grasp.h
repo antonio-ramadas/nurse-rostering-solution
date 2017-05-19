@@ -6,8 +6,8 @@
 #define NRS_GRASP_H
 
 
-#include "WeekData.h"
-#include "solution/Solution.h"
+#include "../WeekData.h"
+#include "../solution/Solution.h"
 
 class Grasp {
 
