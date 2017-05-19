@@ -18,6 +18,9 @@ class Solution {
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
+    const void removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
+
+    const bool canSwitch(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
 
 public:
     Solution(WeekData &weekData);
@@ -48,7 +51,7 @@ public:
 
     const bool removeNurseFromTurn(NurseSolution *nurseSolution, Turn *turn);
 
-    const bool removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
+    const bool atomicSwitchNurseTurns(NurseSolution *ns1, Turn *t1, NurseSolution *ns2, Turn *t2);
 };
 
 
