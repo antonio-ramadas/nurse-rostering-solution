@@ -7,16 +7,20 @@
 
 
 #include "../solution/Solution.h"
+#include "Move.h"
 
 class SolutionNeighbourhood {
 
     Solution* solution;
 
+    Move* lastMove = nullptr;
 
 public:
     SolutionNeighbourhood(Solution* solution);
 
     Solution *getNext();
+
+    void undoLastMove();
 };
 
 
