@@ -11,24 +11,28 @@ InputParser::InputParser (int &argc, char **argv){
 
 /// @author iain
 /// @edit antonio_ramadas - remove quotes from the first and last character, if present, from argument
-const string InputParser::getCmdOption(const string &option) const{
+const string InputParser::getCmdOption(const string &option) {
     vector<string>::const_iterator itr;
+
     itr =  find(this->tokens.begin(), this->tokens.end(), option);
-    if (itr != this->tokens.end() && ++itr != this->tokens.end()){
-        const string &cmdOption = *itr;
-        string ret(cmdOption);
 
-        if (ret.at(0) == '"' && ret.at(ret.size()-1) == '"')
-            ret = ret.substr(1, ret.size()-2);
+    if (itr != this->tokens.end() && ++itr != this->tokens.end())
+        return removeQuotes(*itr);
 
-        return ret;
-    }
-    static const string empty_string("");
-    return empty_string;
+    return "";
 }
 
 /// @author iain
 bool InputParser::cmdOptionExists(const string &option) const{
     return find(this->tokens.begin(), this->tokens.end(), option)
            != this->tokens.end();
+}
+
+string InputParser::removeQuotes(const string &sentence) {
+    string ret(sentence);
+
+    if (ret.at(0) == '"' && ret.at(ret.size()-1) == '"')
+        ret = ret.substr(1, ret.size()-2);
+
+   return ret;
 }

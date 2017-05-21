@@ -16,12 +16,15 @@ class InputParser {
 
         /// @author iain
         /// @edit antonio_ramadas - remove quotes from the first and last character, if present, from argument
-        const string getCmdOption(const string &option) const;
+        const string getCmdOption(const string &option);
 
         /// @author iain
         bool cmdOptionExists(const string &option) const;
     private:
         vector <string> tokens;
+
+        /// @author antonio_ramadas
+        string removeQuotes(const string &sentence);
 };
 
 
