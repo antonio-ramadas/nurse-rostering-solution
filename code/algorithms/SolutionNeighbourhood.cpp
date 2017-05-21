@@ -12,9 +12,9 @@ SolutionNeighbourhood::SolutionNeighbourhood(Solution* solution) : solution(solu
 }
 
 Solution *SolutionNeighbourhood::getNext(){
-    cout << "Before LastMove sol score : " << Validator::evaluateSolution(*this->solution) << endl;
+    cout << "Before : " << Validator::evaluateSolution(*this->solution)<<endl;
     undoLastMove();
-    cout << "after LastMove sol score : " << Validator::evaluateSolution(*this->solution) << endl;
+    cout << "After : " << Validator::evaluateSolution(*this->solution)<<endl;
     if(phase == 0) {
         while (1) {
             Turn *currentTurn = solution->getTurns()[iterator1][iterator2];
@@ -23,7 +23,10 @@ Solution *SolutionNeighbourhood::getNext(){
                 Scenario::getInstance()->getWeekData().getRequirements().at(currentTurn->getSkill()).at(
                         currentTurn->getShiftType()->getId()).at(currentTurn->getDay())->getOptimalCoverage())
                 for (auto const &nurse : solution->getNurses()) {
-                    if (currentTurn->addNurse(nurse.second)) {
+                    if (solution->assignNurseToTurn(nurse.second,currentTurn)) {
+                        lastMove = new Move(Position(-1, nullptr, ""),
+                                            Position(currentTurn->getDay(), currentTurn->getShiftType(),
+                                                     currentTurn->getSkill()), nurse.second);
                         iterator2++;
                         if (iterator2 == solution->getTurns()[iterator1].size()) {
                             iterator2 = 0;
@@ -32,11 +35,8 @@ Solution *SolutionNeighbourhood::getNext(){
                                 phase++;
                                 return this->getNext();
                             }
-                            lastMove = new Move(Position(-1, nullptr, ""),
-                                                Position(currentTurn->getDay(), currentTurn->getShiftType(),
-                                                         currentTurn->getSkill()), nurse.second);
-                            return solution;
                         }
+                        return solution;
                     }
                 }
             iterator2++;
@@ -66,7 +66,9 @@ void SolutionNeighbourhood::undoLastMove(){
             for(Turn* turn : day1)
             {
                 if(turn->getShiftType()->getId() == lastMove->getLastPosition().getShiftType()->getId() && turn->getSkill() == lastMove->getLastPosition().getSkill()) {
-                    turn->removeTurn(lastMove->getMovedNurse());
+                    solution->removeNurseFromTurn(lastMove->getMovedNurse(),turn);
+                    delete lastMove;
+                    lastMove = nullptr;
                     return;
                 }
             }

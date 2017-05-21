@@ -219,9 +219,9 @@ unsigned int Validator::constraintS6(const Solution &solution){
         totalAssignments += nurse.second->getTurns().size();
         Contract contract = Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract());
         if(totalAssignments > contract.getMaximumNumberOfAssignments())
-            sum += 20 * totalAssignments-contract.getMaximumNumberOfAssignments();
+            sum += 20 * (totalAssignments-contract.getMaximumNumberOfAssignments());
         else if (totalAssignments < contract.getMinimumNumberOfAssignments())
-            sum += 20 * contract.getMinimumNumberOfAssignments() - totalAssignments;
+            sum += 20 * (contract.getMinimumNumberOfAssignments() - totalAssignments);
     }
     return  sum;
 }
