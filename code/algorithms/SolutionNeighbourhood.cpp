@@ -12,9 +12,11 @@ SolutionNeighbourhood::SolutionNeighbourhood(Solution* solution) : solution(solu
 }
 
 Solution *SolutionNeighbourhood::getNext(){
-    cout << "Before : " << Validator::evaluateSolution(*this->solution)<<endl;
+    //cout << "Before: " << endl;
+    //Validator::printEvaluation(*solution);
     undoLastMove();
-    cout << "After : " << Validator::evaluateSolution(*this->solution)<<endl;
+    //cout << "After: " << endl;
+    //Validator::printEvaluation(*solution);
     if(phase == 0) {
         while (1) {
             Turn *currentTurn = solution->getTurns()[iterator1][iterator2];

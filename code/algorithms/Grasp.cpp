@@ -27,8 +27,6 @@ Solution* Grasp::run(bool random){
             //Solution* currentSol = newSol;
             Solution* currentSol = HillClimbing::runHillClimbing(newSol);
 
-            cout << "Leave HillClimbing" << endl;
-
             if(bestSolution == nullptr) {
                 bestSolution = currentSol;
                 bestScore = Validator::evaluateSolution(*currentSol);

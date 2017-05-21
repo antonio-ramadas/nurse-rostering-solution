@@ -12,8 +12,6 @@ Solution* HillClimbing::runHillClimbing(Solution* solution){
 
     int bestScore = Validator::evaluateSolution(*solution);
 
-    cout << "Initial Score" << bestScore << endl;
-
     //next will undo last move so it can reset the initial solution
     while((solution = neighbourhood->getNext()) && !neighbourhood->hasEnded())
     {

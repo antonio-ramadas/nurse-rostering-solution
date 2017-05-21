@@ -161,10 +161,11 @@ unsigned int Validator::constraintS3(const Solution &solution) {
 
             int CDays = currentDay - (lastDay + 1);
 
-            if(CDays < Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff())
-                sum += 30 * (Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff() - CDays);
-            else if (CDays > Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff())
-                sum += 30 * (CDays - Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff());
+            if(CDays != 0)
+                if(CDays < Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff())
+                    sum += 30 * (Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff() - CDays);
+                else if (CDays > Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff())
+                    sum += 30 * (CDays - Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff());
 
             lastDay = turn->getDay();
         }
@@ -279,5 +280,26 @@ unsigned int Validator::evaluateSolution(const Solution &solution){
     sum += constraintS7(solution);
 
     return sum;
+}
 
+void Validator::printEvaluation(const Solution &solution){
+    unsigned int sum = 0;
+
+    cout << "S1 : " << constraintS1(solution) << endl;
+    sum += constraintS1(solution);
+    cout << "S2 : " << constraintS2(solution) << endl;
+    sum += constraintS2(solution);
+    cout << "S3 : " << constraintS3(solution) << endl;
+    sum += constraintS3(solution);
+    cout << "S4 : " << constraintS4(solution) << endl;
+    sum += constraintS4(solution);
+    cout << "S5 : " << constraintS5(solution) << endl;
+    sum += constraintS5(solution);
+    cout << "S6 : " << constraintS6(solution) << endl;
+    sum += constraintS6(solution);
+    cout << "S7 : " << constraintS7(solution) << endl;
+    sum += constraintS7(solution);
+
+
+    cout << "Sum : " << sum << endl;
 }
