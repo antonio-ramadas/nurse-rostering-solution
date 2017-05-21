@@ -40,7 +40,7 @@ public:
 
     const bool canWork(const Turn *turnToAssign, const Turn *turnToIgnore = nullptr);
 
-    const bool removeTurn(const Turn *turn);
+    const bool removeTurn(Turn *turn);
 };
 
 

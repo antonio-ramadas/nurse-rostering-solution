@@ -13,11 +13,12 @@ Solution* HillClimbing::runHillClimbing(Solution* solution){
     int bestScore = Validator::evaluateSolution(*solution);
 
     //next will undo last move so it can reset the initial solution
-    while((solution = neighbourhood->getNext()) != nullptr)
+    while((solution = neighbourhood->getNext()) && !neighbourhood->hasEnded())
     {
         int currentScore = Validator::evaluateSolution(*solution);
         if(bestScore > currentScore)
         {
+            cout << "Next Hill" << endl;
             delete neighbourhood;
             neighbourhood = new SolutionNeighbourhood(solution);
             bestScore = currentScore;

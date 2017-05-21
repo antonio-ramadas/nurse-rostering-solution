@@ -3,15 +3,60 @@
 //
 
 #include "SolutionNeighbourhood.h"
+#include "../Validator.h"
 
-SolutionNeighbourhood::SolutionNeighbourhood(Solution* solution) : solution(solution){}
+SolutionNeighbourhood::SolutionNeighbourhood(Solution* solution) : solution(solution){
+    this->phase = 0;
+    this->iterator1 = 0;
+    this->iterator2 = 0;
+}
 
 Solution *SolutionNeighbourhood::getNext(){
+    cout << "Before LastMove sol score : " << Validator::evaluateSolution(*this->solution) << endl;
     undoLastMove();
-    return nullptr;
+    cout << "after LastMove sol score : " << Validator::evaluateSolution(*this->solution) << endl;
+    if(phase == 0) {
+        while (1) {
+            Turn *currentTurn = solution->getTurns()[iterator1][iterator2];
+
+            if (currentTurn->getNurses().size() <
+                Scenario::getInstance()->getWeekData().getRequirements().at(currentTurn->getSkill()).at(
+                        currentTurn->getShiftType()->getId()).at(currentTurn->getDay())->getOptimalCoverage())
+                for (auto const &nurse : solution->getNurses()) {
+                    if (currentTurn->addNurse(nurse.second)) {
+                        iterator2++;
+                        if (iterator2 == solution->getTurns()[iterator1].size()) {
+                            iterator2 = 0;
+                            iterator1++;
+                            if (iterator1 == solution->getTurns().size()) {
+                                phase++;
+                                return this->getNext();
+                            }
+                            lastMove = new Move(Position(-1, nullptr, ""),
+                                                Position(currentTurn->getDay(), currentTurn->getShiftType(),
+                                                         currentTurn->getSkill()), nurse.second);
+                            return solution;
+                        }
+                    }
+                }
+            iterator2++;
+            if (iterator2 == solution->getTurns()[iterator1].size()) {
+                iterator2 = 0;
+                iterator1++;
+                if (iterator1 == solution->getTurns().size()) {
+                    phase++;
+                    return this->getNext();
+                }
+            }
+        }
+    }
+    this->ended = true;
+    return solution;
 }
 
 void SolutionNeighbourhood::undoLastMove(){
+    if(lastMove == nullptr)
+        return;
     vector<Turn*> day1 , day2;
     switch (lastMove->getMoveType())
     {
@@ -20,8 +65,10 @@ void SolutionNeighbourhood::undoLastMove(){
             day1 = solution->getTurns()[lastMove->getLastPosition().getDay()];
             for(Turn* turn : day1)
             {
-                if(turn->getShiftType()->getId() == lastMove->getLastPosition().getShiftType()->getId() && turn->getSkill() == lastMove->getLastPosition().getSkill())
-                    lastMove->getMovedNurse()->removeTurn(turn);
+                if(turn->getShiftType()->getId() == lastMove->getLastPosition().getShiftType()->getId() && turn->getSkill() == lastMove->getLastPosition().getSkill()) {
+                    turn->removeTurn(lastMove->getMovedNurse());
+                    return;
+                }
             }
             break;
         case 1:
@@ -29,8 +76,10 @@ void SolutionNeighbourhood::undoLastMove(){
             day1 = solution->getTurns()[lastMove->getInitialPosition().getDay()];
             for(Turn* turn : day1)
             {
-                if(turn->getShiftType()->getId() == lastMove->getInitialPosition().getShiftType()->getId() && turn->getSkill() == lastMove->getInitialPosition().getSkill())
+                if(turn->getShiftType()->getId() == lastMove->getInitialPosition().getShiftType()->getId() && turn->getSkill() == lastMove->getInitialPosition().getSkill()){
                     lastMove->getMovedNurse()->addTurn(turn);
+                return;
+                }
             }
             break;
         case 2:
@@ -57,4 +106,9 @@ void SolutionNeighbourhood::undoLastMove(){
     }
 
     delete lastMove;
+    lastMove = nullptr;
+}
+
+bool SolutionNeighbourhood::hasEnded(){
+    return ended;
 }

@@ -78,7 +78,7 @@ bool NurseSolution::hasTurnConflict(const Turn *turnToCheck, const Turn *turnToI
     });
 }
 
-const bool NurseSolution::removeTurn(const Turn *turn) {
+const bool NurseSolution::removeTurn( Turn *turn) {
     if (!hasTurn(turn))
         return false;
 

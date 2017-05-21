@@ -15,12 +15,22 @@ class SolutionNeighbourhood {
 
     Move* lastMove = nullptr;
 
+    /*
+     * 0->Iterate turns, check optimal stuff, add nurse if it cans
+     * 1->
+     */
+    int phase, iterator1, iterator2;
+
+    bool ended = false;
+
 public:
     SolutionNeighbourhood(Solution* solution);
 
     Solution *getNext();
 
     void undoLastMove();
+
+    bool hasEnded();
 };
 
 
