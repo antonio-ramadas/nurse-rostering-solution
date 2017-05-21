@@ -9,8 +9,8 @@
 
 using namespace std;
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+
     //Parse
     Scenario::getInstance()->parseScenario("./../datasets/test/n005w4/Sc-n005w4.json");
 
