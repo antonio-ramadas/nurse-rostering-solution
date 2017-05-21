@@ -6,19 +6,22 @@
 #include "Validator.h"
 #include "Writter.h"
 #include "algorithms/Grasp.h"
+#include "InputParser.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
 
-    //Parse
-    Scenario::getInstance()->parseScenario("./../datasets/test/n005w4/Sc-n005w4.json");
+    InputParser input(argc, argv);
 
-    WeekData weekData("./../datasets/test/n005w4/WD-n005w4-0.json",
+    //Parse
+    Scenario::getInstance()->parseScenario(input.getCmdOption("--sce"));
+
+    WeekData weekData(input.getCmdOption("--week"),
                      (int) Scenario::getInstance()->getShifts().size(),
                      (int) Scenario::getInstance()->getSkills().size());
 
-    Scenario::getInstance()->parseHistory("./../datasets/test/n005w4/H0-n005w4-0.json");
+    Scenario::getInstance()->parseHistory(input.getCmdOption("--his"));
     Scenario::getInstance()->setWeekData(weekData);
 
     //Compute
@@ -52,7 +55,7 @@ int main(int argc, char *argv[]) {
     cout << "Solution evaluated : " << Validator::evaluateSolution(*sol) << endl;
 
     //Dump result
-    Writter::WriteSolutionToJSONFile(sol);
+    Writter::WriteSolutionToJSONFile(sol, input.getCmdOption("--sol"));
 
     return EXIT_SUCCESS;
 }

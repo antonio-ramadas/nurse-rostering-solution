@@ -4,7 +4,7 @@
 
 #include "Writter.h"
 
-void Writter::WriteSolutionToJSONFile(const Solution *solution) {
+void Writter::WriteSolutionToJSONFile(const Solution *solution, const string &path) {
     json j;
 
     j["scenario"] = Scenario::getInstance()->getId();
@@ -23,7 +23,7 @@ void Writter::WriteSolutionToJSONFile(const Solution *solution) {
                         {"skill", turn->getSkill()}
                 });
 
-    ofstream fout("./../output/" + Scenario::getInstance()->getId() + ".json");
-    fout << setw(4) << j;
+    ofstream fout(path);
+    fout << setw(2) << j;
     fout.close();
 }

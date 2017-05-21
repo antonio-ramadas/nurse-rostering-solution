@@ -15,7 +15,7 @@ using namespace std;
 
 class Writter {
 public:
-    static void WriteSolutionToJSONFile(const Solution *solution);
+    static void WriteSolutionToJSONFile(const Solution *solution, const string &path);
 };
 
 
