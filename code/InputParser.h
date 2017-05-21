@@ -15,7 +15,8 @@ class InputParser {
         InputParser (int &argc, char **argv);
 
         /// @author iain
-        const string& getCmdOption(const string &option) const;
+        /// @edit antonio_ramadas - remove quotes from the first and last character, if present, from argument
+        const string getCmdOption(const string &option) const;
 
         /// @author iain
         bool cmdOptionExists(const string &option) const;
