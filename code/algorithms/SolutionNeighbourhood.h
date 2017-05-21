@@ -15,11 +15,13 @@ class SolutionNeighbourhood {
 
     Move* lastMove = nullptr;
 
+    vector<NurseSolution*> nurseVector;
+
     /*
      * 0->Iterate turns, check optimal stuff, add nurse if it cans
      * 1->
      */
-    int phase, iterator1, iterator2;
+    int phase, iterator1, iterator2, iteratorTurn1 , iteratorTurn2;
 
     bool ended = false;
 
@@ -31,6 +33,8 @@ public:
     void undoLastMove();
 
     bool hasEnded();
+
+    int getPhase() const;
 };
 
 

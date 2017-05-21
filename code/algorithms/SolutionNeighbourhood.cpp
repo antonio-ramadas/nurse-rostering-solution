@@ -9,14 +9,23 @@ SolutionNeighbourhood::SolutionNeighbourhood(Solution* solution) : solution(solu
     this->phase = 0;
     this->iterator1 = 0;
     this->iterator2 = 0;
+    this->iteratorTurn1 = 0;
+    this->iteratorTurn2 = 0;
+
+    for(auto it = solution->getNurses().begin(); it != solution->getNurses().end(); ++it ) {
+        this->nurseVector.push_back( it->second );
+    }
 }
 
 Solution *SolutionNeighbourhood::getNext(){
-    //cout << "Before: " << endl;
-    //Validator::printEvaluation(*solution);
-    undoLastMove();
-    //cout << "After: " << endl;
-    //Validator::printEvaluation(*solution);
+    if(phase == 1) {
+        cout << "Before: " << Validator::evaluateSolution(*solution) << endl;
+        //Validator::printEvaluation(*solution);
+        undoLastMove();
+        cout << "After: " << Validator::evaluateSolution(*solution) << endl;
+        //Validator::printEvaluation(*solution);
+    }
+    else undoLastMove();
     if(phase == 0) {
         while (1) {
             Turn *currentTurn = solution->getTurns()[iterator1][iterator2];
@@ -35,6 +44,8 @@ Solution *SolutionNeighbourhood::getNext(){
                             iterator1++;
                             if (iterator1 == solution->getTurns().size()) {
                                 phase++;
+                                iterator1 = 0;
+                                iterator2 = 0;
                                 return this->getNext();
                             }
                         }
@@ -47,9 +58,49 @@ Solution *SolutionNeighbourhood::getNext(){
                 iterator1++;
                 if (iterator1 == solution->getTurns().size()) {
                     phase++;
+                    iterator1 = 0;
+                    iterator2 = 0;
                     return this->getNext();
                 }
             }
+        }
+    }
+    //iterate each nurse then iterate the otherNurses and check if they can trade Turns
+    else if(phase == 1){
+        for(;iterator1 < this->nurseVector.size();){
+            for(;iterator2 < this->nurseVector.size();)
+            {
+                if(iterator1 != iterator2)
+                    for(;iteratorTurn1 < nurseVector[iterator1]->getTurns().size();)
+                    {
+                        for(;iteratorTurn2 < nurseVector[iterator2]->getTurns().size();){
+                            //cout << "1 : " << iterator1 << "/2 : " << iterator2 << "/turn : " << iteratorTurn1 << endl;
+                            if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator1]->getTurns()[iteratorTurn1],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
+                            {
+                                if(nurseVector[iterator1]->getTurns()[iteratorTurn1] != nurseVector[iterator2]->getTurns()[iteratorTurn2]) {
+                                    lastMove = new Move(
+                                            Position(nurseVector[iterator1]->getTurns()[iteratorTurn1]->getDay(),
+                                                     nurseVector[iterator1]->getTurns()[iteratorTurn1]->getShiftType(),
+                                                     nurseVector[iterator1]->getTurns()[iteratorTurn1]->getSkill()),
+                                            Position(nurseVector[iterator2]->getTurns()[iteratorTurn2]->getDay(),
+                                                     nurseVector[iterator2]->getTurns()[iteratorTurn2]->getShiftType(),
+                                                     nurseVector[iterator2]->getTurns()[iteratorTurn2]->getSkill()),
+                                            nurseVector[iterator1], nurseVector[iterator2]);
+                                    iteratorTurn2++;
+                                    return solution;
+                                }
+                                else iteratorTurn2++;
+                            }
+                            else iteratorTurn2++;
+                        }
+                        iteratorTurn1++;
+                        iteratorTurn2 = 0;
+                    }
+                iterator2++;
+                iteratorTurn1 = 0;
+            }
+            iterator2 = 0;
+            iterator1++;
         }
     }
     this->ended = true;
@@ -91,11 +142,12 @@ void SolutionNeighbourhood::undoLastMove(){
             day1 = solution->getTurns()[lastMove->getInitialPosition().getDay()];
             day2 = solution->getTurns()[lastMove->getLastPosition().getDay()];
 
-            Turn* initialTurn, *lastTurn;
+            Turn* initialTurn;
+            Turn* lastTurn;
 
             for(Turn* turn : day1)
             {
-                if(turn->getShiftType()->getId() == lastMove->getLastPosition().getShiftType()->getId() && turn->getSkill() == lastMove->getLastPosition().getSkill())
+                if(turn->getShiftType()->getId() == lastMove->getInitialPosition().getShiftType()->getId() && turn->getSkill() == lastMove->getInitialPosition().getSkill())
                     initialTurn = turn;
             }
             for(Turn* turn : day2)
@@ -105,7 +157,10 @@ void SolutionNeighbourhood::undoLastMove(){
             }
 
             //atomicSwitchNurseTurns
-            solution->atomicSwitchNurseTurns(lastMove->getMovedNurse(),initialTurn,lastMove->getTradedNurse(),lastTurn);
+            if(!solution->atomicSwitchNurseTurns(lastMove->getMovedNurse(),lastTurn,lastMove->getTradedNurse(),initialTurn))
+                cout << "ERRO" << endl;
+            delete lastMove;
+            lastMove = nullptr;
             break;
     }
 
@@ -115,4 +170,8 @@ void SolutionNeighbourhood::undoLastMove(){
 
 bool SolutionNeighbourhood::hasEnded(){
     return ended;
+}
+
+int SolutionNeighbourhood::getPhase() const {
+    return phase;
 }
