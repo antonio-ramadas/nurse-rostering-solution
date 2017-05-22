@@ -10,26 +10,19 @@ Solution* HillClimbing::runHillClimbing(Solution* solution){
 
     SolutionNeighbourhood* neighbourhood = new SolutionNeighbourhood(solution);
 
-    Solution* bestSolution = solution;
     int bestScore = Validator::evaluateSolution(*solution);
 
-    Solution* neiSolution;
-
-    while((neiSolution = neighbourhood->getNext()) != nullptr)
+    //next will undo last move so it can reset the initial solution
+    while((solution = neighbourhood->getNext()) && !neighbourhood->hasEnded())
     {
-        int currentScore = Validator::evaluateSolution(*neiSolution);
+        int currentScore = Validator::evaluateSolution(*solution);
         if(bestScore > currentScore)
         {
-            delete solution;
             delete neighbourhood;
-            neighbourhood = new SolutionNeighbourhood(neiSolution);
+            neighbourhood = new SolutionNeighbourhood(solution);
             bestScore = currentScore;
-            bestSolution = neiSolution;
-        }
-        else{
-            delete neiSolution;
         }
     }
     delete neighbourhood;
-    return bestSolution;
+    return solution;
 }

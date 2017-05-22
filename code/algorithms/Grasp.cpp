@@ -23,6 +23,8 @@ Solution* Grasp::run(bool random){
 
             newSol->randomizeSolution();
 
+
+            //Solution* currentSol = newSol;
             Solution* currentSol = HillClimbing::runHillClimbing(newSol);
 
             if(bestSolution == nullptr) {

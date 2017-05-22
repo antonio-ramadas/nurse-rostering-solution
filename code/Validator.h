@@ -67,6 +67,8 @@ public:
 
     static unsigned int evaluateSolution(const Solution &solution);
 
+    static void printEvaluation(const Solution &solution);
+
 };
 
 
