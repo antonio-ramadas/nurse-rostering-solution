@@ -4,3 +4,12 @@ As a project for [Methodologies for Planning and Scheduling](https://paginas.fe.
 
 External libraries:
  - [JSON for Modern C++ Version 2.1.1](https://github.com/nlohmann/json)
+ 
+## How to run
+For simplicity you may just execute [run.sh](tools/run.sh). However, this solver follows the [guidelines from INRC-II](INRC2.pdf). Please, take a look at them before editing and executing the script.
+  
+## Development
+This program has been made with [CLion](https://www.jetbrains.com/clion/) and, to be easier to develop, here is a working example of the arguments:
+```
+--sce "./../datasets/test/n005w4/Sc-n005w4.json" --his "./../datasets/test/n005w4/H0-n005w4-0.json" --week "./../datasets/test/n005w4/WD-n005w4-0.json" --sol "./../output/sol-week0.json"
+```
