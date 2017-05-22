@@ -18,8 +18,6 @@ Solution* HillClimbing::runHillClimbing(Solution* solution){
         int currentScore = Validator::evaluateSolution(*solution);
         if(bestScore > currentScore)
         {
-            if(neighbourhood->getPhase() == 1)
-                cout << "melhorou" << endl;
             delete neighbourhood;
             neighbourhood = new SolutionNeighbourhood(solution);
             bestScore = currentScore;

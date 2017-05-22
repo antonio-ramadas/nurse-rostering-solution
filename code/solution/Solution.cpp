@@ -107,16 +107,18 @@ const bool Solution::removeNurseFromTurn(NurseSolution *nurseSolution, Turn *tur
     return turn->removeTurn(nurseSolution);
 }
 
-const void Solution::removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign) {
-    removeNurseFromTurn(nurseSolution, turnToRemove);
-    assignNurseToTurn(nurseSolution, turnToAssign);
+const bool Solution::removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign) {
+    return removeNurseFromTurn(nurseSolution, turnToRemove) && assignNurseToTurn(nurseSolution, turnToAssign);
 }
 
 const bool Solution::atomicSwitchNurseTurns(NurseSolution *ns1, Turn *t1, NurseSolution *ns2, Turn *t2) {
     if (canSwitch(ns1, t1, t2) && canSwitch(ns2, t2, t1)) {
-        removeAndAssignNurseTurns(ns1, t1, t2);
-        removeAndAssignNurseTurns(ns2, t2, t1);
-        return true;
+        if( removeAndAssignNurseTurns(ns1, t1, t2) && removeAndAssignNurseTurns(ns2, t2, t1)) {
+            ns1->sortTurns();
+            ns2->sortTurns();
+
+            return true;
+        }
     }
 
     return false;

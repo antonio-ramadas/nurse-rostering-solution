@@ -24,7 +24,7 @@ class Solution {
 
     void deleteNursesAndTurns();
   
-    const void removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
+    const bool removeAndAssignNurseTurns(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
 
     const bool canSwitch(NurseSolution *nurseSolution, Turn *turnToRemove, Turn *turnToAssign);
   

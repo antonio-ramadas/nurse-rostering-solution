@@ -18,14 +18,7 @@ SolutionNeighbourhood::SolutionNeighbourhood(Solution* solution) : solution(solu
 }
 
 Solution *SolutionNeighbourhood::getNext(){
-    if(phase == 1) {
-        cout << "Before: " << Validator::evaluateSolution(*solution) << endl;
-        //Validator::printEvaluation(*solution);
-        undoLastMove();
-        cout << "After: " << Validator::evaluateSolution(*solution) << endl;
-        //Validator::printEvaluation(*solution);
-    }
-    else undoLastMove();
+    undoLastMove();
     if(phase == 0) {
         while (1) {
             Turn *currentTurn = solution->getTurns()[iterator1][iterator2];
@@ -74,22 +67,28 @@ Solution *SolutionNeighbourhood::getNext(){
                     for(;iteratorTurn1 < nurseVector[iterator1]->getTurns().size();)
                     {
                         for(;iteratorTurn2 < nurseVector[iterator2]->getTurns().size();){
-                            //cout << "1 : " << iterator1 << "/2 : " << iterator2 << "/turn : " << iteratorTurn1 << endl;
-                            if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator1]->getTurns()[iteratorTurn1],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
-                            {
-                                if(nurseVector[iterator1]->getTurns()[iteratorTurn1] != nurseVector[iterator2]->getTurns()[iteratorTurn2]) {
-                                    lastMove = new Move(
-                                            Position(nurseVector[iterator1]->getTurns()[iteratorTurn1]->getDay(),
-                                                     nurseVector[iterator1]->getTurns()[iteratorTurn1]->getShiftType(),
-                                                     nurseVector[iterator1]->getTurns()[iteratorTurn1]->getSkill()),
-                                            Position(nurseVector[iterator2]->getTurns()[iteratorTurn2]->getDay(),
-                                                     nurseVector[iterator2]->getTurns()[iteratorTurn2]->getShiftType(),
-                                                     nurseVector[iterator2]->getTurns()[iteratorTurn2]->getSkill()),
-                                            nurseVector[iterator1], nurseVector[iterator2]);
+                            if(nurseVector[iterator1]->getTurns()[iteratorTurn1] != nurseVector[iterator2]->getTurns()[iteratorTurn2]) {
+                                lastMove = new Move(
+                                        //initial Position
+                                        Position(nurseVector[iterator1]->getTurns()[iteratorTurn1]->getDay(),
+                                                 nurseVector[iterator1]->getTurns()[iteratorTurn1]->getShiftType(),
+                                                 nurseVector[iterator1]->getTurns()[iteratorTurn1]->getSkill()),
+                                        //lastPosition Position
+                                        Position(nurseVector[iterator2]->getTurns()[iteratorTurn2]->getDay(),
+                                                 nurseVector[iterator2]->getTurns()[iteratorTurn2]->getShiftType(),
+                                                 nurseVector[iterator2]->getTurns()[iteratorTurn2]->getSkill()),
+                                        //Ns1 / Ns2
+                                        nurseVector[iterator1], nurseVector[iterator2]);
+                                if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator2]->getTurns()[iteratorTurn2],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
+                                {
                                     iteratorTurn2++;
                                     return solution;
+                                    }
+                                else {
+                                    delete lastMove;
+                                    lastMove = nullptr;
+                                    iteratorTurn2++;
                                 }
-                                else iteratorTurn2++;
                             }
                             else iteratorTurn2++;
                         }
@@ -156,7 +155,8 @@ void SolutionNeighbourhood::undoLastMove(){
                     lastTurn = turn;
             }
 
-            //atomicSwitchNurseTurns
+            //atomicSwitchNurseTurns, invert what lastMove did
+            //NS1 / LastPosition / NS2 / InitialPosition
             if(!solution->atomicSwitchNurseTurns(lastMove->getMovedNurse(),lastTurn,lastMove->getTradedNurse(),initialTurn))
                 cout << "ERRO" << endl;
             delete lastMove;

@@ -86,3 +86,10 @@ const bool NurseSolution::removeTurn( Turn *turn) {
 
     return true;
 }
+
+void NurseSolution::sortTurns(){
+    sort(turns.begin(), turns.end(),compareTurns);
+}
+
+bool NurseSolution::compareTurns(Turn *a, Turn *b)
+{ return a->getDay() < b->getDay(); }
