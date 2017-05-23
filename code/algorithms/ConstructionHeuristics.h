@@ -10,7 +10,7 @@
 
 class ConstructionHeuristics {
 private:
-    static unordered_map<string, unsigned int> countNurseSkills();
+    static map<unsigned int, string> countNurseSkills();
 
 public:
     static Solution* FirstFit(Solution *solution);

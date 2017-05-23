@@ -24,7 +24,7 @@ Solution *ConstructionHeuristics::FirstFit(Solution *solution) {
 }
 
 Solution *ConstructionHeuristics::MoreSkilled(Solution *solution) {
-    unordered_map<string, unsigned int> counter = countNurseSkills();
+    map<unsigned int, string> counter = countNurseSkills();
     return solution;
 }
 
@@ -32,7 +32,7 @@ Solution *ConstructionHeuristics::WeekendFirst(Solution *solution) {
     return nullptr;
 }
 
-unordered_map<string, unsigned int> ConstructionHeuristics::countNurseSkills() {
+map<unsigned int, string> ConstructionHeuristics::countNurseSkills() {
     unordered_map<string, unsigned int> counter;
 
     for (const string &skill : Scenario::getInstance()->getSkills())
@@ -42,5 +42,10 @@ unordered_map<string, unsigned int> ConstructionHeuristics::countNurseSkills() {
         for (const string &skill : nurse.getSkills())
             counter.at(skill)++;
 
-    return counter;
+    //sort the map, key = counter and value = skill
+    map<unsigned int, string> sortedCounter;
+    for (auto &it : counter)
+        sortedCounter.insert(it);
+
+    return sortedCounter;
 }
