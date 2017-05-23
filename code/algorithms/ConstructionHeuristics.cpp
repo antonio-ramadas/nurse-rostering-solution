@@ -24,9 +24,23 @@ Solution *ConstructionHeuristics::FirstFit(Solution *solution) {
 }
 
 Solution *ConstructionHeuristics::MoreSkilled(Solution *solution) {
-    return nullptr;
+    unordered_map<string, unsigned int> counter = countNurseSkills();
+    return solution;
 }
 
 Solution *ConstructionHeuristics::WeekendFirst(Solution *solution) {
     return nullptr;
+}
+
+unordered_map<string, unsigned int> ConstructionHeuristics::countNurseSkills() {
+    unordered_map<string, unsigned int> counter;
+
+    for (const string &skill : Scenario::getInstance()->getSkills())
+        counter.insert(make_pair(skill, 0));
+
+    for (const Nurse &nurse : Scenario::getInstance()->getNurses())
+        for (const string &skill : nurse.getSkills())
+            counter.at(skill)++;
+
+    return counter;
 }

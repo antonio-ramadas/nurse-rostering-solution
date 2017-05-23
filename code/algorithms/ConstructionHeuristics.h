@@ -9,6 +9,9 @@
 #include "../solution/Solution.h"
 
 class ConstructionHeuristics {
+private:
+    static unordered_map<string, unsigned int> countNurseSkills();
+
 public:
     static Solution* FirstFit(Solution *solution);
     static Solution* MoreSkilled(Solution *solution);
