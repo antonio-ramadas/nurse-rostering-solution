@@ -22,15 +22,7 @@ private:
     Scenario();
 
     string id;
-public:
-    const string &getId() const;
-
-private:
     int currentWeek;
-public:
-    int getCurrentWeek() const;
-
-private:
     int numberOfWeeks;
     map<string,ShiftType> shifts;
     vector<string> skills;
@@ -50,6 +42,10 @@ private:
 public:
     static Scenario* getInstance();
 
+    const string &getId() const;
+
+    int getCurrentWeek() const;
+
     void parseScenario(const string &path);
 
     void parseHistory(const string &path);
@@ -62,7 +58,7 @@ public:
 
     int getNumberOfWeeks() const;
 
-    const WeekData &getWeekData() const;
+    WeekData &getWeekData();
 
     void setWeekData(const WeekData &weekData);
 

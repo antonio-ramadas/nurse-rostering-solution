@@ -140,7 +140,7 @@ Scenario* Scenario::getInstance() {
     return scenario;
 }
 
-const WeekData &Scenario::getWeekData() const {
+WeekData &Scenario::getWeekData() {
     return weekData;
 }
 

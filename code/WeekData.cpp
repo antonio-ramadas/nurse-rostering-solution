@@ -79,3 +79,7 @@ const unordered_map<string, unordered_map<string, vector<DayRequirement*>>> &Wee
 const vector<ShiftOffRequest> &WeekData::getShiftOffRequests() const {
     return shiftOffRequests;
 }
+
+int WeekData::getMinimumCoverageRequirement(const string &skill, const string &shift, const int &day) {
+    return requirements.at(skill).at(shift).at(day)->getMinimumCoverage();
+}

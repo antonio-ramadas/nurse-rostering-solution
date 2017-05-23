@@ -5,6 +5,7 @@
 #include "Grasp.h"
 #include "../Validator.h"
 #include "HillClimbing.h"
+#include "ConstructionHeuristics.h"
 
 Grasp::Grasp() {}
 
@@ -21,7 +22,8 @@ Solution* Grasp::run(bool random){
         {
             Solution* newSol = new Solution();
 
-            newSol->randomizeSolution();
+            //newSol->randomizeSolution();
+            newSol = ConstructionHeuristics::FirstFit(newSol);
 
 
             //Solution* currentSol = newSol;

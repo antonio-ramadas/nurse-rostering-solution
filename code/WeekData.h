@@ -39,6 +39,8 @@ public:
     void parseShiftOffRequests(const json &j_arg);
 
     const vector<ShiftOffRequest> &getShiftOffRequests() const;
+
+    int getMinimumCoverageRequirement(const string &skill, const string &shift, const int &day);
 };
 
 
