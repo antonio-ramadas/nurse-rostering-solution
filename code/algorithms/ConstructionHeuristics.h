@@ -13,7 +13,7 @@ private:
     static map<unsigned int, string> countNurseSkills();
 
 public:
-    static Solution* FirstFit(Solution *solution);
+    static Solution *FirstFit(Solution *solution, const string &skillId = "");
     static Solution* MoreSkilled(Solution *solution);
     static Solution* WeekendFirst(Solution *solution);
 };

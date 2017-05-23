@@ -4,10 +4,13 @@
 
 #include "ConstructionHeuristics.h"
 
-Solution *ConstructionHeuristics::FirstFit(Solution *solution) {
+Solution *ConstructionHeuristics::FirstFit(Solution *solution, const string &skillId) {
     int minimum;
     for (unsigned int dayIndex = 0; dayIndex < solution->getTurns().size(); dayIndex++)
         for (Turn *turn : solution->getTurns().at(dayIndex)) {
+            if (!skillId.empty() && turn->getSkill() != skillId)
+                continue;
+
             minimum = Scenario::getInstance()->getWeekData().getMinimumCoverageRequirement(turn->getSkill(),
                                                                                            turn->getShiftType()->getId(),
                                                                                            dayIndex);
@@ -25,6 +28,10 @@ Solution *ConstructionHeuristics::FirstFit(Solution *solution) {
 
 Solution *ConstructionHeuristics::MoreSkilled(Solution *solution) {
     map<unsigned int, string> counter = countNurseSkills();
+
+    for (auto &it : counter)
+        solution = FirstFit(solution, it.second);
+
     return solution;
 }
 
@@ -45,7 +52,7 @@ map<unsigned int, string> ConstructionHeuristics::countNurseSkills() {
     //sort the map, key = counter and value = skill
     map<unsigned int, string> sortedCounter;
     for (auto &it : counter)
-        sortedCounter.insert(it);
+        sortedCounter.insert(make_pair(it.second, it.first));
 
     return sortedCounter;
 }

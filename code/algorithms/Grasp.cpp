@@ -24,6 +24,7 @@ Solution* Grasp::run(bool random){
 
             //newSol->randomizeSolution();
             newSol = ConstructionHeuristics::FirstFit(newSol);
+            //newSol = ConstructionHeuristics::MoreSkilled(newSol);
 
 
             //Solution* currentSol = newSol;
