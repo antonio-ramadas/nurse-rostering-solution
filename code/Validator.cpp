@@ -161,11 +161,16 @@ unsigned int Validator::constraintS3(const Solution &solution) {
 
             int CDays = currentDay - (lastDay + 1);
 
-            if(CDays != 0)
-                if(CDays < Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff())
-                    sum += 30 * (Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff() - CDays);
-                else if (CDays > Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff())
-                    sum += 30 * (CDays - Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff());
+            if(CDays != 0) {
+                if (CDays < Scenario::getInstance()->getContract(
+                        nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff())
+                    sum += 30 * (Scenario::getInstance()->getContract(
+                            nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff() - CDays);
+                else if (CDays > Scenario::getInstance()->getContract(
+                        nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff())
+                    sum += 30 * (CDays - Scenario::getInstance()->getContract(
+                            nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff());
+            }
 
             lastDay = turn->getDay();
         }
