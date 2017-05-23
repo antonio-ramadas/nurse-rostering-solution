@@ -14,7 +14,7 @@ Grasp::Grasp(int initialSolutions) : initialSolutions(initialSolutions){}
 Solution* Grasp::run(bool random){
 
     Solution* bestSolution = nullptr;
-    int bestScore;
+    int bestScore = -1;
 
     if(random)
     {
@@ -22,8 +22,7 @@ Solution* Grasp::run(bool random){
         {
             Solution* newSol = new Solution();
 
-            //newSol->randomizeSolution();
-            newSol = ConstructionHeuristics::MoreSkilled(newSol);
+            newSol->populateSolution(ConstructionHeuristics::randomIteration);
 
             //Solution* currentSol = newSol;
             Solution* currentSol = HillClimbing::runHillClimbing(newSol);

@@ -16,6 +16,10 @@ private:
 
 public:
     static Solution* MoreSkilled(Solution *solution);
+
+    static Solution* RequestsFirst(Solution *solution);
+
+    static  Solution* randomIteration( Solution* solution);
 };
 
 

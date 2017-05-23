@@ -19,15 +19,13 @@ private:
 public:
     const string &getNurse() const;
 
-    void setNurse(const string &nurse);
-
     const string &getShiftType() const;
-
-    void setShiftType(const string &shiftType);
 
     const string &getDay() const;
 
-    void setDay(const string &day);
+    bool operator== (const ShiftOffRequest& shiftOffRequest) {
+        return nurse ==shiftOffRequest.getNurse() ||  day == shiftOffRequest.getDay() || shiftType ==shiftOffRequest.getShiftType();
+    };
 };
 
 

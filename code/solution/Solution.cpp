@@ -42,35 +42,11 @@ const vector<vector<Turn *>> &Solution::getTurns() const {
     return turns;
 }
 
-void Solution::randomizeSolution(){
-    while(!this->randomIteration())
+void Solution::populateSolution(Solution *(*algorithm)(Solution *)){
+    while(algorithm(this) == nullptr)
     {
         this->resetSolution();
     }
-}
-
-bool Solution::randomIteration() {
-    default_random_engine generator((unsigned int) chrono::system_clock::now().time_since_epoch().count());
-    uniform_int_distribution<int> distribution(0, (int) nurses.size()-1);
-
-    auto random = bind(distribution, generator);
-
-    for (vector<Turn *> day : turns)
-        for (Turn *turn : day) {
-            int requiredNurses = Scenario::getInstance()->getWeekData().getRequirements().at(turn->getSkill()).at(turn->getShiftType()->getId()).at(turn->getDay())->getMinimumCoverage();
-            int loop = 0;
-            for(int i = 0; i < requiredNurses;i++)
-            {
-                loop++;
-                auto iter = nurses.begin();
-                std::advance( iter, random() );
-                if(!assignNurseToTurn(iter->second, turn))
-                    i--;
-                if(loop > nurses.size()*2)
-                    return false;
-            }
-        }
-    return true;
 }
 
 Solution::~Solution() {
