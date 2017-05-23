@@ -67,7 +67,8 @@ Solution *SolutionNeighbourhood::getNext(){
                     for(;iteratorTurn1 < nurseVector[iterator1]->getTurns().size();)
                     {
                         for(;iteratorTurn2 < nurseVector[iterator2]->getTurns().size();){
-                            if(nurseVector[iterator1]->getTurns()[iteratorTurn1] != nurseVector[iterator2]->getTurns()[iteratorTurn2]) {
+                            if(nurseVector[iterator1]->getTurns()[iteratorTurn1] != nurseVector[iterator2]->getTurns()[iteratorTurn2]
+                                    && !nurseVector[iterator1]->hasTurn(nurseVector[iterator2]->getTurns()[iteratorTurn2]) && !nurseVector[iterator2]->hasTurn(nurseVector[iterator1]->getTurns()[iteratorTurn1])) {
                                 lastMove = new Move(
                                         //initial Position
                                         Position(nurseVector[iterator1]->getTurns()[iteratorTurn1]->getDay(),
@@ -79,6 +80,7 @@ Solution *SolutionNeighbourhood::getNext(){
                                                  nurseVector[iterator2]->getTurns()[iteratorTurn2]->getSkill()),
                                         //Ns1 / Ns2
                                         nurseVector[iterator1], nurseVector[iterator2]);
+
                                 if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator2]->getTurns()[iteratorTurn2],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
                                 {
                                     iteratorTurn2++;
