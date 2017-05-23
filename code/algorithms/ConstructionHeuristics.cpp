@@ -5,9 +5,15 @@
 #include "ConstructionHeuristics.h"
 
 Solution *ConstructionHeuristics::FirstFit(Solution *solution, const string &skillId) {
-    int minimum;
     for (unsigned int dayIndex = 0; dayIndex < solution->getTurns().size(); dayIndex++)
-        for (Turn *turn : solution->getTurns().at(dayIndex)) {
+        assignSequentially(solution, skillId, dayIndex);
+
+    return solution;
+}
+
+void ConstructionHeuristics::assignSequentially(Solution *solution, const string &skillId, unsigned int dayIndex) {
+    int minimum;
+    for (Turn *turn : solution->getTurns().at(dayIndex)) {
             if (!skillId.empty() && turn->getSkill() != skillId)
                 continue;
 
@@ -22,8 +28,6 @@ Solution *ConstructionHeuristics::FirstFit(Solution *solution, const string &ski
                     if (--minimum <= 0)
                         break;
         }
-
-    return solution;
 }
 
 Solution *ConstructionHeuristics::MoreSkilled(Solution *solution) {
