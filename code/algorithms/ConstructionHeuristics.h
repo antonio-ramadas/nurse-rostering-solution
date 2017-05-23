@@ -11,13 +11,11 @@
 class ConstructionHeuristics {
 private:
     static map<unsigned int, string> countNurseSkills();
+    static Solution *FirstFit(Solution *solution, const string &skillId = "");
+    static void assignGivenDay(Solution *solution, unsigned int dayIndex, const string &skillId = "");
 
 public:
-    static Solution *FirstFit(Solution *solution, const string &skillId = "");
     static Solution* MoreSkilled(Solution *solution);
-    static Solution* WeekendFirst(Solution *solution);
-
-    static void assignSequentially(Solution *solution, const string &skillId, unsigned int dayIndex);
 };
 
 

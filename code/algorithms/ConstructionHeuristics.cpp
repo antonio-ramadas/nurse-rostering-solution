@@ -6,28 +6,31 @@
 
 Solution *ConstructionHeuristics::FirstFit(Solution *solution, const string &skillId) {
     for (unsigned int dayIndex = 0; dayIndex < solution->getTurns().size(); dayIndex++)
-        assignSequentially(solution, skillId, dayIndex);
+        assignGivenDay(solution, dayIndex, skillId);
 
     return solution;
 }
 
-void ConstructionHeuristics::assignSequentially(Solution *solution, const string &skillId, unsigned int dayIndex) {
+void ConstructionHeuristics::assignGivenDay(Solution *solution, unsigned int dayIndex, const string &skillId) {
     int minimum;
     for (Turn *turn : solution->getTurns().at(dayIndex)) {
-            if (!skillId.empty() && turn->getSkill() != skillId)
-                continue;
+        if (!skillId.empty() && turn->getSkill() != skillId)
+            continue;
 
-            minimum = Scenario::getInstance()->getWeekData().getMinimumCoverageRequirement(turn->getSkill(),
-                                                                                           turn->getShiftType()->getId(),
-                                                                                           dayIndex);
-            if (minimum == 0)
-                continue;
+        minimum = Scenario::getInstance()->getWeekData().getMinimumCoverageRequirement(turn->getSkill(),
+                                                                                       turn->getShiftType()->getId(),
+                                                                                       dayIndex);
+        if (minimum == 0)
+            continue;
 
-            for (auto const &it : solution->getNurses())
-                if (solution->assignNurseToTurn(it.second, turn))
-                    if (--minimum <= 0)
-                        break;
-        }
+        for (auto const &it : solution->getNurses())
+            if (solution->assignNurseToTurn(it.second, turn))
+                if (--minimum <= 0)
+                    break;
+
+        if (minimum > 0)
+            cout << minimum << endl;
+    }
 }
 
 Solution *ConstructionHeuristics::MoreSkilled(Solution *solution) {
@@ -37,10 +40,6 @@ Solution *ConstructionHeuristics::MoreSkilled(Solution *solution) {
         solution = FirstFit(solution, it.second);
 
     return solution;
-}
-
-Solution *ConstructionHeuristics::WeekendFirst(Solution *solution) {
-    return nullptr;
 }
 
 map<unsigned int, string> ConstructionHeuristics::countNurseSkills() {

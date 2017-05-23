@@ -157,8 +157,9 @@ void SolutionNeighbourhood::undoLastMove(){
 
             //atomicSwitchNurseTurns, invert what lastMove did
             //NS1 / LastPosition / NS2 / InitialPosition
-            if(!solution->atomicSwitchNurseTurns(lastMove->getMovedNurse(),lastTurn,lastMove->getTradedNurse(),initialTurn))
-                cout << "ERRO" << endl;
+            solution->atomicSwitchNurseTurns(lastMove->getMovedNurse(),lastTurn,lastMove->getTradedNurse(),initialTurn);
+            //if(!solution->atomicSwitchNurseTurns(lastMove->getMovedNurse(),lastTurn,lastMove->getTradedNurse(),initialTurn))
+                //cout << "ERRO" << endl;
             delete lastMove;
             lastMove = nullptr;
             break;
