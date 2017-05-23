@@ -108,9 +108,10 @@ unsigned int Validator::constraintS2(const Solution &solution){
             string lastShift = nurse.second->getNurse()->getHistory().getLastAssignedShiftType();
 
             int day = -1;
+            bool done = false;
 
             //iterate turns
-
+            int turnN = 0;
             for(Turn * turn : nurse.second->getTurns())
             {
                 if(lastShift == "None")
@@ -121,26 +122,55 @@ unsigned int Validator::constraintS2(const Solution &solution){
                         sum += 30 * (contract.getMinimumNumberOfConsecutiveWorkingDays() - numberOfConsecutiveWorkingDays);
                     else if (numberOfConsecutiveWorkingDays > contract.getMaximumNumberOfConsecutiveWorkingDays())
                         sum += 30 * (numberOfConsecutiveWorkingDays - contract.getMinimumNumberOfConsecutiveWorkingDays());
-                    numberOfConsecutiveWorkingDays = 1;
-                }
-                else
-                    numberOfConsecutiveWorkingDays++;
 
-                if(lastShift == "None")
-                    numberOfConsecutiveAssignments = 1;
-                else if(lastShift != turn->getShiftType()->getId()) {
 
                     if (numberOfConsecutiveAssignments < Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMinimumNumberOfConsecutiveAssignments())
                         sum += 15 * (Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMinimumNumberOfConsecutiveAssignments() - numberOfConsecutiveAssignments);
                     else if (numberOfConsecutiveWorkingDays > Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMaximumNumberOfConsecutiveAssignments())
                         sum += 15 * (numberOfConsecutiveAssignments - Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMaximumNumberOfConsecutiveAssignments());
 
+                    numberOfConsecutiveWorkingDays = 1;
                     numberOfConsecutiveAssignments = 1;
+                    done = true;
                 }
-                else numberOfConsecutiveAssignments++;
+                else
+                    numberOfConsecutiveWorkingDays++;
+                if(!done)
+                    if(lastShift == "None")
+                        numberOfConsecutiveAssignments = 1;
+                    else if(lastShift != turn->getShiftType()->getId()) {
+
+                        if (numberOfConsecutiveAssignments < Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMinimumNumberOfConsecutiveAssignments())
+                            sum += 15 * (Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMinimumNumberOfConsecutiveAssignments() - numberOfConsecutiveAssignments);
+                        else if (numberOfConsecutiveWorkingDays > Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMaximumNumberOfConsecutiveAssignments())
+                            sum += 15 * (numberOfConsecutiveAssignments - Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMaximumNumberOfConsecutiveAssignments());
+
+                        numberOfConsecutiveAssignments = 1;
+                    }
+                    else numberOfConsecutiveAssignments++;
 
                 lastShift = turn->getShiftType()->getId();
                 day = turn->getDay();
+                done = false;
+
+                turnN++;
+                if(turnN == nurse.second->getTurns().size())
+                {
+                    if(turn->getDay() != 6)
+                    {
+                        if (numberOfConsecutiveWorkingDays < contract.getMinimumNumberOfConsecutiveWorkingDays())
+                            sum += 30 * (contract.getMinimumNumberOfConsecutiveWorkingDays() - numberOfConsecutiveWorkingDays);
+                        else if (numberOfConsecutiveWorkingDays > contract.getMaximumNumberOfConsecutiveWorkingDays())
+                            sum += 30 * (numberOfConsecutiveWorkingDays - contract.getMinimumNumberOfConsecutiveWorkingDays());
+
+
+                        if (numberOfConsecutiveAssignments < Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMinimumNumberOfConsecutiveAssignments())
+                            sum += 15 * (Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMinimumNumberOfConsecutiveAssignments() - numberOfConsecutiveAssignments);
+                        else if (numberOfConsecutiveWorkingDays > Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMaximumNumberOfConsecutiveAssignments())
+                            sum += 15 * (numberOfConsecutiveAssignments - Scenario::getInstance()->getShifts().at(turn->getShiftType()->getId()).getMaximumNumberOfConsecutiveAssignments());
+                    }
+
+                }
             }
         }
     return sum;
@@ -163,9 +193,13 @@ unsigned int Validator::constraintS3(const Solution &solution) {
 
             if(CDays != 0)
                 if(CDays < Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff())
+                {
                     sum += 30 * (Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMinimumNumberOfConsecutiveDaysOff() - CDays);
+                }
                 else if (CDays > Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff())
+                {
                     sum += 30 * (CDays - Scenario::getInstance()->getContract(nurse.second->getNurse()->getContract()).getMaximumNumberOfConsecutiveDaysOff());
+                }
 
             lastDay = turn->getDay();
         }
