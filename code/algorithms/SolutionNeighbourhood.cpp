@@ -81,7 +81,7 @@ Solution *SolutionNeighbourhood::getNext(){
                                         //Ns1 / Ns2
                                         nurseVector[iterator1], nurseVector[iterator2]);
 
-                                if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator2]->getTurns()[iteratorTurn2],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
+                                if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator1]->getTurns()[iteratorTurn1],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
                                 {
                                     iteratorTurn2++;
                                     return solution;
