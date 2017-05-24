@@ -92,8 +92,10 @@ Solution* ConstructionHeuristics::RequestsFirst(Solution* solution){
                         break;
                     }
                 }
-                if(cont)
+                if(cont){
+                    i--;
                     continue;
+                }
                 if(!solution->assignNurseToTurn(iter->second, turn))
                     i--;
                 if(loop > solution->getNurses().size()*2)
