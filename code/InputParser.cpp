@@ -2,6 +2,7 @@
 // Created by António Ramadas on 21/05/2017.
 //
 
+#include <algorithm>
 #include "InputParser.h"
 
 InputParser::InputParser (int &argc, char **argv){

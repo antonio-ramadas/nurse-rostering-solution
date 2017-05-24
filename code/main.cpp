@@ -3,6 +3,9 @@
 //
 
 #include <thread>
+#include <mutex>
+#include <cstdlib>
+#include <condition_variable>
 #include "Scenario.h"
 #include "Validator.h"
 #include "Writter.h"
