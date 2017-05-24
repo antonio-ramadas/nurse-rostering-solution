@@ -59,7 +59,7 @@ public:
     // Cost: 20
     static unsigned int constraintS6(const Solution &solution);
 
-    static bool nurseWorkingWeekEnd(NurseSolution *nurse);
+    static bool nurseWorkingHalfWeekEnd(NurseSolution *nurse);
 
     //TODO Total working weekends
     // Cost: 30
