@@ -12,6 +12,9 @@
 class Grasp {
 
     int initialSolutions = 10;
+    Solution *bestSolution = nullptr;
+public:
+    Solution *getBestSolution() const;
 
 public:
     Grasp();

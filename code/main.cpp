@@ -2,11 +2,14 @@
 // Created by António Ramadas on 02/03/2017.
 //
 
+#include <thread>
 #include "Scenario.h"
 #include "Validator.h"
 #include "Writter.h"
 #include "algorithms/Grasp.h"
 #include "InputParser.h"
+
+void execute(Grasp *grasp, chrono::seconds timeout);
 
 using namespace std;
 
@@ -18,20 +21,19 @@ int main(int argc, char *argv[]) {
     Scenario::getInstance()->parseScenario(input.getCmdOption("--sce"));
 
     WeekData weekData(input.getCmdOption("--week"),
-                     (int) Scenario::getInstance()->getShifts().size(),
-                     (int) Scenario::getInstance()->getSkills().size());
+                      (int) Scenario::getInstance()->getShifts().size(),
+                      (int) Scenario::getInstance()->getSkills().size());
 
     Scenario::getInstance()->parseHistory(input.getCmdOption("--his"));
     Scenario::getInstance()->setWeekData(weekData);
 
     //Compute
+    Grasp* grasp = new Grasp(1000000000);
+    execute(grasp, 5s);
 
-    Grasp* grasp = new Grasp(10);
-
-    Solution* sol = grasp->run(true);
+    Solution *sol = grasp->getBestSolution();
 
     cout << *sol << endl;
-
 
 
     if(Validator::constraintH1(*sol) )
@@ -58,4 +60,20 @@ int main(int argc, char *argv[]) {
     Writter::WriteSolutionToJSONFile(sol, input.getCmdOption("--sol"));
 
     return EXIT_SUCCESS;
+}
+
+void execute(Grasp *grasp, chrono::seconds timeout) {
+    mutex m;
+    condition_variable cv;
+
+    thread t([&m, &cv, &grasp]()
+             {
+                 grasp->run(true);
+                 cv.notify_one();
+             });
+
+    t.detach();
+
+    unique_lock<mutex> l(m);
+    cv.wait_for(l, timeout);
 }

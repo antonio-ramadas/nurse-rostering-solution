@@ -13,7 +13,6 @@ Grasp::Grasp(int initialSolutions) : initialSolutions(initialSolutions){}
 
 Solution* Grasp::run(bool random){
 
-    Solution* bestSolution = nullptr;
     int bestScore = -1;
 
     if(random)
@@ -50,5 +49,9 @@ Solution* Grasp::run(bool random){
         return bestSolution;
     }
 
+    return bestSolution;
+}
+
+Solution *Grasp::getBestSolution() const {
     return bestSolution;
 }
