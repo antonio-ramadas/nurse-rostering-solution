@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 
     //Compute
     Grasp* grasp = new Grasp(1000000000);
-    execute(grasp, 5s);
+    execute(grasp, 62s);
 
     Solution *sol = grasp->getBestSolution();
 
