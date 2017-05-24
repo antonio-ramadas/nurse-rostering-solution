@@ -20,5 +20,4 @@ set(SOURCE_FILES
         code/solution/Solution.cpp code/solution/Solution.h
         code/solution/NurseSolution.cpp code/solution/NurseSolution.h
         code/solution/Turn.cpp code/solution/Turn.h code/Validator.cpp code/Validator.h code/algorithms/Grasp.cpp code/algorithms/Grasp.h code/algorithms/HillClimbing.cpp code/algorithms/HillClimbing.h code/algorithms/SolutionNeighbourhood.cpp code/algorithms/SolutionNeighbourhood.h code/Writter.cpp code/Writter.h code/algorithms/Move.cpp code/algorithms/Move.h code/algorithms/Position.cpp code/algorithms/Position.h code/InputParser.cpp code/InputParser.h)
- )
 add_executable(nrs ${SOURCE_FILES})

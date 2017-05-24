@@ -25,26 +25,23 @@ Solution *SolutionNeighbourhood::getNext(){
 
             if (currentTurn->getNurses().size() <
                 Scenario::getInstance()->getWeekData().getRequirements().at(currentTurn->getSkill()).at(
-                        currentTurn->getShiftType()->getId()).at(currentTurn->getDay())->getOptimalCoverage())
-                for (auto const &nurse : solution->getNurses()) {
-                    if (solution->assignNurseToTurn(nurse.second,currentTurn)) {
+                        currentTurn->getShiftType()->getId()).at(currentTurn->getDay())->getOptimalCoverage()) {
+                vector<NurseSolution *> tempVector;
+                for (auto it = solution->getNurses().begin(); it != solution->getNurses().end(); ++it) {
+                    tempVector.push_back(it->second);
+                }
+                for (; iteratorTurn1 < tempVector.size();) {
+                    if (solution->assignNurseToTurn(tempVector[iteratorTurn1], currentTurn)) {
                         lastMove = new Move(Position(-1, nullptr, ""),
                                             Position(currentTurn->getDay(), currentTurn->getShiftType(),
-                                                     currentTurn->getSkill()), nurse.second);
-                        iterator2++;
-                        if (iterator2 == solution->getTurns()[iterator1].size()) {
-                            iterator2 = 0;
-                            iterator1++;
-                            if (iterator1 == solution->getTurns().size()) {
-                                phase++;
-                                iterator1 = 0;
-                                iterator2 = 0;
-                                return this->getNext();
-                            }
-                        }
+                                                     currentTurn->getSkill()), tempVector[iteratorTurn1]);
+                        iteratorTurn1++;
                         return solution;
                     }
+                    else iteratorTurn1++;
                 }
+            }
+            iteratorTurn1 = 0;
             iterator2++;
             if (iterator2 == solution->getTurns()[iterator1].size()) {
                 iterator2 = 0;
@@ -56,6 +53,7 @@ Solution *SolutionNeighbourhood::getNext(){
                     return this->getNext();
                 }
             }
+
         }
     }
     //iterate each nurse then iterate the otherNurses and check if they can trade Turns
@@ -67,7 +65,8 @@ Solution *SolutionNeighbourhood::getNext(){
                     for(;iteratorTurn1 < nurseVector[iterator1]->getTurns().size();)
                     {
                         for(;iteratorTurn2 < nurseVector[iterator2]->getTurns().size();){
-                            if(nurseVector[iterator1]->getTurns()[iteratorTurn1] != nurseVector[iterator2]->getTurns()[iteratorTurn2]) {
+                            if(nurseVector[iterator1]->getTurns()[iteratorTurn1] != nurseVector[iterator2]->getTurns()[iteratorTurn2]
+                                    && !nurseVector[iterator1]->hasTurn(nurseVector[iterator2]->getTurns()[iteratorTurn2]) && !nurseVector[iterator2]->hasTurn(nurseVector[iterator1]->getTurns()[iteratorTurn1])) {
                                 lastMove = new Move(
                                         //initial Position
                                         Position(nurseVector[iterator1]->getTurns()[iteratorTurn1]->getDay(),
@@ -79,7 +78,8 @@ Solution *SolutionNeighbourhood::getNext(){
                                                  nurseVector[iterator2]->getTurns()[iteratorTurn2]->getSkill()),
                                         //Ns1 / Ns2
                                         nurseVector[iterator1], nurseVector[iterator2]);
-                                if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator2]->getTurns()[iteratorTurn2],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
+
+                                if(solution->atomicSwitchNurseTurns(nurseVector[iterator1],nurseVector[iterator1]->getTurns()[iteratorTurn1],nurseVector[iterator2],nurseVector[iterator2]->getTurns()[iteratorTurn2]))
                                 {
                                     iteratorTurn2++;
                                     return solution;
