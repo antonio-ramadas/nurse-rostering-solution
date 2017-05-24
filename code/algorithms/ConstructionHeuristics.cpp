@@ -5,8 +5,11 @@
 #include "ConstructionHeuristics.h"
 
 Solution *ConstructionHeuristics::FirstFit(Solution *solution, const string &skillId) {
-    for (unsigned int dayIndex = 0; dayIndex < solution->getTurns().size(); dayIndex++)
-        assignGivenDay(solution, dayIndex, skillId);
+    auto rbegin = solution->getTurns().rbegin();
+    auto rend = solution->getTurns().rend();
+
+    for (auto dayIndex = rbegin; dayIndex != rend; dayIndex++)
+        assignGivenDay(solution, (unsigned int) distance(dayIndex, rend)-1, skillId);
 
     return solution;
 }
@@ -27,9 +30,6 @@ void ConstructionHeuristics::assignGivenDay(Solution *solution, unsigned int day
             if (solution->assignNurseToTurn(it.second, turn))
                 if (--minimum <= 0)
                     break;
-
-        if (minimum > 0)
-            cout << minimum << endl;
     }
 }
 
