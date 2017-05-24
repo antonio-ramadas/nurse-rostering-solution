@@ -4,3 +4,8 @@
 cmake-build-debug/
 output/
 tools/
+
+#Do not ignore
+!tools/Simulator_withTimeout.jar
+!tools/validator.jar
+!tools/run.sh
