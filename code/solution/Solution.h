@@ -18,8 +18,6 @@ class Solution {
     //matrix Weeks/Days/Types
     vector< vector< Turn *>> turns;
 
-    bool randomIteration();
-
     void createNursesAndTurns();
 
     void deleteNursesAndTurns();
@@ -52,7 +50,7 @@ public:
         return stream;
     };
 
-    void randomizeSolution();
+    void populateSolution(Solution *(*algorithm)(Solution *));
 
     void resetSolution();
   
