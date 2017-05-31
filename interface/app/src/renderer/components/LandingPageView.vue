@@ -1,7 +1,7 @@
 <template>
   <div>
     <img src="./LandingPageView/assets/logo.png" alt="electron-vue">
-    <h1>Welcome.</h1>
+    <h1>Welcome</h1>
     <current-page></current-page>
     <versions></versions>
     <links></links>
