@@ -23,6 +23,7 @@
 
 <style scoped>
   div {
+    display: flex;
     background-color: #F6F657;
     align-items: center;
     text-align: center;
@@ -33,5 +34,6 @@
 
   p {
     font-weight: bold;
+    max-height: 50%;
   }
 </style>
