@@ -13,3 +13,9 @@ This program has been made with [CLion](https://www.jetbrains.com/clion/) and, t
 ```
 --sce "./../datasets/test/n005w4/Sc-n005w4.json" --his "./../datasets/test/n005w4/H0-n005w4-0.json" --week "./../datasets/test/n005w4/WD-n005w4-0.json" --sol "./../output/sol-week0.json"
 ```
+
+## Interface
+The interface serves as a Graphical User Interface of the solver. It has been developed with ECMAScript 6 and ESLint. In order to run, the following command must be executed inside the interface folder:
+```
+npm run dev
+```
