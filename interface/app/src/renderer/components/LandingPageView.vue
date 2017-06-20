@@ -1,30 +1,51 @@
 <template>
-  <div>
-    <img src="./LandingPageView/assets/logo.png" alt="electron-vue">
-    <h1>Welcome</h1>
-    <current-page></current-page>
-    <versions></versions>
-    <links></links>
+  <div class="wrapper">
+    <page-header></page-header>
+    <div id="content">
+      <div id="col1">column1</div>
+      <div id="col2">column2</div>
+    </div>
   </div>
 </template>
 
 <script>
-  import CurrentPage from './LandingPageView/CurrentPage'
-  import Links from './LandingPageView/Links'
-  import Versions from './LandingPageView/Versions'
+  import PageHeader from './LandingPageView/PageHeader'
+  import PageBody from './LandingPageView/PageBody'
   export default {
     components: {
-      CurrentPage,
-      Links,
-      Versions
+      PageHeader,
+      PageBody
     },
     name: 'landing-page'
   }
+
 </script>
 
 <style scoped>
-  img {
-    margin-top: -25px;
-    width: 450px;
+  .wrapper,
+  html,
+  bodym,
+  * {
+    margin: 0;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #content {
+    flex: 2;
+    display: flex;
+  }
+
+  #col1 {
+    background-color: #F6F657;
+    flex: 1;
+  }
+
+  #col2 {
+    background-color: orange;
+    flex: 6;
   }
 </style>
