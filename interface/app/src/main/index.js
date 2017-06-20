@@ -7,7 +7,7 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:${require('../../../config').port}`
   : `file://${__dirname}/index.html`
 
-require('electron-reload')(__dirname);
+require('electron-reload')(__dirname)
 
 function createWindow () {
   /**
@@ -24,7 +24,7 @@ function createWindow () {
     mainWindow = null
   })
 
-  mainWindow.setMenu(null);
+  mainWindow.setMenu(null)
 
   // eslint-disable-next-line no-console
   console.log('mainWindow opened')
