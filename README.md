@@ -13,3 +13,6 @@ This program has been made with [CLion](https://www.jetbrains.com/clion/) and, t
 ```
 --sce "./../datasets/test/n005w4/Sc-n005w4.json" --his "./../datasets/test/n005w4/H0-n005w4-0.json" --week "./../datasets/test/n005w4/WD-n005w4-0.json" --sol "./../output/sol-week0.json"
 ```
+
+## Proposed Solution
+A paper has been produced detailing the implementation and may be consulted [here](A%20GRASP%20Approach%20using%20a%20Constructive%20Heuristic%20Approach%20to%20the%20Nurse%20Scheduling%20Problem.pdf).
