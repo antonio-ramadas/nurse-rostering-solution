@@ -2,19 +2,21 @@
   <div class="wrapper">
     <page-header></page-header>
     <div id="content">
-      <div id="col1">column1</div>
-      <div id="col2">column2</div>
+      <side-menu id="col1"></side-menu>
+      <content-area id="col2"></content-area>
     </div>
   </div>
 </template>
 
 <script>
   import PageHeader from './LandingPageView/PageHeader'
-  import PageBody from './LandingPageView/PageBody'
+  import SideMenu from './LandingPageView/SideMenu'
+  import ContentArea from './LandingPageView/ContentArea'
   export default {
     components: {
       PageHeader,
-      PageBody
+      SideMenu,
+      ContentArea
     },
     name: 'landing-page'
   }
@@ -40,12 +42,10 @@
   }
 
   #col1 {
-    background-color: #F6F657;
     flex: 1;
   }
 
   #col2 {
-    background-color: orange;
     flex: 6;
   }
 </style>
