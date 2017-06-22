@@ -9,7 +9,7 @@
         text-align: center;
         justify-content: center;
         display: flex;
-        background-color: #F6F657;
+        background-color: #FCFCA4;
         box-shadow: 0px 1px 10px grey;
         z-index:-1;
     }

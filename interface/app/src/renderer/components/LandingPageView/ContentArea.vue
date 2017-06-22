@@ -5,6 +5,6 @@
 <style scoped>
     div {
         z-index: -2;
-        background-color: #F9F9DD;
+        background-color: #FFFFE6;
     }
 </style>
