@@ -14,6 +14,12 @@
 
             <tr v-for="nurse in nurses">
                 <th> {{ nurse.name }} </th>
+                <td v-for="assign in nurse.assignments">
+                    <img v-if="assign === 'day'" src="./assets/day.png" alt="">
+                    <img v-if="assign === 'evening'" src="./assets/evening.png" alt="">
+                    <img v-if="assign === 'noon'" src="./assets/noon.png" alt="">
+                    <img v-if="assign === 'night'" src="./assets/night.png" alt="">
+                </td>
             </tr>
 
         </table>
@@ -22,8 +28,8 @@
 </template>
 
 <script>
-    export default {
-        name: 'mainContainer',
+    export default { 
+        name: 'mainContainer',  
         data() {
             return {
                 weekDays : [
@@ -41,10 +47,10 @@
                     'Surgeon'
                 ],
                 nurses : [
-                    { name: 'Arminda' },
-                    { name: 'Genoveva' },
-                    { name: 'Libânia' },
-                    { name: 'Teodora' }
+                    { name: 'Arminda', assignments: ['night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night'] },
+                    { name: 'Genoveva', assignments: ['noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon'] },
+                    { name: 'Libânia', assignments: ['evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening'] },
+                    { name: 'Teodora', assignments: ['day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day'] }
                 ]
             }
         },
@@ -55,6 +61,10 @@
                     array.push(skills[i % skills.length]);
                 }
                 return array;
+            },
+            getURL: function(assign) {
+                console.log('./assets/' + assign + '.png');
+                return './assets/' + assign + '.png';
             }
         }
     }
@@ -80,7 +90,7 @@
     th,
     td {
         border: 3px groove brown;
-        font-size: 1rem;
+        font-size: 1rem; 
     }
 
     th,
@@ -94,5 +104,12 @@
 
     td {
         background-color: aliceblue;
+        padding: 0;
+    }
+    
+    img {
+        width: 60px;
+        height: 60px;
+        padding-top: 2px;
     }
 </style>
