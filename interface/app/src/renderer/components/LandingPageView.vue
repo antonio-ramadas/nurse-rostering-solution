@@ -19,20 +19,10 @@
 </script>
 
 <style scoped>
-  .wrapper,
-  html,
-  bodym,
-  * {
-    margin: 0;
-  }
 
   .wrapper {
     display: flex;
-    flex-direction: column;
-  }
-
-  #content {
-    display: flex;
+    flex-direction: column; 
   }
 
 </style>

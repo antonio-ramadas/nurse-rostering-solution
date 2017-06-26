@@ -17,6 +17,7 @@ function createWindow () {
     height: 600,
     width: 1000
   })
+  mainWindow.maximize(true);
 
   mainWindow.loadURL(winURL)
 

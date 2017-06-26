@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pageHeader">
     <p>
       Nurse Manager
     </p>
@@ -21,8 +21,10 @@
 
 </script>
 
-<style scoped>
-  div {
+<style>
+  .pageHeader {
+    position: fixed;
+    width: 100%;
     display: flex;
     background-color: #F6F657;
     align-items: center;

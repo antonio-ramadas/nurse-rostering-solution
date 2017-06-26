@@ -9,28 +9,25 @@
   export default {
     store
   }
+
 </script>
 
 <style>
   @import url(https://fonts.googleapis.com/css?family=Lato:300);
 
   * {
-    margin: 0;
-    padding: 0;
-    height: 100%
   }
 
   html,
-  body { height: 100%; }
+  body {
+    margin: 0;
+    padding: 0;
+  }
 
   body {
-    background:
-      radial-gradient(
-        ellipse at center,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(229, 229, 229, .85) 100%
-      );
     font-family: Lato, Helvetica, sans-serif;
-    
+    background-color:rgb(250,250,250);
+    height: 100%;
+    min-height: 100%;
   }
 </style>
