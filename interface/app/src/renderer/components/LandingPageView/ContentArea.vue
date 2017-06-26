@@ -5,7 +5,7 @@
 
             <h1>Week {{ i }} </h1>
 
-            <table>
+            <table class="tableWeek">
                 <tr>
                     <th>Week</th>
                     <th v-for="day in weekDays" colspan="3"> {{ day }} </th>
@@ -23,11 +23,50 @@
                         <img title="Evening" v-show="assign === 'evening'" src="./assets/evening.png" alt="">
                         <img title="Noon" v-show="assign === 'noon'" src="./assets/noon.png" alt="">
                         <img title="Night" v-show="assign === 'night'" src="./assets/night.png" alt="">
+                        <img title="Skill Not Learned" v-show="assign === 'null'" src="./assets/negative.png" alt="">
                     </td>
                 </tr>
 
-            </table>
+            </table class="tableConstraints">
+                <thead>
+                    <tr>
+                        <th>Constraints</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Total Assignment</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Consecutive</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Non-Working Days</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Preferences</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Max woriking Weekend</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Complete Weekends</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Optimal Coverage</th>
+                        <td></td>
+                    </tr>
+                </tbody>
+            <table>
 
+            </table>
         </div>
 
     </div>
@@ -56,7 +95,7 @@
                     { name: 'Arminda', assignments: ['night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night'] },
                     { name: 'Genoveva', assignments: ['noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon'] },
                     { name: 'Libânia', assignments: ['evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening'] },
-                    { name: 'Teodora', assignments: ['day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day'] }
+                    { name: 'Teodora', assignments: ['null', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day'] }
                 ]
             }
         },
@@ -81,7 +120,7 @@
         text-align: center;
         justify-content: center;
         flex-direction: column;
-        margin-top: 3rem;
+        margin-top: 3.5rem;
         margin-bottom: 2rem;
         flex: 1 1 auto;
     }
@@ -94,12 +133,13 @@
         width: 80px;
     }
 
-    table {
+    .tableWeek {
         table-layout: fixed;
         width: 1700px;
         border-collapse: collapse;
         margin-bottom: 2rem;
         border: 1px groove white;
+        box-shadow: 1px 1px 10px grey;
     }
 
     table,
@@ -134,5 +174,8 @@
     
     tr:hover {
         background-color: aquamarine;
+    }
+    h1:hover {
+        color: red;
     }
 </style>
