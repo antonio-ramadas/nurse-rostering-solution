@@ -18,7 +18,7 @@
                     </template>
                 </tr>
 
-                <tr v-for="nurse in nurses">
+                <tr v-for="nurse in nurses[i-1]">
                     <th class="personName"> {{ nurse.name }} </th>
                     <td v-for="assign in nurse.assignments">
                         <img title="Morning" v-show="assign === 'day'" src="./assets/day.png" alt="Morning">
@@ -88,12 +88,12 @@
                     'Saturday'
                 ],
                 skills: [],
-                nurses: [
+                nurses: [[
                     { name: 'Arminda', assignments: ['night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night'] },
                     { name: 'Genoveva', assignments: ['noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon'] },
                     { name: 'Libânia', assignments: ['evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening'] },
                     { name: 'Teodora', assignments: ['null', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day'] }
-                ],
+                ]],
                 numberOfWeeks: 0
             }
         },
@@ -143,7 +143,7 @@
         }
 
         vueInstance.$set(vueInstance, 'skills', [...skills])
-        vueInstance.$set(vueInstance, 'nurses', nurses)
+        vueInstance.$set(vueInstance, 'nurses', Array(scenario.numberOfWeeks).fill(nurses))
     }
 
 </script>
