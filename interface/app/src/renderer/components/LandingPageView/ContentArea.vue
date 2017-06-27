@@ -1,19 +1,21 @@
 <template>
     <div class="mainContainer">
 
-        <div class="tableContainer"  v-for="i in 2">
+        <div class="tableContainer"  v-for="i in numberOfWeeks">
 
             <h1>Week {{ i }} </h1>
 
             <table class="tableWeek">
                 <tr>
                     <th>Week</th>
-                    <th v-for="day in weekDays" colspan="3"> {{ day }} </th>
+                    <th v-for="day in weekDays" :colspan="skills.length"> {{ day }} </th>
                 </tr>
 
                 <tr>
                     <th>Skill</th>
-                    <th v-for="skill in getAllSkills(weekDays, skills)"> {{ skill }} </th>
+                    <template v-for="i in weekDays.length">
+                        <th v-for="skill in skills"> {{ skill }} </th>
+                    </template>
                 </tr>
 
                 <tr v-for="nurse in nurses">
@@ -27,45 +29,44 @@
                     </td>
                 </tr>
 
-            </table class="tableConstraints">
-                <thead>
-                    <tr>
-                        <th>Constraints</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Total Assignment</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Consecutive</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Non-Working Days</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Preferences</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Max woriking Weekend</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Complete Weekends</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Optimal Coverage</th>
-                        <td></td>
-                    </tr>
-                </tbody>
-            <table>
-
+            <!--</table class="tableConstraints">
+            <thead>
+            <tr>
+                <th>Constraints</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Total Assignment</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Consecutive</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Non-Working Days</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Preferences</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Max woriking Weekend</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Complete Weekends</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Optimal Coverage</th>
+                <td></td>
+            </tr>
+            </tbody>
+            </table>-->
             </table>
         </div>
 
@@ -86,28 +87,63 @@
                     'Friday',
                     'Saturday'
                 ],
-                skills: [
-                    'Head Nurse',
-                    'Nurse',
-                    'Surgeon'
-                ],
+                skills: [],
                 nurses: [
                     { name: 'Arminda', assignments: ['night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night', 'night'] },
                     { name: 'Genoveva', assignments: ['noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon', 'noon'] },
                     { name: 'Libânia', assignments: ['evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening', 'evening'] },
                     { name: 'Teodora', assignments: ['null', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day', 'day'] }
-                ]
+                ],
+                numberOfWeeks: 0
             }
         },
-        methods: {
-            getAllSkills: function (weekDays, skills) {
-                let array = [];
-                for (let i = 0; i < weekDays.length * skills.length; i++) {
-                    array.push(skills[i % skills.length]);
+        mounted() {
+            const fs = require('fs')
+
+            fs.readFile('../tools/Sc-n005w4.json', 'utf8', (err, data) => {
+                if (err !== null) {
+                    throw `Error: Scenario not found (${err})`
                 }
-                return array;
+
+                let scenario = JSON.parse(data)
+
+                this.$set(this, 'numberOfWeeks', scenario.numberOfWeeks)
+
+                fillNursesAndSkills(this, scenario);
+            })
+        }
+    }
+
+    function fillNursesAndSkills(vueInstance, scenario) {
+        let skills = new Set()
+        let nurses = []
+
+        for (let nurse of scenario.nurses) {
+            nurses.push({name: nurse.id})
+            for (let skill of nurse.skills) {
+                skills.add(skill)
             }
         }
+
+        for (let i = 0; i < nurses.length; i++) {
+            let nurse = nurses[i]
+
+            // The number of columns is equal to the 7 days multiplied by the number of existing skills
+            nurse.assignments = Array(7 * skills.size).fill('')
+
+            //set null to invalid assignments
+            let j = 0;
+            for (let skill of skills) {
+                j++
+                if (scenario.nurses[i].skills.indexOf(skill) === -1) {
+                    for (let ind = j; ind < 7*skills.size; ind += skills.size)
+                        nurse.assignments[ind] = 'null'
+                }
+            }
+        }
+
+        vueInstance.$set(vueInstance, 'skills', [...skills])
+        vueInstance.$set(vueInstance, 'nurses', nurses)
     }
 
 </script>
@@ -128,7 +164,7 @@
     .tableContainer {
         margin-top: 1rem
     }
-    
+
     .personName {
         width: 80px;
     }
@@ -171,7 +207,7 @@
         height: 60px;
         padding-top: 2px;
     }
-    
+
     tr:hover {
         background-color: aquamarine;
     }
