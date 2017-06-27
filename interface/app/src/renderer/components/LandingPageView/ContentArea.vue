@@ -21,10 +21,10 @@
                 <tr v-for="nurse in nurses[i-1]">
                     <th class="personName"> {{ nurse.name }} </th>
                     <td v-for="assign in nurse.assignments">
-                        <img title="Morning" v-show="assign === 'day'" src="./assets/day.png" alt="Morning">
-                        <img title="Evening" v-show="assign === 'evening'" src="./assets/evening.png" alt="">
-                        <img title="Noon" v-show="assign === 'noon'" src="./assets/noon.png" alt="">
-                        <img title="Night" v-show="assign === 'night'" src="./assets/night.png" alt="">
+                        <img title="Morning" v-show="assign === 'Early'" src="./assets/day.png" alt="Morning">
+                        <img title="Evening" v-show="assign === 'Evening'" src="./assets/evening.png" alt="">
+                        <img title="Noon" v-show="assign === 'Late'" src="./assets/noon.png" alt="">
+                        <img title="Night" v-show="assign === 'Night'" src="./assets/night.png" alt="">
                         <img title="Skill Not Learned" v-show="assign === 'null'" src="./assets/negative.png" alt="">
                     </td>
                 </tr>
@@ -74,6 +74,8 @@
 </template>
 
 <script>
+    let nurses = [], skills = []
+
     export default {
         name: 'mainContainer',
         data() {
@@ -107,43 +109,77 @@
 
                 let scenario = JSON.parse(data)
 
+                skills = scenario.skills
+
+                this.$set(this, 'skills', skills)
                 this.$set(this, 'numberOfWeeks', scenario.numberOfWeeks)
 
                 fillNursesAndSkills(this, scenario);
+
+                fs.readFile('../tools/Sol-n005w4-1-0.json', 'utf8', (err1, data1) => {
+                    fillWeek(this, JSON.parse(data1))
+                })
+
+                fs.readFile('../tools/Sol-n005w4-2-1.json', 'utf8', (err1, data1) => {
+                    fillWeek(this, JSON.parse(data1))
+                })
+
+                fs.readFile('../tools/Sol-n005w4-3-2.json', 'utf8', (err1, data1) => {
+                    fillWeek(this, JSON.parse(data1))
+                })
+
+                fs.readFile('../tools/Sol-n005w4-3-3.json', 'utf8', (err1, data1) => {
+                    fillWeek(this, JSON.parse(data1))
+                })
             })
         }
     }
 
     function fillNursesAndSkills(vueInstance, scenario) {
-        let skills = new Set()
-        let nurses = []
+        let singleNurseWeek = []
 
         for (let nurse of scenario.nurses) {
-            nurses.push({name: nurse.id})
-            for (let skill of nurse.skills) {
-                skills.add(skill)
-            }
+            singleNurseWeek.push({name: nurse.id})
         }
 
-        for (let i = 0; i < nurses.length; i++) {
-            let nurse = nurses[i]
+        for (let i = 0; i < singleNurseWeek.length; i++) {
+            let nurse = singleNurseWeek[i]
 
             // The number of columns is equal to the 7 days multiplied by the number of existing skills
-            nurse.assignments = Array(7 * skills.size).fill('')
+            nurse.assignments = Array(7 * skills.length).fill('')
 
             //set null to invalid assignments
             let j = 0;
             for (let skill of skills) {
-                j++
                 if (scenario.nurses[i].skills.indexOf(skill) === -1) {
-                    for (let ind = j; ind < 7*skills.size; ind += skills.size)
+                    for (let ind = j; ind < 7*skills.length; ind += skills.length)
                         nurse.assignments[ind] = 'null'
                 }
+                j++
             }
         }
 
-        vueInstance.$set(vueInstance, 'skills', [...skills])
-        vueInstance.$set(vueInstance, 'nurses', Array(scenario.numberOfWeeks).fill(nurses))
+        nurses = []
+        for (let i = 0; i < scenario.numberOfWeeks; i++)
+            nurses.push(JSON.parse(JSON.stringify(singleNurseWeek)))
+
+        vueInstance.$set(vueInstance, 'nurses', nurses)
+    }
+
+    function fillWeek(vueInstance, weekData) {
+        const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+        for (let nurse of nurses[weekData.week]) {
+            let nurseAssignments = weekData.assignments.filter(value => value.nurse === nurse.name)
+
+            for (let assignment of nurseAssignments) {
+                nurse.assignments[weekdays.indexOf(assignment.day) * skills.length + skills.indexOf(assignment.skill)] = assignment.shiftType
+            }
+        }
+
+        console.log(nurses)
+
+        vueInstance.$forceUpdate()
     }
 
 </script>
