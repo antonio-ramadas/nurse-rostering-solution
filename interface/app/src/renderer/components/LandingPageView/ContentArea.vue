@@ -147,9 +147,9 @@
 
         nurses = []
         for (let i = 0; i < scenario.numberOfWeeks; i++)
-            nurses.push(JSON.parse(JSON.stringify(singleNurseWeek)))
+            nurses.push(deepCopy(singleNurseWeek))
 
-        originalNurses = JSON.parse(JSON.stringify(nurses))
+        originalNurses = deepCopy(nurses)
 
         vueInstance.$set(vueInstance, 'nurses', nurses)
     }
@@ -157,7 +157,7 @@
     function parseSolutionFiles(vueInstance, path, filesIndex) {
         setInterval(() => {
             vueInstance.$set(vueInstance, 'nurses', nurses)
-            nurses = JSON.parse(JSON.stringify(originalNurses))
+            nurses = deepCopy(originalNurses)
 
             for (let i = 0; i < filesIndex.length; i++) {
                 fs.readFile(path + filesIndex[i] + '-' + i + '.json', 'utf8', (err, data) => {
@@ -175,9 +175,14 @@
             let nurseAssignments = weekData.assignments.filter(value => value.nurse === nurse.name)
 
             for (let assignment of nurseAssignments) {
-                nurse.assignments[weekdays.indexOf(assignment.day) * skills.length + skills.indexOf(assignment.skill)] = assignment.shiftType
+                let index = weekdays.indexOf(assignment.day) * skills.length + skills.indexOf(assignment.skill)
+                nurse.assignments[index] = assignment.shiftType
             }
         }
+    }
+
+    function deepCopy(array) {
+        return JSON.parse(JSON.stringify(array))
     }
 
 </script>
