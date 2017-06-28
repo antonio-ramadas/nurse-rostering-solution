@@ -30,8 +30,10 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    box-shadow: 1px 0px 10px grey;
+    box-shadow: 3px 0px 20px grey;
     height: 2.5em;
+    font-size: 1.2rem;
+    font-weight: bolder;
   }
 
   p {

@@ -25,8 +25,7 @@
   }
 
   body {
-    font-family: Lato, Helvetica, sans-serif;
-    background-color:rgb(250,250,250);
+    font-family: Lato, Helvetica, sans-serif;background: linear-gradient(#FFFFFF, #FCF9EE); /* Standard syntax */
     height: 100%;
     min-height: 100%;
   }
