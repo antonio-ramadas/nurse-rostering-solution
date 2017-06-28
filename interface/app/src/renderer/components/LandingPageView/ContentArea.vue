@@ -29,44 +29,44 @@
                     </td>
                 </tr>
 
-            <!--</table class="tableConstraints">
-            <thead>
-            <tr>
-                <th>Constraints</th>
-                <th>Score</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th>Total Assignment</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th>Consecutive</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th>Non-Working Days</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th>Preferences</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th>Max woriking Weekend</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th>Complete Weekends</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th>Optimal Coverage</th>
-                <td></td>
-            </tr>
-            </tbody>
-            </table>-->
+                <!--</table class="tableConstraints">
+                <thead>
+                <tr>
+                    <th>Constraints</th>
+                    <th>Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Total Assignment</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Consecutive</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Non-Working Days</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Preferences</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Max woriking Weekend</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Complete Weekends</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Optimal Coverage</th>
+                    <td></td>
+                </tr>
+                </tbody>
+                </table>-->
             </table>
         </div>
 
@@ -74,7 +74,9 @@
 </template>
 
 <script>
-    let nurses = [], skills = []
+    const fs = require('fs')
+
+    let nurses = [], skills = [], originalNurses = []
 
     export default {
         name: 'mainContainer',
@@ -100,8 +102,6 @@
             }
         },
         mounted() {
-            const fs = require('fs')
-
             fs.readFile('../tools/Sc-n005w4.json', 'utf8', (err, data) => {
                 if (err !== null) {
                     throw `Error: Scenario not found (${err})`
@@ -114,23 +114,9 @@
                 this.$set(this, 'skills', skills)
                 this.$set(this, 'numberOfWeeks', scenario.numberOfWeeks)
 
-                fillNursesAndSkills(this, scenario);
+                fillNursesAndSkills(this, scenario)
 
-                fs.readFile('../tools/Sol-n005w4-1-0.json', 'utf8', (err1, data1) => {
-                    fillWeek(this, JSON.parse(data1))
-                })
-
-                fs.readFile('../tools/Sol-n005w4-2-1.json', 'utf8', (err1, data1) => {
-                    fillWeek(this, JSON.parse(data1))
-                })
-
-                fs.readFile('../tools/Sol-n005w4-3-2.json', 'utf8', (err1, data1) => {
-                    fillWeek(this, JSON.parse(data1))
-                })
-
-                fs.readFile('../tools/Sol-n005w4-3-3.json', 'utf8', (err1, data1) => {
-                    fillWeek(this, JSON.parse(data1))
-                })
+                parseSolutionFiles(this, '../tools/Sol-n005w4-', [1,2,3,3])
             })
         }
     }
@@ -163,7 +149,23 @@
         for (let i = 0; i < scenario.numberOfWeeks; i++)
             nurses.push(JSON.parse(JSON.stringify(singleNurseWeek)))
 
+        originalNurses = JSON.parse(JSON.stringify(nurses))
+
         vueInstance.$set(vueInstance, 'nurses', nurses)
+    }
+
+    function parseSolutionFiles(vueInstance, path, filesIndex) {
+        setInterval(() => {
+            vueInstance.$set(vueInstance, 'nurses', nurses)
+            nurses = JSON.parse(JSON.stringify(originalNurses))
+
+            for (let i = 0; i < filesIndex.length; i++) {
+                fs.readFile(path + filesIndex[i] + '-' + i + '.json', 'utf8', (err, data) => {
+                    if (err === null)
+                        fillWeek(vueInstance, JSON.parse(data))
+                })
+            }
+            }, 100)
     }
 
     function fillWeek(vueInstance, weekData) {
@@ -176,10 +178,6 @@
                 nurse.assignments[weekdays.indexOf(assignment.day) * skills.length + skills.indexOf(assignment.skill)] = assignment.shiftType
             }
         }
-
-        console.log(nurses)
-
-        vueInstance.$forceUpdate()
     }
 
 </script>
