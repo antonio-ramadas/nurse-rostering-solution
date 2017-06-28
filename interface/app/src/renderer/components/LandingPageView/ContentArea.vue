@@ -6,19 +6,19 @@
             <h1>Week {{ i }} </h1>
 
             <table class="tableWeek">
-                <tr>
+                <tr class="daysRow">
                     <th>Week</th>
                     <th v-for="day in weekDays" :colspan="skills.length"> {{ day }} </th>
                 </tr>
 
-                <tr>
+                <tr class="skillsRow">
                     <th>Skill</th>
                     <template v-for="i in weekDays.length">
                         <th v-for="skill in skills"> {{ skill }} </th>
                     </template>
                 </tr>
 
-                <tr v-for="nurse in nurses[i-1]">
+                <tr v-for="nurse in nurses[i-1]" class="resultsRow">
                     <th class="personName"> {{ nurse.name }} </th>
                     <td v-for="assign in nurse.assignments">
                         <img title="Morning" v-show="assign === 'Early'" src="./assets/day.png" alt="Morning">
@@ -214,7 +214,7 @@
         border-collapse: collapse;
         margin-bottom: 2rem;
         border: 1px groove white;
-        box-shadow: 1px 1px 10px grey;
+        box-shadow: 2px 2px 15px grey;
     }
 
     table,
@@ -234,11 +234,8 @@
     }
 
     td {
-        background-color: aliceblue;
+        background-color: white;
         padding: 0;
-    }
-    td:hover {
-        background-color: black;
     }
 
     img {
@@ -247,10 +244,13 @@
         padding-top: 2px;
     }
 
-    tr:hover {
-        background-color: aquamarine;
+    .daysRow > th:not(:last-child) {
+        border-right: 2px groove grey;
     }
-    h1:hover {
-        color: red;
+    .skillsRow > th:not(:last-child) {
+        border-right: 2px groove grey;
+    }
+    .resultsRow > td:nth-child(2n) {
+        border-left: 2px groove grey;
     }
 </style>
