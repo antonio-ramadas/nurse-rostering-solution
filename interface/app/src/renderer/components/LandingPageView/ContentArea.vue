@@ -116,7 +116,7 @@
 
                 fillNursesAndSkills(this, scenario)
 
-                parseSolutionFiles(this, '../tools/Sol-n005w4-', [1,2,3,3])
+                parseSolutionFiles(this, '../tools/', scenario.numberOfWeeks)
             })
         }
     }
@@ -154,13 +154,13 @@
         vueInstance.$set(vueInstance, 'nurses', nurses)
     }
 
-    function parseSolutionFiles(vueInstance, path, filesIndex) {
+    function parseSolutionFiles(vueInstance, path, totalWeeks) {
         setInterval(() => {
             vueInstance.$set(vueInstance, 'nurses', nurses)
             nurses = deepCopy(originalNurses)
 
-            for (let i = 0; i < filesIndex.length; i++) {
-                fs.readFile(path + filesIndex[i] + '-' + i + '.json', 'utf8', (err, data) => {
+            for (let i = 0; i < totalWeeks; i++) {
+                fs.readFile(path + 'sol-week' + i + '.json', 'utf8', (err, data) => {
                     if (err === null)
                         fillWeek(vueInstance, JSON.parse(data))
                 })
