@@ -6,6 +6,7 @@
 #include "../Validator.h"
 #include "HillClimbing.h"
 #include "ConstructionHeuristics.h"
+#include "../Writter.h"
 
 Grasp::Grasp() {}
 
@@ -22,6 +23,8 @@ Solution* Grasp::run(bool random){
             Solution* newSol = new Solution();
 
             newSol->populateSolution(ConstructionHeuristics::randomIteration);
+            //newSol->populateSolution(ConstructionHeuristics::RequestsFirst);
+            //newSol->populateSolution(ConstructionHeuristics::MoreSkilled);
 
             //Solution* currentSol = newSol;
             Solution* currentSol = HillClimbing::runHillClimbing(newSol);
@@ -38,6 +41,8 @@ Solution* Grasp::run(bool random){
                     delete bestSolution;
                     bestSolution = currentSol;
                     bestScore = currentScore;
+                    Writter::WriteSolutionToJSONFile(bestSolution);
+                    cout << "write" << endl;
                 }
                 else
                 {
