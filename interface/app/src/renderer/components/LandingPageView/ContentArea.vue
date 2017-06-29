@@ -102,7 +102,13 @@
             }
         },
         mounted() {
-            fs.readFile('../tools/Sc-n005w4.json', 'utf8', (err, data) => {
+            let exec = require('child_process').exec
+
+            let scenarioPath = './../datasets/test/n005w4/Sc-n005w4.json'
+
+            exec('./run.sh ' + scenarioPath, {cwd:'../tools/'});
+
+            fs.readFile(scenarioPath, 'utf8', (err, data) => {
                 if (err !== null) {
                     throw `Error: Scenario not found (${err})`
                 }

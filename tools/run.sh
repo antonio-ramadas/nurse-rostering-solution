@@ -5,7 +5,7 @@ echo "----------------------------------------------------"
 echo "   5 nurses - 4 weeks"
 echo "----------------------------------------------------"
 
-SCENARIO="./../datasets/test/n005w4/Sc-n005w4.json"
+SCENARIO=$1
 
 HISTORY="./../datasets/test/n005w4/H0-n005w4-0.json"
 
@@ -16,7 +16,7 @@ WEEKS[3]="./../datasets/test/n005w4/WD-n005w4-3.json"
 
 SOLVER="./../cmake-build-debug/nrs"
 
-for i in {1..5}
+for i in {1..1}
 do
     java -jar Simulator_withTimeout.jar --sce $SCENARIO --his $HISTORY --weeks ${WEEKS[*]} --solver $SOLVER
 done
@@ -37,10 +37,10 @@ WEEKS[3]="./../datasets/hidden/4-weeks/n035w4/WD-n035w4-8.json"
 
 SOLVER="./../cmake-build-debug/nrs"
 
-for i in {1..5}
-do
-    java -jar Simulator_withTimeout.jar --sce $SCENARIO --his $HISTORY --weeks ${WEEKS[*]} --solver $SOLVER
-done
+#for i in {1..5}
+#do
+#    java -jar Simulator_withTimeout.jar --sce $SCENARIO --his $HISTORY --weeks ${WEEKS[*]} --solver $SOLVER
+#done
 
 echo "----------------------------------------------------"
 echo "   35 nurses - 8 weeks"
