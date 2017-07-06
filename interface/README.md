@@ -1,7 +1,5 @@
 # nursemanager
 
-> y
-
 ## Build Setup
 
 ``` bash

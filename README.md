@@ -19,3 +19,6 @@ The interface serves as a Graphical User Interface of the solver. It has been de
 ```
 npm run dev
 ```
+
+This aplication consists in a simple GUI wich dinamically parses the output of the C++ algorithm, properly presenting the rostering of the nurses.
+It uses Electron with VueJS, producing a desktop app with a simple UI to observe the results.
