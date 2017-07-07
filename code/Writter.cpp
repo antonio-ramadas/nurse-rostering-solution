@@ -4,7 +4,12 @@
 
 #include "Writter.h"
 
-void Writter::WriteSolutionToJSONFile(const Solution *solution, const string &path) {
+string Writter::solPath = "";
+
+void Writter::WriteSolutionToJSONFile(const Solution *solution, string path) {
+    if (path == "")
+        path = solPath;
+
     json j;
 
     j["scenario"] = Scenario::getInstance()->getId();

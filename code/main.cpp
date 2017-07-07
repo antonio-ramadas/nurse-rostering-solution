@@ -19,6 +19,7 @@ using namespace std;
 int main(int argc, char *argv[]) {
 
     InputParser input(argc, argv);
+    Writter::solPath = input.getCmdOption("--sol");
 
     //Parse
     Scenario::getInstance()->parseScenario(input.getCmdOption("--sce"));
@@ -32,7 +33,41 @@ int main(int argc, char *argv[]) {
 
     //Compute
     Grasp* grasp = new Grasp(1000000000);
-    execute(grasp, 62s);
+    long nurses = Scenario::getInstance()->getNurses().size();
+    switch(nurses) {
+        case 30:
+            execute(grasp, 62s);
+            break;
+        case 35:
+            execute(grasp, 85s);
+            break;
+        case 40:
+            execute(grasp, 109s);
+            break;
+        case 50:
+            execute(grasp, 155s);
+            break;
+        case 60:
+            execute(grasp, 202s);
+            break;
+        case 70:
+            execute(grasp, 248s);
+            break;
+        case 80:
+            execute(grasp, 295s);
+            break;
+        case 100:
+            execute(grasp, 388s);
+            break;
+        case 110:
+            execute(grasp, 434s);
+            break;
+        case 120:
+            execute(grasp, 481s);
+            break;
+        default:
+            execute(grasp, 30s);
+    }
 
     Solution *sol = grasp->getBestSolution();
 
